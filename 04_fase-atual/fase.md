@@ -36,12 +36,12 @@ tarefas que já têm um.
     > No Maestro: Conectores → Skip → Conectar, com o login do Diogo. Prova: print do Skip como conectado.
   - [x] Criar o projeto do sistema comercial no Skip pelo Maestro @Agrospy !06/10/2026  <!-- id:ceeec8f6-4f9d-4db1-becd-2eb47ee2a5e1 -->
     > Pedir ao Maestro para criar no Skip o projeto do sistema comercial da Agrospy e da Rumo Agro e guardar nele as SPECs da Fase 1. Prova: link do projeto abrindo.
-- [ ] Montar o login e a escolha de empresa (Agrospy ou Rumo Agro) @Agrospy !07/10/2026  <!-- id:e6893843-4b81-4fb9-8fe4-f6b841e9aa6d -->
+- [/] Montar o login e a escolha de empresa (Agrospy ou Rumo Agro) @Agrospy !07/10/2026  <!-- id:e6893843-4b81-4fb9-8fe4-f6b841e9aa6d -->
   > Cada pessoa entra com e-mail e senha próprios e escolhe em qual empresa vai trabalhar; quem só tem uma empresa entra direto.
   > Prova: teste sem login recusado e prints das telas. SPEC-1-001, CA-1-01 e CA-1-02.
-  - [ ] Cadastrar as duas empresas com nome, cor e logo @Agrospy !07/10/2026  <!-- id:47d2b87b-3e1d-4124-96cf-03eebe97b85f -->
+  - [x] Cadastrar as duas empresas com nome, cor e logo @Agrospy !07/10/2026  <!-- id:47d2b87b-3e1d-4124-96cf-03eebe97b85f -->
     > Criar Agrospy e Rumo Agro no sistema, cada uma com nome, cor e logo próprios. Prova: lista das duas empresas no Skip.
-  - [ ] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-2a4758ea6a58 -->
+  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-2a4758ea6a58 -->
     > O topo de todas as telas mostra logo, nome e cor da empresa ativa e o botão “Trocar empresa”, que limpa da tela os dados da anterior. Prova: prints nas duas empresas.
 - [ ] Configurar os perfis e a tela de usuários do administrador @Agrospy !08/10/2026  <!-- id:f1624dc7-d84e-424d-840b-414ed775636e -->
   > Perfis por empresa: Administrador, Gestão, Comercial e Operador, como combinado na call de 22/09. O administrador cria usuário, dá o perfil e desativa quando precisar.

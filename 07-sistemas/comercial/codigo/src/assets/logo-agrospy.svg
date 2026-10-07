@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 190" role="img" aria-label="Agrospy Consultoria Agronômica">
+  <!-- Selo circular com anéis -->
+  <g transform="translate(95,95)">
+    <circle r="88" fill="none" stroke="#153A1D" stroke-width="4"/>
+    <circle r="76" fill="none" stroke="#153A1D" stroke-width="2"/>
+    <circle r="70" fill="#F2F5F1"/>
+    <!-- Broto: caule e duas folhas saindo do monte de terra -->
+    <path d="M 0 34 Q -2 10 0 -6" stroke="#153A1D" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 0 2 Q -20 -4 -26 -22 Q -6 -20 0 2 Z" fill="#2C562E"/>
+    <path d="M 0 -6 Q 20 -14 24 -32 Q 4 -28 0 -6 Z" fill="#153A1D"/>
+    <!-- Monte de terra -->
+    <path d="M -34 36 Q 0 18 34 36 L 34 40 Q 0 46 -34 40 Z" fill="#153A1D"/>
+  </g>
+  <!-- Marca -->
+  <text x="200" y="92" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" fill="#153A1D" letter-spacing="2">AGROSPY</text>
+  <text x="202" y="128" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#153A1D">Consultoria Agronômica</text>
+</svg>
