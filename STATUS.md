@@ -3,13 +3,13 @@
 **Atualizado em:** 07/10/2026
 **Fase atual:** 1 — MVP comercial multiempresa no celular
 **Período planejado:** 06/10/2026 a 20/10/2026
-**Estado:** pacote local preparado e validado; execução iniciada (task 1 em andamento).
+**Estado:** execução em curso; task 1 concluída e testada pelo cliente.
 
 | Item | Situação |
 |---|---|
 | SPECs | 5, com TDD e critérios CA-1-01 a CA-1-24 |
 | Tasks | 36: 15 de topo e 21 subtarefas |
-| Estado das tasks | 34 abertas, 1 em andamento (3f7fb2d0), 2 subtarefas concluídas |
+| Estado das tasks | 33 abertas, 0 em andamento, 3 concluídas (task 3f7fb2d0 + 2 subtarefas) |
 | IDs | 36 IDs existentes preservados |
 | Validação do pacote | formato das tasks e vínculos com as SPECs aprovados |
 | Validação da entrega | acontece durante a execução, conforme cada SPEC |
@@ -23,4 +23,4 @@
 
 ## Próxima ação
 
-Task 3f7fb2d0 aguardando teste humano do Diogo: abrir https://agrospy-8aca5.goskip.app e confirmar. Depois, seguir com a task e6893843 (login e escolha de empresa). Cada task exige as provas previstas e a validação humana aplicável antes de avançar.
+Task 3f7fb2d0 concluída (teste humano aprovado em 07/10). Próxima: e6893843 (login e escolha de empresa) — análise e autorização antes de implementar. Cada task exige as provas previstas e a validação humana aplicável antes de avançar.

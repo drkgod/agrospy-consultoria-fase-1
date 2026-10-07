@@ -1,5 +1,7 @@
 # Histórico de execução — Agrospy
 
+- 2026-10-07 · [Pardal] · Task 3f7fb2d0 concluída: projeto no Skip com as 6 SPECs guardadas, versão 0.0.4 (44b71de) publicada e testada pelo cliente. Evidência: QA completo do Skip, skip_project_status (isPublished=true) e confirmação "Testei e está funcionando".
+
 ## 2026-10-07 — task 3f7fb2d0: projeto criado e SPECs guardadas no Skip
 
 Executada a task 3f7fb2d0 (SPEC-1-001, pré-condições): projeto Skip 64376 "Agrospy" confirmado e

@@ -29,7 +29,7 @@ Marque `[x]` para concluir e adicione linhas novas à vontade: elas entram no qu
 sincronização e voltam aqui com o `<!-- id:… -->` preenchido. **Não apague o marcador de id** das
 tarefas que já têm um.
 
-- [/] Conectar o Skip ao Maestro e criar o projeto do sistema comercial @Agrospy !06/10/2026  <!-- id:3f7fb2d0-64a9-459f-a006-44805554d4cc -->
+- [x] Conectar o Skip ao Maestro e criar o projeto do sistema comercial @Agrospy !06/10/2026  <!-- id:3f7fb2d0-64a9-459f-a006-44805554d4cc -->
   > Preparação da Fase 1. Ligar a conta Skip do Diogo ao Maestro e criar o projeto onde o sistema comercial vai morar.
   > Pronto quando o projeto abre pelo link e o Maestro consegue trabalhar nele. SPEC-1-001 (pré-condições).
   - [x] Conectar a conta Skip no Maestro @Agrospy !06/10/2026  <!-- id:c1886bd3-5193-4208-a20e-187112a261e8 -->
@@ -78,8 +78,7 @@ tarefas que já têm um.
 - [ ] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
   > Tela inicial do vendedor: atrasadas, hoje, próximos 7 dias e depois, com atalhos para concluir ou reagendar.
   > Prova: datas de teste nos grupos certos. SPEC-1-005, CA-1-20 e CA-1-21.
-  > Prova: datas de teste nos grupos certos. SPEC-1-005, CA-1-20 e CA-1-21.
-- [ ] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  
+- [ ] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->
   > Para Gestão e Administrador: ações atrasadas, de hoje e da semana por responsável, produtores sem oportunidade aberta e visitas da semana.
   > Prova: números da tela iguais aos da base. SPEC-1-005, CA-1-22.
 - [ ] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
