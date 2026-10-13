@@ -1,20 +1,11 @@
-# Estado atual — Adapta Cliente
-
-- schema_version: adapta-cliente-state/v2
-- task_id: f1624dc7-d84e-424d-840b-414ed775636e
-- executor: Pardal (ETHOS/Maestro)
-- owner_informativo: Agrospy
-- spec: 04_fase-atual/specs/spec-1-001-acesso-por-empresa-e-perfis.md
-- analise: .adapta-cliente/analises/f1624dc7-d84e-424d-840b-414ed775636e.md
+- task_id: 147a4f1b-2f57-4098-833b-ce69a962b4b6
+- titulo: Criar o cadastro de produtor e propriedade com a origem da indicação
+- spec: 04_fase-atual/specs/spec-1-002-cadastro-de-produtor-e-propriedade.md
+- analise: .adapta-cliente/analises/147a4f1b-2f57-4098-833b-ce69a962b4b6.md
 - etapa: concluida
-- autorizacao_implementacao: confirmada 2026-10-08 17:31 — "Pode implementar"
-- teste_humano: APROVADO pelo Diogo em 2026-10-13 10:11 ("agora deu certo")
-- verificacao_automatica: OK — regras provadas por API (RED 4: autoelevacao bloqueada; operador sem criar usuario/vinculo; empresas filtradas por acesso) e fluxo completo no navegador (login, escolha, menu admin, tela /usuarios com lista)
-- aprendizado: capturado 06_notas/aprendizado-continuo/AP-2026-10-13-safari-crash-runtime-skip.md (crash client-side no Safari; runtime Skip sem e.record.original())
-- sistema: comercial
-- skip_projeto: 64376
-- skip_versao: f562866 (0.0.20)
-- skip_publicacao: publicada:f562866 em 2026-10-12T22:58:45Z
-- ultima_acao: bug do Safari corrigido em 3 camadas (UI bloqueia, hook recusa com 400, perfil restaurado); teste humano aprovado; usuarios de teste criados (5 contas por perfil)
-- proxima_acao: task 147a4f1b (cadastro de produtor e propriedade, SPEC-1-002) — analise e autorizacao
-- atualizado_em: 2026-10-13T10:20:00-03:00
+- teste_humano: APROVADO pelo Diogo em 2026-10-13 16:31 ("testado e aprovado")
+- autorizacao_implementacao: confirmada 2026-10-13 10:51 — "pode começar" (Diogo)
+- ultima_acao: task CONCLUIDA — backend GREEN provado por API (coleções 0011-0014, hooks RN-07/08/10/11), emendas do Diogo implementadas (nível/tecnologias/link maps; editar/excluir propriedade), limpeza dos registros de teste na 0018, espelho sincronizado e GitHub consolidado
+- skip_versao: 455ffc7 (0.0.43)
+- proxima_acao: nova task exige novo pedido do Diogo (regra do fluxo); próxima = registro de visita (SPEC-1-003, task ae167e8a), com análise antes da implementação
+- atualizado_em: 2026-10-13T16:35:00-03:00
