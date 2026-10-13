@@ -7,7 +7,9 @@ import Index from './pages/Index'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import EscolherEmpresa from './pages/EscolherEmpresa'
+import Usuarios from './pages/Usuarios'
 import Layout from './components/Layout'
+import ErrorBoundary from './components/ErrorBoundary'
 import { authService } from './services/auth'
 import { empresasService } from './services/empresas'
 import type { ReactNode } from 'react'
@@ -30,24 +32,27 @@ function RequireEmpresa({ children }: { children: ReactNode }) {
 
 const App = () => (
   <BrowserRouter>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/escolher-empresa" element={<EscolherEmpresa />} />
-        <Route
-          element={
-            <RequireEmpresa>
-              <Layout />
-            </RequireEmpresa>
-          }
-        >
-          <Route path="/" element={<Index />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TooltipProvider>
+    <ErrorBoundary>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/escolher-empresa" element={<EscolherEmpresa />} />
+          <Route
+            element={
+              <RequireEmpresa>
+                <Layout />
+              </RequireEmpresa>
+            }
+          >
+            <Route path="/" element={<Index />} />
+            <Route path="/usuarios" element={<Usuarios />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TooltipProvider>
+    </ErrorBoundary>
   </BrowserRouter>
 )
 
