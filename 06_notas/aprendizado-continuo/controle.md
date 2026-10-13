@@ -1,3 +1,3 @@
-# Controle de aprendizado contínuo
-
 - 2026-10-07T18:15:00-03:00 · task 3f7fb2d0 · capturado: AP-2026-10-07-1815-mcp-github-escrita-instavel.md · escrita MCP GitHub instável; consolidar em push_files
+- 2026-10-08T09:35:00-03:00 · task e6893843 · capturado AP-2026-10-08-0935-url-backend-provas-api.md · URL do backend para provas de API (RED 1–4)
+- 2026-10-13T19:50:00-03:00 · task 147a4f1b · capturado AP-2026-10-13-1950-hooks-skip-padroes.md · 3 lições de runtime Skip/PocketBase: Model hook não tem e.requestInfo() (usar Request hook); criar registro em hook = new Record(col); migração idempotente não re-executa (fix de regra exige migração nova — 0014/0017). ErrorBoundary agora exibe a mensagem do erro; loop de fetch 429 = dep de useEffect recebendo objeto novo de getAtiva() (depender por id).
