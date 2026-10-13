@@ -68,6 +68,9 @@ export default function Layout() {
           </div>
           {empresa && (
             <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate('/produtores')}>
+                Produtores
+              </Button>
               {ehAdmin && (
                 <Button variant="ghost" size="sm" onClick={() => navigate('/usuarios')}>
                   Usuários

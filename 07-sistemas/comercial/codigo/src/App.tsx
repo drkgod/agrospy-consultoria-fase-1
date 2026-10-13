@@ -8,6 +8,8 @@ import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import EscolherEmpresa from './pages/EscolherEmpresa'
 import Usuarios from './pages/Usuarios'
+import Produtores from './pages/Produtores'
+import ProdutorFicha from './pages/ProdutorFicha'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import { authService } from './services/auth'
@@ -48,6 +50,8 @@ const App = () => (
           >
             <Route path="/" element={<Index />} />
             <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/produtores" element={<Produtores />} />
+            <Route path="/produtores/:id" element={<ProdutorFicha />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
