@@ -1,20 +1,20 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: e6893843-4b81-4fb9-8fe4-f6b841e9aa6d
+- task_id: f1624dc7-d84e-424d-840b-414ed775636e
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
 - spec: 04_fase-atual/specs/spec-1-001-acesso-por-empresa-e-perfis.md
-- analise: .adapta-cliente/analises/e6893843-4b81-4fb9-8fe4-f6b841e9aa6d.md
-- etapa: aguardando_teste_humano
-- autorizacao_implementacao: confirmada 2026-10-07 18:18 — "quero usar essas cores" (com logo Agrospy anexada)
-- teste_humano: pendente (roteiro entregue no chat)
-- verificacao_automatica: passou (QA completo 0.0.7; fluxo login→escolha→topo→trocar provado no navegador; correções: imports svg e setPassword)
-- aprendizado: pendente
+- analise: .adapta-cliente/analises/f1624dc7-d84e-424d-840b-414ed775636e.md
+- etapa: concluida
+- autorizacao_implementacao: confirmada 2026-10-08 17:31 — "Pode implementar"
+- teste_humano: APROVADO pelo Diogo em 2026-10-13 10:11 ("agora deu certo")
+- verificacao_automatica: OK — regras provadas por API (RED 4: autoelevacao bloqueada; operador sem criar usuario/vinculo; empresas filtradas por acesso) e fluxo completo no navegador (login, escolha, menu admin, tela /usuarios com lista)
+- aprendizado: capturado 06_notas/aprendizado-continuo/AP-2026-10-13-safari-crash-runtime-skip.md (crash client-side no Safari; runtime Skip sem e.record.original())
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: c040650 (0.0.7)
-- skip_publicacao: publicada:c040650 em 2026-10-07T21:37:56Z
-- ultima_acao: implementacao concluida e publicada; registros e espelho enviados ao GitHub
-- proxima_acao: teste humano do Diogo (roteiro no chat)
-- atualizado_em: 2026-10-07T18:40:00-03:00
+- skip_versao: f562866 (0.0.20)
+- skip_publicacao: publicada:f562866 em 2026-10-12T22:58:45Z
+- ultima_acao: bug do Safari corrigido em 3 camadas (UI bloqueia, hook recusa com 400, perfil restaurado); teste humano aprovado; usuarios de teste criados (5 contas por perfil)
+- proxima_acao: task 147a4f1b (cadastro de produtor e propriedade, SPEC-1-002) — analise e autorizacao
+- atualizado_em: 2026-10-13T10:20:00-03:00
