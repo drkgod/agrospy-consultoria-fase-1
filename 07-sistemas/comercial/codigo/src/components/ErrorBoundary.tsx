@@ -23,10 +23,12 @@ export default class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="container mx-auto py-10 px-4">
           <h1 className="text-xl font-bold mb-2">Algo deu errado nesta tela</h1>
-          <p className="text-muted-foreground mb-4">
-            O erro foi registrado no console. Tente recarregar; se persistir, me informe o que
-            estava fazendo.
+          <p className="text-muted-foreground mb-2">
+            Tente recarregar; se persistir, me informe o que estava fazendo.
           </p>
+          <pre className="mb-4 overflow-auto rounded-md bg-muted p-3 text-xs whitespace-pre-wrap">
+            {String(this.state.erro?.message ?? this.state.erro)}
+          </pre>
           <button
             type="button"
             onClick={() => window.location.reload()}
