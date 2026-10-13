@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { empresasService, type Empresa } from '@/services/empresas'
 import { authService } from '@/services/auth'
+import logoAgrospy from '@/assets/logo-agrospy.svg'
 
 export default function EscolherEmpresa() {
   const navigate = useNavigate()
@@ -64,13 +65,22 @@ export default function EscolherEmpresa() {
               className="w-full flex items-center gap-3 rounded-lg border border-border p-4 text-left transition-colors hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               aria-label={`Trabalhar na empresa ${empresa.nome}`}
             >
-              <span
-                className="h-10 w-10 rounded-md flex items-center justify-center text-white font-semibold shrink-0"
-                style={{ backgroundColor: empresa.cor_primaria }}
-                aria-hidden="true"
-              >
-                {empresa.nome.charAt(0)}
-              </span>
+              {empresasService.logoUrl(empresa) || empresa.slug === 'agrospy' ? (
+                <img
+                  src={empresasService.logoUrl(empresa) || logoAgrospy}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-10 rounded-md object-contain shrink-0 border border-border"
+                />
+              ) : (
+                <span
+                  className="h-10 w-10 rounded-md flex items-center justify-center text-white font-semibold shrink-0"
+                  style={{ backgroundColor: empresa.cor_primaria }}
+                  aria-hidden="true"
+                >
+                  {empresa.nome.charAt(0)}
+                </span>
+              )}
               <span className="font-medium">{empresa.nome}</span>
             </button>
           ))}

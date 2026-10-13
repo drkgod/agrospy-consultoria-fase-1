@@ -33,6 +33,12 @@ export const empresasService = {
     })
   },
 
+  /** URL da logo enviada no cadastro (campo arquivo); '' quando não tem. */
+  logoUrl(empresa: Empresa): string {
+    if (!empresa.logo) return ''
+    return `${pb.baseURL}/api/files/empresas/${empresa.id}/${empresa.logo}`
+  },
+
   getAtiva(): Empresa | null {
     try {
       const raw = localStorage.getItem(ACTIVE_KEY)

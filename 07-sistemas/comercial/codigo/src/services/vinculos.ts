@@ -1,12 +1,15 @@
 import pb from '@/lib/pocketbase/client'
 
+export type Perfil = 'administrador' | 'gestao' | 'comercial' | 'operador'
+
 export interface Vinculo {
   id: string
   usuario: string
   empresa: string
-  perfil: 'administrador' | 'gestao' | 'comercial' | 'operador'
+  perfil: Perfil
   ativo: boolean
   nome_exibicao: string
+  email: string
   expand?: {
     empresa?: {
       id: string
