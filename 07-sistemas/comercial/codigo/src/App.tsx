@@ -11,6 +11,7 @@ import Usuarios from './pages/Usuarios'
 import Produtores from './pages/Produtores'
 import ProdutorFicha from './pages/ProdutorFicha'
 import RegistrarVisita from './pages/RegistrarVisita'
+import LinhasNegocio from './pages/LinhasNegocio'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import { authService } from './services/auth'
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/produtores" element={<Produtores />} />
             <Route path="/produtores/:id" element={<ProdutorFicha />} />
             <Route path="/produtores/:id/visita" element={<RegistrarVisita />} />
+            <Route path="/linhas-negocio" element={<LinhasNegocio />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
