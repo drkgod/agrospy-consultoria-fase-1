@@ -60,6 +60,7 @@ migrate(
     console.log('[0023] usuários de teste garantidos')
   },
   (app) => {
+    // reversão: remove os usuários de teste
     const users = app.findCollectionByNameOrId('users')
     const emails = [
       'teste.gestao@agrospy.com.br',
