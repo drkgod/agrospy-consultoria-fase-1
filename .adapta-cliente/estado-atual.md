@@ -5,14 +5,13 @@
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
 - spec: 04_fase-atual/specs/spec-1-003-visita-e-oportunidade-com-proxima-acao.md
-- etapa: implementada — SPEC-1-003 completa, aguardando teste humano do Diogo
-- autorizacao_implementacao: confirmada 2026-10-14 — "correto, pode continuar" + "pode seguir com os próximos passos"
-- teste_humano: gravação OK, transcrição por voz OK (Diogo 14/10); faltam concluir/reagendar e linhas de negócio
+- etapa: fechada — SPEC-1-003 completa com teste humano aprovado pelo Diogo (14/10, "aprovado, continue")
+- teste_humano: aprovado — gravação, transcrição por voz, concluir/reagendar e linhas de negócio
 - verificacao_automatica: OK — 22/22 provas API (visita/oportunidade) + provas de linhas (admin 200, comercial 400, desativada 400, apagar 403) + fluxo concluir/reagendar (21/10 → 28/10, histórico 2 ações)
 - sistema: comercial
 - skip_projeto: 64376
 - skip_versao: 33ba99e (0.0.66)
 - skip_publicacao: publicada:33ba99e em 2026-10-14T15:09:55Z
-- ultima_acao: tela Linhas de negócio publicada e provada; SPEC-1-003 completa; GitHub consolidado
-- proxima_acao: teste humano do Diogo; aprovando, fechar tasks ae167e8a/448d4044/9705e5f8 e seguir para carteira (baad9730)
-- atualizado_em: 2026-10-14T15:20:00-03:00
+- ultima_acao: fechamento da SPEC-1-003 — fase.md/STATUS/changelog atualizados, espelho consolidado, GitHub sincronizado
+- proxima_acao: Minha carteira (baad9730) — análise e autorização
+- atualizado_em: 2026-10-14T16:00:00-03:00
