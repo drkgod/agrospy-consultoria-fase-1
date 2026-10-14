@@ -20,6 +20,7 @@ onRecordCreateRequest((e) => {
   }
   if (!acao.getString('registrado_por') && e.auth) acao.set('registrado_por', e.auth.id)
 
+  // Recalcula a próxima ação vigente a partir do histórico (idempotente)
   const oport = $app.findRecordById('oportunidades', oportId)
   const historico = $app.findRecordsByFilter(
     'acoes_oportunidade',

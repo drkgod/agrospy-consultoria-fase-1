@@ -4,12 +4,14 @@
 onRecordCreateRequest((e) => {
   const rec = e.record
 
+  // CA-1-11: visita sempre sai com destino; sem_oportunidade exige motivo.
   const destino = rec.getString('destino')
   if (!destino) throw new BadRequestError('A visita precisa de um destino: qual o próximo passo?')
   if (destino === 'sem_oportunidade' && !rec.getString('motivo_sem_oportunidade')) {
     throw new BadRequestError('Sem oportunidade agora exige o motivo.')
   }
 
+  // Responsável da visita padrão o usuário autenticado.
   const auth = e.requestInfo().auth
   if (!rec.getString('responsavel_visita') && auth) rec.set('responsavel_visita', auth.id)
 
