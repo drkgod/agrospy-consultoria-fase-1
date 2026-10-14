@@ -72,6 +72,11 @@ export default function Layout() {
                 Produtores
               </Button>
               {ehAdmin && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/linhas-negocio')}>
+                  Linhas de negócio
+                </Button>
+              )}
+              {ehAdmin && (
                 <Button variant="ghost" size="sm" onClick={() => navigate('/usuarios')}>
                   Usuários
                 </Button>
