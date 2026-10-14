@@ -1,5 +1,6 @@
 // SPEC-1-003 — hooks de oportunidades: linha de negócio da mesma empresa (RN-20) e
-// situacao sempre "aberta" nesta fase (ganho/perda é da fase 3).
+// situacao sempre "aberta" nesta fase (ganho/perda é da fase 3). Responsável já é
+// exigido pelas regras; data passada é recusada no hook proxima_acao_vigente.js.
 onRecordCreateRequest((e) => {
   const rec = e.record
   // Responsável padrão: o responsável pela carteira do produtor (RN-10 da SPEC-1-002).
