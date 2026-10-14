@@ -59,21 +59,21 @@ tarefas que já têm um.
     > Propriedade ligada ao produtor, com município, área em hectares, posse e, se quiser, a localização do celular. Prova: print da ficha com a propriedade.
   - [x] Avisar quando o produtor já estiver cadastrado @Agrospy !09/10/2026  <!-- id:9eef36f2-fb98-4daf-9164-d49e269f7aa8 -->
     > CPF/CNPJ repetido na mesma empresa é barrado; mesmo nome e município geram aviso de possível duplicado. Prova: print do aviso e teste da API.
-- [ ] Criar o registro de visita com o roteiro da conversa @Agrospy !13/10/2026  <!-- id:ae167e8a-d5f2-4d51-b78f-9b9aa5acda14 -->
+- [x] Criar o registro de visita com o roteiro da conversa @Agrospy !13/10/2026  <!-- id:ae167e8a-d5f2-4d51-b78f-9b9aa5acda14 -->
   > Registrar a visita em poucos toques: data, produtor e o que foi conversado (dá para ditar pelo teclado do celular); o resto do roteiro fica em "Mais detalhes".
   > Prova: prints do formulário e da ficha. SPEC-1-003, CA-1-10 e CA-1-13.
-  - [ ] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
+- [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
     > Só três campos obrigatórios; estrutura, perfil tecnológico, investimento, máquinas, necessidades e acordos ficam opcionais. Prova: print do formulário.
-  - [ ] Mostrar visitas e oportunidades na ficha do produtor @Agrospy !13/10/2026  <!-- id:bd7652e9-6149-4aa2-bce3-30d517108d4d -->
+  - [x] Mostrar visitas e oportunidades na ficha do produtor @Agrospy !13/10/2026  <!-- id:bd7652e9-6149-4aa2-bce3-30d517108d4d -->
     > A ficha mostra visitas e oportunidades da mais recente para a mais antiga, com quem registrou. Prova: print da ficha.
-- [ ] Registrar oportunidades com responsável e próxima ação obrigatória @Agrospy !14/10/2026  <!-- id:448d4044-5617-4296-806b-371ec39e9a51 -->
+- [x] Registrar oportunidades com responsável e próxima ação obrigatória @Agrospy !14/10/2026  <!-- id:448d4044-5617-4296-806b-371ec39e9a51 -->
   > Toda visita termina com um próximo passo e toda oportunidade aberta tem linha de negócio, responsável, próxima ação e data.
   > Prova: testes de recusa e prints. SPEC-1-003, CA-1-11, CA-1-12 e CA-1-14.
-  - [ ] Configurar as linhas de negócio de cada empresa @Agrospy !14/10/2026  <!-- id:6850e423-a005-4c52-97c3-84c04bbc219f -->
+  - [x] Configurar as linhas de negócio de cada empresa @Agrospy !14/10/2026  <!-- id:6850e423-a005-4c52-97c3-84c04bbc219f -->
     > Carregar as linhas da Agrospy e da Rumo Agro e o Diogo confirmar quais são de cada empresa. Prova: lista por empresa confirmada pelo Diogo.
-  - [ ] Exigir o próximo passo ao salvar cada visita @Agrospy !14/10/2026  <!-- id:623899c6-debc-4514-85f7-d6e0857871c0 -->
+  - [x] Exigir o próximo passo ao salvar cada visita @Agrospy !14/10/2026  <!-- id:623899c6-debc-4514-85f7-d6e0857871c0 -->
     > Ao salvar: nova oportunidade, atualizar uma oportunidade aberta ou "sem oportunidade agora" com motivo. Prova: visita sem próximo passo sendo recusada.
-  - [ ] Concluir e reagendar a próxima ação guardando o histórico @Agrospy !14/10/2026  <!-- id:9705e5f8-3cd7-4336-b9ff-7e00dfc1615a -->
+  - [x] Concluir e reagendar a próxima ação guardando o histórico @Agrospy !14/10/2026  <!-- id:9705e5f8-3cd7-4336-b9ff-7e00dfc1615a -->
     > Concluir pede o resultado e a próxima ação; reagendar pede a nova data. O histórico não pode ser apagado. Prova: print do histórico da oportunidade.
 - [ ] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
   > Tela inicial do vendedor: atrasadas, hoje, próximos 7 dias e depois, com atalhos para concluir ou reagendar.
@@ -111,5 +111,8 @@ tarefas que já têm um.
   > Com um produtor real: entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, e confirmar que a outra empresa não vê.
   > Prova: gravação de tela. SPEC-1-005, CA-1-23.
 - [ ] Fazer a call de validação da Fase 1 com a Agrospy @"Rodrigo Santos" !20/10/2026  <!-- id:7acbab78-166f-4684-91ad-13dda69e9901 -->
-  > Call com o Diogo para ele testar o fluxo completo no celular e o Rodrigo validar a entrega da fase. Prova: ata da call e ajustes aprovados.
-  > Pré-condição: todas as tasks anteriores concluídas.
+  > Call com o Diogo para ele testar o fluxo completo e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
+  > Resultado: "testei, pode seguir" ou a lista do que mudar. SPEC-1-005, teste humano CL-004.
+- [ ] Revisar as evidências e decidir o fechamento da Fase 1 @"Rodrigo Santos" !20/10/2026  <!-- id:99563d4a-ae5b-488a-a4ba-b45b7d24bfea -->
+  > Conferir as evidências de todas as SPECs da Fase 1 e decidir se a fase fecha ou o que fica pendente.
+  > Resultado: decisão registrada no card. SPEC-1-005, CA-1-24.
