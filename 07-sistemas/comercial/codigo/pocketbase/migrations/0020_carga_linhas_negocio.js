@@ -45,6 +45,7 @@ migrate(
     console.log(`[0020] linhas de negócio criadas: ${novas.length}`)
   },
   (app) => {
+    // reversão: remove apenas as linhas da carga (inclusive as fixas)
     const ln = app.findCollectionByNameOrId('linhas_negocio')
     const nomes = [
       'Consultoria em agricultura de precisão',
