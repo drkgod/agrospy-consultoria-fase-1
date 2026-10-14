@@ -8,6 +8,8 @@ import { useToast } from '@/hooks/use-toast'
 import { empresasService } from '@/services/empresas'
 import { produtoresService, ORIGENS, type Produtor } from '@/services/produtores'
 import { propriedadesService, POSSES, type Propriedade } from '@/services/propriedades'
+import { visitasService, type Visita } from '@/services/visitas'
+import { oportunidadesService, type Oportunidade } from '@/services/oportunidades'
 import { usuariosService, type UsuarioDaEmpresa } from '@/services/usuarios'
 import { vinculosService } from '@/services/vinculos'
 
@@ -57,6 +59,8 @@ export default function ProdutorFicha() {
   const [abrirTroca, setAbrirTroca] = useState(false)
   const [novoResp, setNovoResp] = useState('')
   const [usuarios, setUsuarios] = useState<UsuarioDaEmpresa[]>([])
+  const [visitas, setVisitas] = useState<Visita[]>([])
+  const [oportunidades, setOportunidades] = useState<Oportunidade[]>([])
   const [propEditando, setPropEditando] = useState<string | null>(null)
   const [formProp, setFormProp] = useState({
     nome: '',
@@ -93,6 +97,14 @@ export default function ProdutorFicha() {
     propriedadesService
       .listarDoProdutor(id)
       .then(setProps)
+      .catch(() => {})
+    visitasService
+      .listarDoProdutor(id)
+      .then(setVisitas)
+      .catch(() => {})
+    oportunidadesService
+      .listarDoProdutor(id)
+      .then(setOportunidades)
       .catch(() => {})
     vinculosService.listarDoUsuario().then((vs) => {
       const meu = vs.find((v) => v.empresa === empresaId)
@@ -262,6 +274,9 @@ export default function ProdutorFicha() {
           <Button variant="outline" onClick={() => navigate('/produtores')}>
             Voltar
           </Button>
+          <Button onClick={() => navigate(`/produtores/${produtor.id}/visita`)}>
+            Registrar visita
+          </Button>
           <Button onClick={() => setEditando(true)}>Editar produtor</Button>
         </div>
       </div>
@@ -337,306 +352,127 @@ export default function ProdutorFicha() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Propriedades ({props.length})</CardTitle>
-          <CardDescription>Áreas em hectares, município, posse e localização.</CardDescription>
+          <CardTitle className="text-base">Visitas ({visitas.length})</CardTitle>
+          <CardDescription>Da mais recente para a mais antiga, com quem registrou.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          {props.length === 0 && (
-            <p className="text-sm text-muted-foreground">Nenhuma propriedade cadastrada.</p>
+          {visitas.length === 0 && (
+            <p className="text-sm text-muted-foreground">Nenhuma visita registrada.</p>
           )}
-          {props.map((p) =>
-            propEditando === p.id ? (
-              <div key={p.id} className="rounded-lg border p-3 space-y-2 bg-muted/40">
-                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                  <Input
-                    placeholder="Nome *"
-                    value={formProp.nome}
-                    onChange={(e) => setFormProp({ ...formProp, nome: e.target.value })}
-                  />
-                  <Input
-                    placeholder="Município"
-                    value={formProp.municipio}
-                    onChange={(e) => setFormProp({ ...formProp, municipio: e.target.value })}
-                  />
-                  <Input
-                    placeholder="Área (ha)"
-                    type="number"
-                    value={formProp.area_ha}
-                    onChange={(e) => setFormProp({ ...formProp, area_ha: e.target.value })}
-                  />
-                  <select
-                    aria-label="Posse"
-                    value={formProp.posse}
-                    onChange={(e) => setFormProp({ ...formProp, posse: e.target.value })}
-                    className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-                  >
-                    <option value="">Posse</option>
-                    {POSSES.map((x) => (
-                      <option key={x.value} value={x.value}>
-                        {x.label}
-                      </option>
-                    ))}
-                  </select>
-                  <Input
-                    placeholder="Link do Google Maps (cole aqui)"
-                    value={formProp.link_maps}
-                    onChange={(e) => setFormProp({ ...formProp, link_maps: e.target.value })}
-                    className="md:col-span-4"
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => setPropEditando(null)}>
-                    Cancelar
-                  </Button>
-                  <Button size="sm" onClick={() => salvarPropriedade(p.id)} disabled={salvandoProp}>
-                    Salvar
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div
-                key={p.id}
-                className="flex items-center justify-between rounded-lg border p-3 gap-2"
-              >
-                <div>
-                  <p className="font-medium">{p.nome}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {p.municipio} · {p.area_ha || 0} ha ·{' '}
-                    {POSSES.find((x) => x.value === p.posse)?.label ?? p.posse}
-                  </p>
-                  {p.link_maps && (
-                    <button
-                      type="button"
-                      onClick={() => abrirMaps(p.link_maps)}
-                      className="mt-1 text-sm text-blue-600 underline hover:text-blue-800"
-                    >
-                      Abrir no Google Maps ↗
-                    </button>
-                  )}
-                </div>
-                <div className="flex gap-1 shrink-0">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setPropEditando(p.id)
-                      setFormProp({
-                        nome: p.nome,
-                        municipio: p.municipio,
-                        area_ha: String(p.area_ha ?? ''),
-                        posse: p.posse,
-                        link_maps: p.link_maps ?? '',
-                      })
-                    }}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-destructive"
-                    onClick={() => setConfirmarExclusao(p.id)}
-                  >
-                    Excluir
-                  </Button>
-                </div>
-              </div>
-            ),
+          {visitas.map((v) => (
+            <div key={v.id} className="rounded-lg border p-3">
+              <p className="text-sm font-medium">
+                {(v.data || '').slice(0, 10)} ·{' '}
+                {v.expand?.responsavel_visita?.name ||
+                  v.expand?.responsavel_visita?.email ||
+                  '—'}
+              </p>
+              <p className="text-sm whitespace-pre-line">{v.assuntos_tratados}</p>
+              {v.destino === 'sem_oportunidade' && (
+                <p className="text-xs text-muted-foreground mt-1">Sem oportunidade agora</p>
+              )}
+              {v.audio && (
+                <audio controls src={visitasService.urlDoAudio(v)} className="w-full mt-2" />
+              )}
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Oportunidades ({oportunidades.length})</CardTitle>
+          <CardDescription>Abertas e com próxima ação datada.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {oportunidades.length === 0 && (
+            <p className="text-sm text-muted-foreground">Nenhuma oportunidade.</p>
+          )}
+          {oportunidades.map((o) => (
+            <div key={o.id} className="rounded-lg border p-3">
+              <p className="text-sm font-medium">
+                {o.expand?.linha_negocio?.nome ?? 'Linha'} · {o.descricao}
+              </p>
+              <p className="text-sm">
+                Próxima ação: {o.proxima_acao} —{' '}
+                <strong>{(o.proxima_acao_data || '').slice(0, 10)}</strong>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Responsável: {o.expand?.responsavel?.name || o.expand?.responsavel?.email || '—'}
+              </p>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Adicionar propriedade</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {props.length > 0 && (
+            <div className="space-y-2">
+              {props.map((p) =>
+                propEditando === p.id ? (
+                  <div key={p.id} className="rounded-lg border p-3 space-y-2 bg-muted/40">
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                      <Input placeholder="Nome *" value={formProp.nome} onChange={(e) => setFormProp({ ...formProp, nome: e.target.value })} />
+                      <Input placeholder="Município" value={formProp.municipio} onChange={(e) => setFormProp({ ...formProp, municipio: e.target.value })} />
+                      <Input placeholder="Área (ha)" type="number" value={formProp.area_ha} onChange={(e) => setFormProp({ ...formProp, area_ha: e.target.value })} />
+                      <select aria-label="Posse" value={formProp.posse} onChange={(e) => setFormProp({ ...formProp, posse: e.target.value })} className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring">
+                        <option value="">Posse</option>
+                        {POSSES.map((x) => (<option key={x.value} value={x.value}>{x.label}</option>))}
+                      </select>
+                      <Input placeholder="Link do Google Maps (cole aqui)" value={formProp.link_maps} onChange={(e) => setFormProp({ ...formProp, link_maps: e.target.value })} className="md:col-span-4" />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setPropEditando(null)}>Cancelar</Button>
+                      <Button size="sm" onClick={() => salvarPropriedade(p.id)} disabled={salvandoProp}>Salvar</Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div key={p.id} className="flex items-center justify-between rounded-lg border p-3 gap-2">
+                    <div>
+                      <p className="font-medium">{p.nome}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {p.municipio} · {p.area_ha || 0} ha · {POSSES.find((x) => x.value === p.posse)?.label ?? p.posse}
+                      </p>
+                      {p.link_maps && (
+                        <button type="button" onClick={() => abrirMaps(p.link_maps)} className="mt-1 text-sm text-blue-600 underline hover:text-blue-800">
+                          Abrir no Google Maps ↗
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex gap-1 shrink-0">
+                      <Button variant="outline" size="sm" onClick={() => { setPropEditando(p.id); setFormProp({ nome: p.nome, municipio: p.municipio, area_ha: String(p.area_ha ?? ''), posse: p.posse, link_maps: p.link_maps ?? '' }) }}>Editar</Button>
+                      <Button variant="outline" size="sm" className="text-destructive" onClick={() => setConfirmarExclusao(p.id)}>Excluir</Button>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
           )}
           {confirmarExclusao && (
             <p className="text-sm text-destructive" role="alert">
               Excluir esta propriedade? Não dá para desfazer.{' '}
-              <button
-                type="button"
-                className="underline font-medium"
-                onClick={() => excluirPropriedade(confirmarExclusao)}
-              >
-                Confirmar exclusão
-              </button>
+              <button type="button" className="underline font-medium" onClick={() => excluirPropriedade(confirmarExclusao)}>Confirmar exclusão</button>
               {' · '}
-              <button
-                type="button"
-                className="underline"
-                onClick={() => setConfirmarExclusao(null)}
-              >
-                Cancelar
-              </button>
+              <button type="button" className="underline" onClick={() => setConfirmarExclusao(null)}>Cancelar</button>
             </p>
           )}
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-            <Input
-              placeholder="Nome *"
-              value={novoProp.nome}
-              onChange={(e) => setNovoProp({ ...novoProp, nome: e.target.value })}
-            />
-            <Input
-              placeholder="Município"
-              value={novoProp.municipio}
-              onChange={(e) => setNovoProp({ ...novoProp, municipio: e.target.value })}
-            />
-            <Input
-              placeholder="Área (ha)"
-              type="number"
-              value={novoProp.area_ha}
-              onChange={(e) => setNovoProp({ ...novoProp, area_ha: e.target.value })}
-            />
-            <select
-              aria-label="Posse"
-              value={novoProp.posse}
-              onChange={(e) => setNovoProp({ ...novoProp, posse: e.target.value })}
-              className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
+            <Input placeholder="Nome *" value={novoProp.nome} onChange={(e) => setNovoProp({ ...novoProp, nome: e.target.value })} />
+            <Input placeholder="Município" value={novoProp.municipio} onChange={(e) => setNovoProp({ ...novoProp, municipio: e.target.value })} />
+            <Input placeholder="Área (ha)" type="number" value={novoProp.area_ha} onChange={(e) => setNovoProp({ ...novoProp, area_ha: e.target.value })} />
+            <select aria-label="Posse" value={novoProp.posse} onChange={(e) => setNovoProp({ ...novoProp, posse: e.target.value })} className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring">
               <option value="">Posse</option>
-              {POSSES.map((x) => (
-                <option key={x.value} value={x.value}>
-                  {x.label}
-                </option>
-              ))}
+              {POSSES.map((x) => (<option key={x.value} value={x.value}>{x.label}</option>))}
             </select>
-            <Input
-              placeholder="Link do Google Maps (cole aqui)"
-              value={novoProp.link_maps}
-              onChange={(e) => setNovoProp({ ...novoProp, link_maps: e.target.value })}
-              className="md:col-span-4"
-            />
+            <Input placeholder="Link do Google Maps (cole aqui)" value={novoProp.link_maps} onChange={(e) => setNovoProp({ ...novoProp, link_maps: e.target.value })} className="md:col-span-4" />
           </div>
           <Button onClick={addPropriedade}>Adicionar propriedade</Button>
         </CardContent>
       </Card>
-
-      {editando && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Editar produtor</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-              <Input
-                placeholder="Nome *"
-                value={formEdicao.nome}
-                onChange={(e) => setFormEdicao({ ...formEdicao, nome: e.target.value })}
-              />
-              <Input
-                placeholder="CPF/CNPJ"
-                value={formEdicao.documento}
-                onChange={(e) => setFormEdicao({ ...formEdicao, documento: e.target.value })}
-              />
-              <Input
-                placeholder="Telefone"
-                value={formEdicao.telefone}
-                onChange={(e) => setFormEdicao({ ...formEdicao, telefone: e.target.value })}
-              />
-              <Input
-                placeholder="E-mail"
-                value={formEdicao.email}
-                onChange={(e) => setFormEdicao({ ...formEdicao, email: e.target.value })}
-              />
-              <Input
-                placeholder="Município *"
-                value={formEdicao.municipio}
-                onChange={(e) => setFormEdicao({ ...formEdicao, municipio: e.target.value })}
-              />
-              <Input
-                placeholder="Regional"
-                value={formEdicao.regional}
-                onChange={(e) => setFormEdicao({ ...formEdicao, regional: e.target.value })}
-              />
-            </div>
-            <select
-              aria-label="Origem"
-              value={formEdicao.origem}
-              onChange={(e) => setFormEdicao({ ...formEdicao, origem: e.target.value })}
-              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Origem *</option>
-              {ORIGENS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
-            {(formEdicao.origem === 'indicacao_cliente' ||
-              formEdicao.origem === 'indicacao_socio_parceiro') && (
-              <Input
-                placeholder="Quem indicou *"
-                value={formEdicao.indicado_por}
-                onChange={(e) => setFormEdicao({ ...formEdicao, indicado_por: e.target.value })}
-              />
-            )}
-            <Input
-              placeholder="Próximo de quem"
-              value={formEdicao.relacionamento}
-              onChange={(e) => setFormEdicao({ ...formEdicao, relacionamento: e.target.value })}
-            />
-            <Input
-              placeholder="Observações"
-              value={formEdicao.observacoes}
-              onChange={(e) => setFormEdicao({ ...formEdicao, observacoes: e.target.value })}
-            />
-            <select
-              aria-label="Nível de tecnologia"
-              value={formEdicao.nivel_tecnologia}
-              onChange={(e) => setFormEdicao({ ...formEdicao, nivel_tecnologia: e.target.value })}
-              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Nível de tecnologia: não informado</option>
-              {NIVEIS.map((n) => (
-                <option key={n.value} value={n.value}>
-                  {n.label}
-                </option>
-              ))}
-            </select>
-            <textarea
-              placeholder="Tecnologias: automações, agricultura de precisão, implementos (piloto automático, desligamento linha a linha, taxa variável…)"
-              value={formEdicao.tecnologias}
-              onChange={(e) => setFormEdicao({ ...formEdicao, tecnologias: e.target.value })}
-              rows={4}
-              className="w-full min-h-20 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            />
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => setEditando(false)}>
-                Cancelar
-              </Button>
-              <Button size="sm" onClick={salvarEdicao} disabled={salvandoEdicao}>
-                {salvandoEdicao ? 'Salvando…' : 'Salvar alterações'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {abrirTroca && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Trocar responsável</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <select
-              aria-label="Novo responsável"
-              value={novoResp}
-              onChange={(e) => setNovoResp(e.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Escolha o novo responsável</option>
-              {usuarios
-                .filter((u) => u.ativo)
-                .map((u) => (
-                  <option key={u.usuarioId} value={u.usuarioId}>
-                    {u.nome || u.email}
-                  </option>
-                ))}
-            </select>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => setAbrirTroca(false)}>
-                Cancelar
-              </Button>
-              <Button size="sm" onClick={confirmarTroca}>
-                Confirmar
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   )
 }
