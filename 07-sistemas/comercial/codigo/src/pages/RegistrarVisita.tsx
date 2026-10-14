@@ -1,3 +1,8 @@
+// SPEC-1-003 Emenda 1 — gravação e anexo de áudio na visita.
+// Gravar: MediaRecorder (Safari iOS 14.3+ grava em mp4/aac; Android em webm/opus).
+// Anexar: <input type="file" accept="audio/*"> — o iPhone oferece "Gravar novo" e
+// arquivos do Drive/Arquivos em qualquer formato (m4a, mp3, wav, ogg, aac, amr, 3gp).
+// Limite do backend: 25 MB por arquivo (migração 0025).
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,14 +39,26 @@ export default function RegistrarVisita() {
   const [estrutura, setEstrutura] = useState('')
   const [necessidades, setNecessidades] = useState('')
   const [acordos, setAcordos] = useState('')
-  const [destino, setDestino] = useState<'' | 'nova_oportunidade' | 'sem_oportunidade'>('')
+  const [destino, setDestino] = useState<
+    '' | 'nova_oportunidade' | 'oportunidade_atualizada' | 'sem_oportunidade'
+  >('')
   const [motivo, setMotivo] = useState('')
+  const [abertas, setAbertas] = useState<
+    ReturnType<typeof oportunidadesService.listarAbertasDoProdutor> extends Promise<infer T>
+      ? T
+      : never
+  >([])
+  const [oportEscolhida, setOportEscolhida] = useState('')
+  const [resultadoVisita, setResultadoVisita] = useState('')
+  const [novaAcaoVisita, setNovaAcaoVisita] = useState('')
+  const [novaDataVisita, setNovaDataVisita] = useState(EM_N_DIAS(7))
   const [linha, setLinha] = useState('')
   const [descricao, setDescricao] = useState('')
   const [proximaAcao, setProximaAcao] = useState('')
   const [acaoData, setAcaoData] = useState(EM_N_DIAS(7))
   const [salvando, setSalvando] = useState(false)
 
+  // Áudio: gravado no app ou escolhido do celular.
   const [audioFile, setAudioFile] = useState<File | null>(null)
   const [gravando, setGravando] = useState(false)
   const [tempoGravacao, setTempoGravacao] = useState(0)
@@ -50,6 +67,7 @@ export default function RegistrarVisita() {
   const timerRef = useRef<number | null>(null)
   const inputArquivoRef = useRef<HTMLInputElement | null>(null)
 
+  // Transcrição por voz (Web Speech API — Safari iOS 14.5+ e Chrome).
   const [transcrevendo, setTranscrevendo] = useState(false)
   const [falaAtual, setFalaAtual] = useState('')
   const recognitionRef = useRef<{ stop: () => void; abort: () => void } | null>(null)
@@ -60,14 +78,25 @@ export default function RegistrarVisita() {
 
   useEffect(() => {
     if (!id || !empresaId) return
-    produtoresService.buscarPorId(id).then(setProdutor).catch(() => {})
-    linhasNegocioService.listarAtivas(empresaId).then(setLinhas).catch(() => {})
+    produtoresService
+      .buscarPorId(id)
+      .then(setProdutor)
+      .catch(() => {})
+    linhasNegocioService
+      .listarAtivas(empresaId)
+      .then(setLinhas)
+      .catch(() => {})
+    oportunidadesService
+      .listarAbertasDoProdutor(id)
+      .then(setAbertas)
+      .catch(() => {})
   }, [id, empresaId])
 
   if (!empresa) return null
   if (!produtor)
     return <p className="container mx-auto py-8 px-4 text-muted-foreground">Carregando…</p>
 
+  // ---------- Áudio ----------
   const iniciarGravacao = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -89,7 +118,10 @@ export default function RegistrarVisita() {
       setTempoGravacao(0)
       timerRef.current = window.setInterval(() => setTempoGravacao((t) => t + 1), 1000)
     } catch {
-      toast({ title: 'Não foi possível acessar o microfone. Autorize no navegador.', variant: 'destructive' })
+      toast({
+        title: 'Não foi possível acessar o microfone. Autorize no navegador.',
+        variant: 'destructive',
+      })
     }
   }
 
@@ -106,7 +138,10 @@ export default function RegistrarVisita() {
   const escolherArquivo = (f: File | null) => {
     if (!f) return
     if (f.size > LIMITE_MB * 1024 * 1024) {
-      toast({ title: `Arquivo maior que ${LIMITE_MB} MB. Grave um trecho menor ou comprima.`, variant: 'destructive' })
+      toast({
+        title: `Arquivo maior que ${LIMITE_MB} MB. Grave um trecho menor ou comprima.`,
+        variant: 'destructive',
+      })
       return
     }
     setAudioFile(f)
@@ -114,9 +149,13 @@ export default function RegistrarVisita() {
 
   const minutosSegundos = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
+  // ---------- Transcrição por voz ----------
   const iniciarTranscricao = () => {
     if (!suportaFala) {
-      toast({ title: 'Seu navegador não tem transcrição por voz (use Safari ou Chrome).', variant: 'destructive' })
+      toast({
+        title: 'Seu navegador não tem transcrição por voz (use Safari ou Chrome).',
+        variant: 'destructive',
+      })
       return
     }
     try {
@@ -126,7 +165,10 @@ export default function RegistrarVisita() {
       rec.lang = 'pt-BR'
       rec.continuous = true
       rec.interimResults = true
-      rec.onresult = (ev: { resultIndex: number; results: ArrayLike<ArrayLike<{ transcript: string }>> }) => {
+      rec.onresult = (ev: {
+        resultIndex: number
+        results: ArrayLike<ArrayLike<{ transcript: string }>>
+      }) => {
         let texto = ''
         for (let i = ev.resultIndex; i < ev.results.length; i++) {
           const chunk = ev.results[i]
@@ -136,7 +178,10 @@ export default function RegistrarVisita() {
       }
       rec.onerror = () => {
         setTranscrevendo(false)
-        toast({ title: 'Não foi possível transcrever (microfone ou permissão).', variant: 'destructive' })
+        toast({
+          title: 'Não foi possível transcrever (microfone ou permissão).',
+          variant: 'destructive',
+        })
       }
       rec.onend = () => setTranscrevendo(false)
       rec.start()
@@ -165,6 +210,7 @@ export default function RegistrarVisita() {
     setFalaAtual('')
   }
 
+  // ---------- Salvar ----------
   const salvar = async () => {
     if (!assuntos.trim()) {
       toast({ title: 'Escreva o que foi conversado.', variant: 'destructive' })
@@ -174,7 +220,10 @@ export default function RegistrarVisita() {
       toast({ title: 'Escolha o próximo passo.', variant: 'destructive' })
       return
     }
-    if (destino === 'nova_oportunidade' && (!linha || !descricao.trim() || !proximaAcao.trim() || !acaoData)) {
+    if (
+      destino === 'nova_oportunidade' &&
+      (!linha || !descricao.trim() || !proximaAcao.trim() || !acaoData)
+    ) {
       toast({ title: 'Preencha linha, descrição, próxima ação e data.', variant: 'destructive' })
       return
     }
@@ -182,9 +231,20 @@ export default function RegistrarVisita() {
       toast({ title: 'Escolha o motivo de não haver oportunidade.', variant: 'destructive' })
       return
     }
+    if (
+      destino === 'oportunidade_atualizada' &&
+      (!oportEscolhida || !resultadoVisita.trim() || !novaAcaoVisita.trim() || !novaDataVisita)
+    ) {
+      toast({
+        title: 'Escolha a oportunidade e preencha resultado, próxima ação e data.',
+        variant: 'destructive',
+      })
+      return
+    }
     setSalvando(true)
     try {
       if (audioFile) {
+        // Com áudio: FormData (arquivo + campos).
         const fd = new FormData()
         fd.append('empresa', empresa.id)
         fd.append('produtor', produtor.id)
@@ -199,21 +259,57 @@ export default function RegistrarVisita() {
         const visita = await visitasService.criarComFormData(fd)
         if (destino === 'nova_oportunidade') {
           await oportunidadesService.criar(
-            { produtor: produtor.id, linha_negocio: linha, descricao: descricao.trim(), proxima_acao: proximaAcao.trim(), proxima_acao_data: `${acaoData} 12:00:00.000Z`, visita_origem: visita.id },
+            {
+              produtor: produtor.id,
+              linha_negocio: linha,
+              descricao: descricao.trim(),
+              proxima_acao: proximaAcao.trim(),
+              proxima_acao_data: `${acaoData} 12:00:00.000Z`,
+              visita_origem: visita.id,
+            },
             empresa.id,
           )
         }
       } else {
+        // Sem áudio: JSON direto.
         const visita = await visitasService.criar(
-          { produtor: produtor.id, data: `${data} 12:00:00.000Z`, assuntos_tratados: assuntos.trim(), estrutura_existente: estrutura.trim(), necessidades: necessidades.trim(), acordos: acordos.trim(), destino, motivo_sem_oportunidade: destino === 'sem_oportunidade' ? motivo : '' },
+          {
+            produtor: produtor.id,
+            data: `${data} 12:00:00.000Z`,
+            assuntos_tratados: assuntos.trim(),
+            estrutura_existente: estrutura.trim(),
+            necessidades: necessidades.trim(),
+            acordos: acordos.trim(),
+            destino,
+            motivo_sem_oportunidade: destino === 'sem_oportunidade' ? motivo : '',
+          },
           empresa.id,
         )
         if (destino === 'nova_oportunidade') {
           await oportunidadesService.criar(
-            { produtor: produtor.id, linha_negocio: linha, descricao: descricao.trim(), proxima_acao: proximaAcao.trim(), proxima_acao_data: `${acaoData} 12:00:00.000Z`, visita_origem: visita.id },
+            {
+              produtor: produtor.id,
+              linha_negocio: linha,
+              descricao: descricao.trim(),
+              proxima_acao: proximaAcao.trim(),
+              proxima_acao_data: `${acaoData} 12:00:00.000Z`,
+              visita_origem: visita.id,
+            },
             empresa.id,
           )
         }
+      }
+      if (destino === 'oportunidade_atualizada') {
+        await oportunidadesService.registrarAcao(
+          {
+            oportunidade: oportEscolhida,
+            tipo: 'concluida',
+            resultado: resultadoVisita.trim(),
+            nova_acao: novaAcaoVisita.trim(),
+            nova_data: `${novaDataVisita} 12:00:00.000Z`,
+          },
+          empresa.id,
+        )
       }
       toast({ title: 'Visita registrada' })
       navigate(`/produtores/${produtor.id}`)
@@ -232,12 +328,19 @@ export default function RegistrarVisita() {
           <h1 className="text-2xl font-bold">Registrar visita</h1>
           <p className="text-sm text-muted-foreground">{produtor.nome}</p>
         </div>
-        <Button variant="outline" onClick={() => navigate(`/produtores/${produtor.id}`)}>Voltar</Button>
+        <Button variant="outline" onClick={() => navigate(`/produtores/${produtor.id}`)}>
+          Voltar
+        </Button>
       </div>
 
       <Card>
         <CardContent className="pt-4 space-y-3">
-          <Input type="date" value={data} onChange={(e) => setData(e.target.value)} aria-label="Data da visita" />
+          <Input
+            type="date"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+            aria-label="Data da visita"
+          />
           <textarea
             placeholder="O que foi conversado? (pode ditar pelo teclado do celular)"
             value={assuntos}
@@ -248,14 +351,20 @@ export default function RegistrarVisita() {
           {!gravando && suportaFala && (
             <div className="space-y-2">
               {!transcrevendo ? (
-                <Button variant="outline" size="sm" onClick={iniciarTranscricao}>🎙 Transcrever o que eu falar</Button>
+                <Button variant="outline" size="sm" onClick={iniciarTranscricao}>
+                  🎙 Transcrever o que eu falar
+                </Button>
               ) : (
                 <div className="rounded-lg border p-2 space-y-2 bg-muted/40">
                   <p className="text-sm text-destructive">● Ouvindo… (fale o que foi conversado)</p>
                   {falaAtual && <p className="text-sm italic whitespace-pre-line">{falaAtual}</p>}
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={confirmarTranscricao}>✔ Adicionar ao texto</Button>
-                    <Button variant="outline" size="sm" onClick={cancelarTranscricao}>Cancelar</Button>
+                    <Button size="sm" onClick={confirmarTranscricao}>
+                      ✔ Adicionar ao texto
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={cancelarTranscricao}>
+                      Cancelar
+                    </Button>
                   </div>
                 </div>
               )}
@@ -270,16 +379,30 @@ export default function RegistrarVisita() {
           </button>
           {maisDetalhes && (
             <div className="space-y-2">
-              <Input placeholder="Estrutura existente" value={estrutura} onChange={(e) => setEstrutura(e.target.value)} />
-              <Input placeholder="Necessidades apontadas" value={necessidades} onChange={(e) => setNecessidades(e.target.value)} />
-              <Input placeholder="Acordos combinados" value={acordos} onChange={(e) => setAcordos(e.target.value)} />
+              <Input
+                placeholder="Estrutura existente"
+                value={estrutura}
+                onChange={(e) => setEstrutura(e.target.value)}
+              />
+              <Input
+                placeholder="Necessidades apontadas"
+                value={necessidades}
+                onChange={(e) => setNecessidades(e.target.value)}
+              />
+              <Input
+                placeholder="Acordos combinados"
+                value={acordos}
+                onChange={(e) => setAcordos(e.target.value)}
+              />
             </div>
           )}
         </CardContent>
       </Card>
 
       <Card>
-        <CardHeader><CardTitle className="text-base">Áudio da conversa (opcional)</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">Áudio da conversa (opcional)</CardTitle>
+        </CardHeader>
         <CardContent className="space-y-3">
           <input
             ref={inputArquivoRef}
@@ -290,23 +413,50 @@ export default function RegistrarVisita() {
           />
           {!gravando && !audioFile && (
             <div className="grid grid-cols-2 gap-2">
-              <Button variant="outline" onClick={iniciarGravacao}>● Gravar no app</Button>
-              <Button variant="outline" onClick={() => inputArquivoRef.current?.click()}>⬆ Anexar do celular</Button>
+              <Button variant="outline" onClick={iniciarGravacao}>
+                ● Gravar no app
+              </Button>
+              <Button variant="outline" onClick={() => inputArquivoRef.current?.click()}>
+                ⬆ Anexar do celular
+              </Button>
             </div>
           )}
           {gravando && (
             <div className="space-y-2">
-              <p className="text-sm text-destructive">● Gravando… {minutosSegundos(tempoGravacao)}</p>
-              <Button variant="destructive" onClick={pararGravacao}>■ Parar gravação</Button>
+              <p className="text-sm text-destructive">
+                ● Gravando… {minutosSegundos(tempoGravacao)}
+              </p>
+              <Button variant="destructive" onClick={pararGravacao}>
+                ■ Parar gravação
+              </Button>
             </div>
           )}
           {audioFile && !gravando && (
             <div className="space-y-2">
-              <p className="text-sm">🎙 {audioFile.name || 'gravação'} · {(audioFile.size / 1024 / 1024).toFixed(1)} MB</p>
+              <p className="text-sm">
+                🎙 {audioFile.name || 'gravação'} · {(audioFile.size / 1024 / 1024).toFixed(1)} MB
+              </p>
               <audio controls src={URL.createObjectURL(audioFile)} className="w-full" />
               <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline" onClick={() => { setAudioFile(null); if (inputArquivoRef.current) inputArquivoRef.current.value = '' }}>Remover</Button>
-                <Button variant="outline" onClick={() => { setAudioFile(null); if (inputArquivoRef.current) inputArquivoRef.current.value = ''; inputArquivoRef.current?.click() }}>Trocar áudio</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setAudioFile(null)
+                    if (inputArquivoRef.current) inputArquivoRef.current.value = ''
+                  }}
+                >
+                  Remover
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setAudioFile(null)
+                    if (inputArquivoRef.current) inputArquivoRef.current.value = ''
+                    inputArquivoRef.current?.click()
+                  }}
+                >
+                  Trocar áudio
+                </Button>
               </div>
             </div>
           )}
@@ -314,12 +464,83 @@ export default function RegistrarVisita() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle className="text-base">Qual o próximo passo?</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">Qual o próximo passo?</CardTitle>
+        </CardHeader>
         <CardContent className="space-y-3">
           <div className="grid gap-2">
-            <Button variant={destino === 'nova_oportunidade' ? 'default' : 'outline'} onClick={() => setDestino('nova_oportunidade')}>Nova oportunidade</Button>
-            <Button variant={destino === 'sem_oportunidade' ? 'default' : 'outline'} onClick={() => setDestino('sem_oportunidade')}>Sem oportunidade agora</Button>
+            <Button
+              variant={destino === 'nova_oportunidade' ? 'default' : 'outline'}
+              onClick={() => setDestino('nova_oportunidade')}
+            >
+              Nova oportunidade
+            </Button>
+            <Button
+              variant={destino === 'oportunidade_atualizada' ? 'default' : 'outline'}
+              onClick={() => setDestino('oportunidade_atualizada')}
+            >
+              Atualizar oportunidade aberta
+            </Button>
+            <Button
+              variant={destino === 'sem_oportunidade' ? 'default' : 'outline'}
+              onClick={() => setDestino('sem_oportunidade')}
+            >
+              Sem oportunidade agora
+            </Button>
           </div>
+
+          {destino === 'oportunidade_atualizada' && (
+            <div className="space-y-2">
+              <select
+                aria-label="Oportunidade"
+                value={oportEscolhida}
+                onChange={(e) => setOportEscolhida(e.target.value)}
+                className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+              >
+                <option value="">Oportunidade aberta *</option>
+                {abertas.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.expand?.linha_negocio?.nome ?? 'Linha'} · {o.descricao}
+                  </option>
+                ))}
+              </select>
+              <Input
+                placeholder="O que foi feito? (resultado) *"
+                value={resultadoVisita}
+                onChange={(e) => setResultadoVisita(e.target.value)}
+              />
+              <Input
+                placeholder="Próxima ação *"
+                value={novaAcaoVisita}
+                onChange={(e) => setNovaAcaoVisita(e.target.value)}
+              />
+              <div className="flex gap-2 items-center">
+                <Input
+                  type="date"
+                  value={novaDataVisita}
+                  onChange={(e) => setNovaDataVisita(e.target.value)}
+                  aria-label="Data da próxima ação"
+                />
+                <Button variant="outline" size="sm" onClick={() => setNovaDataVisita(EM_N_DIAS(7))}>
+                  +7d
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setNovaDataVisita(EM_N_DIAS(15))}
+                >
+                  +15d
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setNovaDataVisita(EM_N_DIAS(30))}
+                >
+                  +30d
+                </Button>
+              </div>
+            </div>
+          )}
 
           {destino === 'nova_oportunidade' && (
             <div className="space-y-2">
@@ -330,15 +551,38 @@ export default function RegistrarVisita() {
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
               >
                 <option value="">Linha de negócio *</option>
-                {linhas.map((l) => (<option key={l.id} value={l.id}>{l.nome}</option>))}
+                {linhas.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.nome}
+                  </option>
+                ))}
               </select>
-              <Input placeholder="Descrição curta da oportunidade *" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-              <Input placeholder="Próxima ação *" value={proximaAcao} onChange={(e) => setProximaAcao(e.target.value)} />
+              <Input
+                placeholder="Descrição curta da oportunidade *"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+              <Input
+                placeholder="Próxima ação *"
+                value={proximaAcao}
+                onChange={(e) => setProximaAcao(e.target.value)}
+              />
               <div className="flex gap-2 items-center">
-                <Input type="date" value={acaoData} onChange={(e) => setAcaoData(e.target.value)} aria-label="Data da próxima ação" />
-                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(7))}>+7d</Button>
-                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(15))}>+15d</Button>
-                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(30))}>+30d</Button>
+                <Input
+                  type="date"
+                  value={acaoData}
+                  onChange={(e) => setAcaoData(e.target.value)}
+                  aria-label="Data da próxima ação"
+                />
+                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(7))}>
+                  +7d
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(15))}>
+                  +15d
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => setAcaoData(EM_N_DIAS(30))}>
+                  +30d
+                </Button>
               </div>
             </div>
           )}
@@ -358,7 +602,9 @@ export default function RegistrarVisita() {
             </select>
           )}
 
-          <Button className="w-full" onClick={salvar} disabled={salvando}>{salvando ? 'Salvando…' : 'Salvar visita'}</Button>
+          <Button className="w-full" onClick={salvar} disabled={salvando}>
+            {salvando ? 'Salvando…' : 'Salvar visita'}
+          </Button>
         </CardContent>
       </Card>
     </div>
