@@ -7,6 +7,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { empresasService } from '@/services/empresas'
 import { vinculosService } from '@/services/vinculos'
+import { authService } from '@/services/auth'
 import logoAgrospy from '@/assets/logo-agrospy.svg'
 
 export default function Layout() {
@@ -41,6 +42,13 @@ export default function Layout() {
     // RN-05: trocar limpa os dados da empresa anterior (tela e cache local)
     empresasService.setAtiva(null)
     navigate('/escolher-empresa')
+  }
+
+  const sair = () => {
+    // Encerra a sessão e volta ao login (pedido do Diogo, 15/10: trocar de usuário).
+    authService.signOut()
+    empresasService.setAtiva(null)
+    navigate('/login')
   }
 
   return (
@@ -90,6 +98,9 @@ export default function Layout() {
               )}
               <Button variant="outline" size="sm" onClick={trocarEmpresa}>
                 Trocar empresa
+              </Button>
+              <Button variant="outline" size="sm" onClick={sair}>
+                Sair
               </Button>
             </div>
           )}
