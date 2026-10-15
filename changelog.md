@@ -81,7 +81,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Campos acesso_* em users + hooks de recálculo (create/update/delete de vinculos); e-mail denormalizado no vínculo.
 - Regras de vinculos/empresas validadas em PocketBase local (v0.23.12) antes de aplicar: padrão @collection self-join (users_via_acesso_admin/empresas).
 - Tela /usuarios (lista + criar com senha temporária + alterar perfil + desativar/reativar com confirmação); menu Usuários só para administrador.
-- Rumo Agro: cor #304A54 na migração + logo real enviada ao campo `logo` da empresa (JPEG, servida pela API).
+- Rumo Agro: cor #304A54 na migração + logo real enviada ao campo `logo` da empresa (JPEG 77 KB servido pela API).
 - Correções durante o ciclo: createRule de users bloqueia acesso_* no corpo (RED 4); bug de re-render na tela /usuarios (deps por id); limpeza/recarga de acesso_* (0008) e remoção de usuários de teste órfãos.
 - Provas: login/escolha/menu/tela no navegador; API — empresas 2 itens (admin) vs 1 (operador), vínculo alheio 404, criação de vínculo por operador 400, autoelevação PATCH 404.
 
