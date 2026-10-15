@@ -41,7 +41,7 @@ tarefas que já têm um.
   > Prova: teste sem login recusado e prints das telas. SPEC-1-001, CA-1-01 e CA-1-02.
   - [x] Cadastrar as duas empresas com nome, cor e logo @Agrospy !07/10/2026  <!-- id:47d2b87b-3e1d-4124-96cf-03eebe97b85f -->
     > Criar Agrospy e Rumo Agro no sistema, cada uma com nome, cor e logo próprios. Prova: lista das duas empresas no Skip.
-  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-2a4758ea6a58 -->
+  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-44705554d4cc -->
     > O topo de todas as telas mostra logo, nome e cor da empresa ativa e o botão “Trocar empresa”, que limpa da tela os dados da anterior. Prova: prints nas duas empresas.
 - [x] Configurar os perfis e a tela de usuários do administrador @Agrospy !08/10/2026  <!-- id:f1624dc7-d84e-424d-840b-414ed775636e -->
   > Perfis por empresa: Administrador, Gestão, Comercial e Operador, como combinado na call de 22/09. O administrador cria usuário, dá o perfil e desativa quando precisar.
@@ -75,7 +75,7 @@ tarefas que já têm um.
     > Ao salvar: nova oportunidade, atualizar uma oportunidade aberta ou "sem oportunidade agora" com motivo. Prova: visita sem próximo passo sendo recusada.
   - [x] Concluir e reagendar a próxima ação guardando o histórico @Agrospy !14/10/2026  <!-- id:9705e5f8-3cd7-4336-b9ff-7e00dfc1615a -->
     > Concluir pede o resultado e a próxima ação; reagendar pede a nova data. O histórico não pode ser apagado. Prova: print do histórico da oportunidade.
-- [ ] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
+- [/] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
   > Tela inicial do vendedor: atrasadas, hoje, próximos 7 dias e depois, com atalhos para concluir ou reagendar.
   > Prova: datas de teste nos grupos certos. SPEC-1-005, CA-1-20 e CA-1-21.
 - [ ] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->

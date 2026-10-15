@@ -1,3 +1,13 @@
+## [0.0.70] - 2026-10-15 — task baad9730: Minha carteira (SPEC-1-005, CA-1-20/21)
+- Tela "Minha carteira" na rota `/` (tela inicial de Comercial/Gestão/Administrador; Operador cai em Produtores): contadores Atrasadas/Hoje/Próximos 7 dias/Depois no fuso de Brasília (RN-26), ordem RN-27, item com produtor/linha/próxima ação/data/dias de atraso, ações rápidas concluir/reagendar no próprio item e seção "Produtores sem oportunidade aberta" (RN-28).
+- Serviço novo `src/services/carteira.ts` (hojeBrasilia, listarMinhasAbertas, agrupar, diasDeAtraso, listarProdutoresSemOportunidadeAberta).
+- Componente `AcaoOportunidadeForm` extraído da ficha (concluir/reagendar) — ficha e carteira usam o mesmo formulário.
+- Hook `proxima_acao_vigente.js`: recusa data passada no concluir/reagendar (CA-1-21) e RN-19 alinhada ao fuso de Brasília (antes UTC).
+- Layout: botão "Carteira" no header para não-Operador.
+- Provas: RED 1 (4 oportunidades ontem/hoje/+3/+10) → GREEN com grupos corretos; reagendar para ontem 400 com mensagem; concluir sem resultado 400; concluir moveu o item de Hoje para Próximos 7 dias (API + tela); reconciliação tela × base 1/1/3/4 = 100%; comercial só vê as próprias (9/9 do responsável); ficha re-testada sem regressão.
+- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook reffeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
+- Versão no ar: v0.0.70 (06079a3), publicada 15/10 02:11 UTC.
+
 ## [0.0.66] - 2026-10-14 — SPEC-1-003 completa: linhas de negócio + concluir/reagendar
 - **FECHAMENTO (15/10, teste humano aprovado pelo Diogo — "aprovado, continue"):** tasks ae167e8a + 448d4044 + 9705e5f8 + 6850e423 + 623899c6 concluídas; fase.md, STATUS e changelog atualizados; espelho consolidado e GitHub sincronizado. Próxima: Minha carteira (baad9730).
 - Tela "Linhas de negócio" do Administrador (CA-1-14): criar, renomear, desativar/reativar; linha fixa protegida pelo hook; menu só para admin. Admin de teste criado (teste.admin@agrospy.com.br, migração 0028 + recálculo acesso_*).
@@ -78,7 +88,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 ## [0.0.15] - 2026-10-12 — Task 3: ajustes finais
 - Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (0006, RED 4).
 - Migração 0008: recálculo de acesso_* de todos os usuários + remoção de usuários de teste órfãos.
-- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servida pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
+- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servido pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
 - Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo/usuario por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
 
 ## [0.0.19] - 2026-10-12 — Task 3: bug do teste corrigido (auto-rebaixamento do último admin)
