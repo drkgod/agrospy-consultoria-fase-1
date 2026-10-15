@@ -9,6 +9,8 @@ import { empresasService } from '@/services/empresas'
 import { produtoresService, ORIGENS, type Produtor } from '@/services/produtores'
 import { propriedadesService, POSSES, type Propriedade } from '@/services/propriedades'
 import { visitasService, type Visita } from '@/services/visitas'
+import { filaOffline } from '@/services/fila-offline'
+import pb from '@/lib/pocketbase/client'
 import { oportunidadesService, type Oportunidade } from '@/services/oportunidades'
 import { usuariosService, type UsuarioDaEmpresa } from '@/services/usuarios'
 import { vinculosService } from '@/services/vinculos'
@@ -139,6 +141,29 @@ export default function ProdutorFicha() {
   const addPropriedade = async () => {
     if (!novoProp.nome.trim()) {
       toast({ title: 'Informe o nome da propriedade.', variant: 'destructive' })
+      return
+    }
+    // SPEC-1-004: sem conexão, a propriedade nova vai para a fila (CA-1-16).
+    if (!navigator.onLine) {
+      const usuarioId = pb.authStore.record?.id ?? ''
+      await filaOffline.enfileirar(
+        'propriedades',
+        {
+          nome: novoProp.nome.trim(),
+          municipio: novoProp.municipio.trim() || produtor.municipio,
+          area_ha: Number(novoProp.area_ha) || 0,
+          posse: novoProp.posse || 'nao_informado',
+          link_maps: novoProp.link_maps.trim(),
+          produtor: produtor.id,
+        },
+        usuarioId,
+        empresa.id,
+      )
+      toast({
+        title: 'Sem conexão — propriedade salva no aparelho',
+        description: 'Será enviada sozinha quando a internet voltar.',
+      })
+      setNovoProp({ nome: '', municipio: '', area_ha: '', posse: '', link_maps: '' })
       return
     }
     try {
