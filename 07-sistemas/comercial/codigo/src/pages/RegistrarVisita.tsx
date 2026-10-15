@@ -14,6 +14,8 @@ import { produtoresService, type Produtor } from '@/services/produtores'
 import { linhasNegocioService, type LinhaNegocio } from '@/services/linhas-negocio'
 import { visitasService } from '@/services/visitas'
 import { oportunidadesService } from '@/services/oportunidades'
+import { filaOffline } from '@/services/fila-offline'
+import pb from '@/lib/pocketbase/client'
 
 const HOJE = () => new Date().toISOString().slice(0, 10)
 const EM_N_DIAS = (n: number) => {
@@ -243,6 +245,60 @@ export default function RegistrarVisita() {
     }
     setSalvando(true)
     try {
+      // SPEC-1-004: sem conexão, a criação vai para a fila (CA-1-16). Áudio fica para a fase 2.
+      if (!navigator.onLine) {
+        if (audioFile) {
+          toast({
+            title: 'Sem conexão — áudio não pode ser anexado offline',
+            description: 'Remova o áudio para salvar a visita no aparelho (fase 2).',
+            variant: 'destructive',
+          })
+          return
+        }
+        const usuarioId = pb.authStore.record?.id ?? ''
+        const dadosVisita = {
+          produtor: produtor.id,
+          data: `${data} 12:00:00.000Z`,
+          assuntos_tratados: assuntos.trim(),
+          estrutura_existente: estrutura.trim(),
+          necessidades: necessidades.trim(),
+          acordos: acordos.trim(),
+          destino,
+          motivo_sem_oportunidade: destino === 'sem_oportunidade' ? motivo : '',
+        }
+        let idVisitaLocal: string | undefined
+        if (destino === 'nova_oportunidade') {
+          const visitaLocal = await filaOffline.enfileirar(
+            'visitas',
+            dadosVisita,
+            usuarioId,
+            empresa.id,
+          )
+          idVisitaLocal = visitaLocal.id_local
+          await filaOffline.enfileirar(
+            'oportunidades',
+            {
+              produtor: produtor.id,
+              linha_negocio: linha,
+              descricao: descricao.trim(),
+              proxima_acao: proximaAcao.trim(),
+              proxima_acao_data: `${acaoData} 12:00:00.000Z`,
+              visita_origem: idVisitaLocal,
+            },
+            usuarioId,
+            empresa.id,
+            idVisitaLocal,
+          )
+        } else {
+          await filaOffline.enfileirar('visitas', dadosVisita, usuarioId, empresa.id)
+        }
+        toast({
+          title: 'Sem conexão — visita salva no aparelho',
+          description: 'Será enviada sozinha quando a internet voltar.',
+        })
+        navigate(`/produtores/${produtor.id}`)
+        return
+      }
       if (audioFile) {
         // Com áudio: FormData (arquivo + campos).
         const fd = new FormData()
