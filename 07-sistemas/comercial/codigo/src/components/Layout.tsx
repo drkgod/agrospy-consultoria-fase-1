@@ -13,10 +13,11 @@ export default function Layout() {
   const navigate = useNavigate()
   const empresa = empresasService.getAtiva()
   const [ehAdmin, setEhAdmin] = useState(false)
+  const [perfil, setPerfil] = useState('')
   // Deps estáveis por id (getAtiva() devolve objeto novo a cada render).
   const empresaId = empresa?.id ?? ''
 
-  // Item "Usuários" só para administrador da empresa ativa (CA-1-05).
+  // Itens por perfil (CA-1-05; carteira SPEC-1-005 — Operador não tem carteira).
   useEffect(() => {
     if (!empresaId) return
     let vivo = true
@@ -26,6 +27,7 @@ export default function Layout() {
         if (!vivo) return
         const meu = vinculos.find((v) => v.empresa === empresaId)
         setEhAdmin(meu?.perfil === 'administrador')
+        setPerfil(meu?.perfil ?? '')
       })
       .catch(() => {
         if (vivo) setEhAdmin(false)
@@ -68,6 +70,11 @@ export default function Layout() {
           </div>
           {empresa && (
             <div className="flex items-center gap-2">
+              {perfil !== 'operador' && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
+                  Carteira
+                </Button>
+              )}
               <Button variant="ghost" size="sm" onClick={() => navigate('/produtores')}>
                 Produtores
               </Button>

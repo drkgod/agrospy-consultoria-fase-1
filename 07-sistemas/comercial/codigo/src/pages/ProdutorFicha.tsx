@@ -12,6 +12,7 @@ import { visitasService, type Visita } from '@/services/visitas'
 import { oportunidadesService, type Oportunidade } from '@/services/oportunidades'
 import { usuariosService, type UsuarioDaEmpresa } from '@/services/usuarios'
 import { vinculosService } from '@/services/vinculos'
+import AcaoOportunidadeForm from '@/components/AcaoOportunidadeForm'
 
 const VAZIO = {
   nome: '',
@@ -73,12 +74,8 @@ export default function ProdutorFicha() {
   const [confirmarExclusao, setConfirmarExclusao] = useState<string | null>(null)
 
   // Ação sobre oportunidade: concluir (resultado + próxima ação/data) ou reagendar (nova data).
+  // O formulário virou componente (AcaoOportunidadeForm) — reuso na Minha carteira (SPEC-1-005).
   const [acaoOport, setAcaoOport] = useState<string | null>(null)
-  const [tipoAcao, setTipoAcao] = useState<'concluida' | 'reagendada'>('concluida')
-  const [resultadoAcao, setResultadoAcao] = useState('')
-  const [novaAcao, setNovaAcao] = useState('')
-  const [novaData, setNovaData] = useState('')
-  const [salvandoAcao, setSalvandoAcao] = useState(false)
 
   useEffect(() => {
     if (!id || !empresaId) return
@@ -255,42 +252,6 @@ export default function ProdutorFicha() {
     }
   }
 
-  const salvarAcaoOportunidade = async (oportunidadeId: string) => {
-    if (tipoAcao === 'concluida' && !resultadoAcao.trim()) {
-      toast({ title: 'Informe o resultado do que foi feito.', variant: 'destructive' })
-      return
-    }
-    if (!novaAcao.trim() || !novaData) {
-      toast({ title: 'Informe a próxima ação e a data.', variant: 'destructive' })
-      return
-    }
-    setSalvandoAcao(true)
-    try {
-      await oportunidadesService.registrarAcao(
-        {
-          oportunidade: oportunidadeId,
-          tipo: tipoAcao,
-          resultado: tipoAcao === 'concluida' ? resultadoAcao.trim() : undefined,
-          nova_acao: novaAcao.trim(),
-          nova_data: `${novaData} 12:00:00.000Z`,
-        },
-        empresa.id,
-      )
-      const lista = await oportunidadesService.listarDoProdutor(produtor.id)
-      setOportunidades(lista)
-      setAcaoOport(null)
-      setResultadoAcao('')
-      setNovaAcao('')
-      setNovaData('')
-      toast({ title: tipoAcao === 'concluida' ? 'Ação concluída' : 'Ação reagendada' })
-    } catch (e: unknown) {
-      const msg = String((e as { response?: { message?: string } })?.response?.message ?? '')
-      toast({ title: msg || 'Não foi possível registrar a ação.', variant: 'destructive' })
-    } finally {
-      setSalvandoAcao(false)
-    }
-  }
-
   const confirmarTroca = async () => {
     if (!novoResp) return
     try {
@@ -432,54 +393,21 @@ export default function ProdutorFicha() {
           )}
           {oportunidades.map((o) =>
             acaoOport === o.id ? (
-              <div key={o.id} className="rounded-lg border p-3 space-y-2 bg-muted/40">
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant={tipoAcao === 'concluida' ? 'default' : 'outline'}
-                    onClick={() => setTipoAcao('concluida')}
-                  >
-                    Concluir ação
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant={tipoAcao === 'reagendada' ? 'default' : 'outline'}
-                    onClick={() => setTipoAcao('reagendada')}
-                  >
-                    Reagendar
-                  </Button>
-                </div>
-                {tipoAcao === 'concluida' && (
-                  <Input
-                    placeholder="O que foi feito? (resultado) *"
-                    value={resultadoAcao}
-                    onChange={(e) => setResultadoAcao(e.target.value)}
-                  />
-                )}
-                <Input
-                  placeholder="Próxima ação *"
-                  value={novaAcao}
-                  onChange={(e) => setNovaAcao(e.target.value)}
-                />
-                <Input
-                  type="date"
-                  value={novaData}
-                  onChange={(e) => setNovaData(e.target.value)}
-                  aria-label="Nova data da próxima ação"
-                />
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => setAcaoOport(null)}>
-                    Cancelar
-                  </Button>
-                  <Button
-                    size="sm"
-                    onClick={() => salvarAcaoOportunidade(o.id)}
-                    disabled={salvandoAcao}
-                  >
-                    {salvandoAcao ? 'Salvando…' : 'Salvar'}
-                  </Button>
-                </div>
-              </div>
+              <AcaoOportunidadeForm
+                key={o.id}
+                oportunidadeId={o.id}
+                empresaId={empresa.id}
+                proximaAcaoAtual={o.proxima_acao}
+                proximaDataAtual={String(o.proxima_acao_data || '').slice(0, 10)}
+                onSalvo={() => {
+                  setAcaoOport(null)
+                  oportunidadesService
+                    .listarDoProdutor(produtor.id)
+                    .then(setOportunidades)
+                    .catch(() => {})
+                }}
+                onCancelar={() => setAcaoOport(null)}
+              />
             ) : (
               <div key={o.id} className="rounded-lg border p-3">
                 <p className="text-sm font-medium">
@@ -493,17 +421,7 @@ export default function ProdutorFicha() {
                   Responsável: {o.expand?.responsavel?.name || o.expand?.responsavel?.email || '—'}
                 </p>
                 <div className="flex gap-2 mt-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setAcaoOport(o.id)
-                      setTipoAcao('concluida')
-                      setResultadoAcao('')
-                      setNovaAcao(o.proxima_acao)
-                      setNovaData((o.proxima_acao_data || '').slice(0, 10))
-                    }}
-                  >
+                  <Button variant="outline" size="sm" onClick={() => setAcaoOport(o.id)}>
                     Concluir / Reagendar
                   </Button>
                 </div>
@@ -661,7 +579,7 @@ export default function ProdutorFicha() {
             <select
               aria-label="Posse"
               value={novoProp.posse}
-              onChange={(e) => setNovoProp({ ...novoProp, posse: e.target.value })}
+              onChange={(e) => setFormProp({ ...novoProp, posse: e.target.value })}
               className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
             >
               <option value="">Posse</option>
