@@ -96,6 +96,11 @@ export default function Layout() {
                   Usuários
                 </Button>
               )}
+              {(perfil === 'gestao' || perfil === 'administrador') && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/visao-gestor')}>
+                  Visão do gestor
+                </Button>
+              )}
               <Button variant="outline" size="sm" onClick={trocarEmpresa}>
                 Trocar empresa
               </Button>

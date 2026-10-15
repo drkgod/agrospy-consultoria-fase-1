@@ -12,6 +12,7 @@ import Produtores from './pages/Produtores'
 import ProdutorFicha from './pages/ProdutorFicha'
 import RegistrarVisita from './pages/RegistrarVisita'
 import LinhasNegocio from './pages/LinhasNegocio'
+import VisaoGestor from './pages/VisaoGestor'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import { authService } from './services/auth'
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/produtores/:id" element={<ProdutorFicha />} />
             <Route path="/produtores/:id/visita" element={<RegistrarVisita />} />
             <Route path="/linhas-negocio" element={<LinhasNegocio />} />
+            <Route path="/visao-gestor" element={<VisaoGestor />} />{' '}
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
