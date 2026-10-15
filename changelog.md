@@ -1,3 +1,12 @@
+[END OF FILE - no further content.]
+
+## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
+- Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
+- Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.
+- Menu: item "Visão do gestor" no header só para gestao/administrador.
+- Provas: RED 2 (comercial1 sem filtro de responsável: 9/9 só as próprias — o servidor limita); GREEN reconciliação tela × base 100% (u2jks1t7: 0/0/5/9 visit 9; bzieexh15: 0/0/0/0 visit 1; total 0/0/5/9 visit 10 — igual à consulta direta); gestão vê a empresa inteira (2 responsáveis).
+- Versão no ar: v0.0.72 (5cb9670), publicada 15/10 15:31 UTC.
+
 ## [0.0.71] - 2026-10-15 — botão "Sair" no header (pedido do Diogo)
 - Header de todas as telas ganhou o botão "Sair" ao lado de "Trocar empresa": encerra a sessão (authStore limpo + empresa ativa removida) e volta ao login, permitindo trocar de usuário. Provado no navegador: clique → /login com formulário limpo.
 - Versão no ar: v0.0.71 (cf078e3), publicada 15/10 13:44 UTC.
@@ -9,7 +18,7 @@
 - Hook `proxima_acao_vigente.js`: recusa data passada no concluir/reagendar (CA-1-21) e RN-19 alinhada ao fuso de Brasília (antes UTC).
 - Layout: botão "Carteira" no header para não-Operador.
 - Provas: RED 1 (4 oportunidades ontem/hoje/+3/+10) → GREEN com grupos corretos; reagendar para ontem 400 com mensagem; concluir sem resultado 400; concluir moveu o item de Hoje para Próximos 7 dias (API + tela); reconciliação tela × base 1/1/3/4 = 100%; comercial só vê as próprias (9/9 do responsável); ficha re-testada sem regressão.
-- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook refeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
+- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook reffeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
 - Versão no ar: v0.0.70 (06079a3), publicada 15/10 02:11 UTC.
 
 ## [0.0.66] - 2026-10-14 — SPEC-1-003 completa: linhas de negócio + concluir/reagendar

@@ -1,11 +1,13 @@
+[END OF FILE - no further content.]
+
 # Sistema comercial — plataforma de construção
 
 - plataforma: Skip
 - projeto_id: 64376
 - url_producao: https://agrospy-8aca5.goskip.app
 - url_preview: https://agrospy-8aca5--preview.goskip.app
-- versao_aplicada: 06079a3 (0.0.70)
-- versao_publicada: 06079a3 em 2026-10-15T02:11:07Z
+- versao_aplicada: 5cb9670 (0.0.72)
+- versao_publicada: 5cb9670 em 2026-10-15T15:31:43Z
 - ultima_task: baad9730-ed85-4a49-a5e9-6a3b8a30454a
 - espelho: `codigo/` guarda a última versão de cada arquivo alterado pelas tasks. É cópia de
   consulta; a fonte executável é o Skip. Nunca edite o espelho para mudar o sistema.
