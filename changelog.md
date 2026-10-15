@@ -1,5 +1,3 @@
-[END OF FILE - no further content.]
-
 ## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
 - Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
 - Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.

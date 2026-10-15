@@ -1,5 +1,3 @@
-[END OF FILE - no further content.]
-
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2

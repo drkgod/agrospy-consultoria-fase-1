@@ -1,5 +1,3 @@
-[END OF FILE - no further content.]
-
 # Sistema comercial — plataforma de construção
 
 - plataforma: Skip

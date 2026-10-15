@@ -1,5 +1,3 @@
-[END OF FILE - no further content.]
-
 # Fase 1 — Tarefas
 
 <!-- fase-format:2 -->
