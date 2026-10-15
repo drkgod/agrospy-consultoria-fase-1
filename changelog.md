@@ -1,3 +1,7 @@
+## [0.0.71] - 2026-10-15 — botão "Sair" no header (pedido do Diogo)
+- Header de todas as telas ganhou o botão "Sair" ao lado de "Trocar empresa": encerra a sessão (authStore limpo + empresa ativa removida) e volta ao login, permitindo trocar de usuário. Provado no navegador: clique → /login com formulário limpo.
+- Versão no ar: v0.0.71 (cf078e3), publicada 15/10 13:44 UTC.
+
 ## [0.0.70] - 2026-10-15 — task baad9730: Minha carteira (SPEC-1-005, CA-1-20/21)
 - Tela "Minha carteira" na rota `/` (tela inicial de Comercial/Gestão/Administrador; Operador cai em Produtores): contadores Atrasadas/Hoje/Próximos 7 dias/Depois no fuso de Brasília (RN-26), ordem RN-27, item com produtor/linha/próxima ação/data/dias de atraso, ações rápidas concluir/reagendar no próprio item e seção "Produtores sem oportunidade aberta" (RN-28).
 - Serviço novo `src/services/carteira.ts` (hojeBrasilia, listarMinhasAbertas, agrupar, diasDeAtraso, listarProdutoresSemOportunidadeAberta).
