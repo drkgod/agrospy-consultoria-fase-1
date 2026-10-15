@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { empresasService } from '@/services/empresas'
 import { vinculosService } from '@/services/vinculos'
 import { authService } from '@/services/auth'
+import { filaOffline } from '@/services/fila-offline'
+import IndicadorConexao from '@/components/IndicadorConexao'
 import logoAgrospy from '@/assets/logo-agrospy.svg'
 
 export default function Layout() {
@@ -44,8 +46,21 @@ export default function Layout() {
     navigate('/escolher-empresa')
   }
 
-  const sair = () => {
-    // Encerra a sessão e volta ao login (pedido do Diogo, 15/10: trocar de usuário).
+  const sair = async () => {
+    // RN-24: sair com pendências exige confirmação (a fila continua guardada para o mesmo usuário).
+    const usuarioId = (await import('@/lib/pocketbase/client')).default.authStore.record?.id
+    if (usuarioId) {
+      const n = await filaOffline.contarPendentes(usuarioId)
+      if (
+        n > 0 &&
+        !window.confirm(
+          `Há ${n} registro(s) não enviado(s). Sair assim mesmo? A fila continua guardada para este usuário.`,
+        )
+      ) {
+        return
+      }
+      await filaOffline.cacheLimpar()
+    }
     authService.signOut()
     empresasService.setAtiva(null)
     navigate('/login')
@@ -111,6 +126,7 @@ export default function Layout() {
           )}
         </div>
       </header>
+      <IndicadorConexao />
       <main className="flex-1">
         <Outlet />
       </main>
