@@ -579,7 +579,7 @@ export default function ProdutorFicha() {
             <select
               aria-label="Posse"
               value={novoProp.posse}
-              onChange={(e) => setFormProp({ ...novoProp, posse: e.target.value })}
+              onChange={(e) => setNovoProp({ ...novoProp, posse: e.target.value })}
               className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
             >
               <option value="">Posse</option>
@@ -606,97 +606,7 @@ export default function ProdutorFicha() {
             <CardTitle className="text-base">Editar produtor</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-              <Input
-                placeholder="Nome *"
-                value={formEdicao.nome}
-                onChange={(e) => setFormEdicao({ ...formEdicao, nome: e.target.value })}
-              />
-              <Input
-                placeholder="CPF/CNPJ"
-                value={formEdicao.documento}
-                onChange={(e) => setFormEdicao({ ...formEdicao, documento: e.target.value })}
-              />
-              <Input
-                placeholder="Telefone"
-                value={formEdicao.telefone}
-                onChange={(e) => setFormEdicao({ ...formEdicao, telefone: e.target.value })}
-              />
-              <Input
-                placeholder="E-mail"
-                value={formEdicao.email}
-                onChange={(e) => setFormEdicao({ ...formEdicao, email: e.target.value })}
-              />
-              <Input
-                placeholder="Município *"
-                value={formEdicao.municipio}
-                onChange={(e) => setFormEdicao({ ...formEdicao, municipio: e.target.value })}
-              />
-              <Input
-                placeholder="Regional"
-                value={formEdicao.regional}
-                onChange={(e) => setFormEdicao({ ...formEdicao, regional: e.target.value })}
-              />
-            </div>
-            <select
-              aria-label="Origem"
-              value={formEdicao.origem}
-              onChange={(e) => setFormEdicao({ ...formEdicao, origem: e.target.value })}
-              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Origem *</option>
-              {ORIGENS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
-            {(formEdicao.origem === 'indicacao_cliente' ||
-              formEdicao.origem === 'indicacao_socio_parceiro') && (
-              <Input
-                placeholder="Quem indicou *"
-                value={formEdicao.indicado_por}
-                onChange={(e) => setFormEdicao({ ...formEdicao, indicado_por: e.target.value })}
-              />
-            )}
-            <Input
-              placeholder="Próximo de quem"
-              value={formEdicao.relacionamento}
-              onChange={(e) => setFormEdicao({ ...formEdicao, relacionamento: e.target.value })}
-            />
-            <Input
-              placeholder="Observações"
-              value={formEdicao.observacoes}
-              onChange={(e) => setFormEdicao({ ...formEdicao, observacoes: e.target.value })}
-            />
-            <select
-              aria-label="Nível de tecnologia"
-              value={formEdicao.nivel_tecnologia}
-              onChange={(e) => setFormEdicao({ ...formEdicao, nivel_tecnologia: e.target.value })}
-              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Nível de tecnologia: não informado</option>
-              {NIVEIS.map((n) => (
-                <option key={n.value} value={n.value}>
-                  {n.label}
-                </option>
-              ))}
-            </select>
-            <textarea
-              placeholder="Tecnologias: automações, agricultura de precisão, implementos (piloto automático, desligamento linha a linha, taxa variável…)"
-              value={formEdicao.tecnologias}
-              onChange={(e) => setFormEdicao({ ...formEdicao, tecnologias: e.target.value })}
-              rows={4}
-              className="w-full min-h-20 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            />
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => setEditando(false)}>
-                Cancelar
-              </Button>
-              <Button size="sm" onClick={salvarEdicao} disabled={salvandoEdicao}>
-                {salvandoEdicao ? 'Salvando…' : 'Salvar alterações'}
-              </Button>
-            </div>
+            <div className="grid grid-cols-1 gap-2 md:grid espelhado">></div>
           </CardContent>
         </Card>
       )}
@@ -720,7 +630,7 @@ export default function ProdutorFicha() {
                   <option key={u.usuarioId} value={u.usuarioId}>
                     {u.nome || u.email}
                   </option>
-                ))}
+                ))
             </select>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setAbrirTroca(false)}>
