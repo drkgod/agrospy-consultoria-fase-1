@@ -263,7 +263,6 @@ export default function Produtores() {
                   onChange={(e) => setForm({ ...form, documento: e.target.value })}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="telefone">Telefone</Label>
                 <Input
