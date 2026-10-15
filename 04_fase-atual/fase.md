@@ -78,10 +78,10 @@ tarefas que já têm um.
 - [x] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
   > Tela inicial do vendedor: atrasadas, hoje, próximos 7 dias e depois, com atalhos para concluir ou reagendar.
   > Prova: datas de teste nos grupos certos. SPEC-1-005, CA-1-20 e CA-1-21.
-- [/] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->
+- [x] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->
   > Para Gestão e Administrador: ações atrasadas, de hoje e da semana por responsável, produtores sem oportunidade aberta e visitas da semana.
   > Prova: números da tela iguais aos da base. SPEC-1-005, CA-1-22.
-- [ ] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
+- [/] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
   > Usar o sistema no campo sem sinal: o app fica na tela inicial, guarda o que foi registrado e envia sozinho quando a internet volta, sem duplicar.
   > Prova: gravação em modo avião e conferência no servidor. SPEC-1-004, CA-1-15 e CA-1-16.
   - [ ] Deixar o app instalável na tela inicial do celular @Agrospy !15/10/2026  <!-- id:394e3cf8-1f15-48ca-ae90-b2b4c5c6cf57 -->

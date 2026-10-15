@@ -16,7 +16,7 @@
 - Hook `proxima_acao_vigente.js`: recusa data passada no concluir/reagendar (CA-1-21) e RN-19 alinhada ao fuso de Brasília (antes UTC).
 - Layout: botão "Carteira" no header para não-Operador.
 - Provas: RED 1 (4 oportunidades ontem/hoje/+3/+10) → GREEN com grupos corretos; reagendar para ontem 400 com mensagem; concluir sem resultado 400; concluir moveu o item de Hoje para Próximos 7 dias (API + tela); reconciliação tela × base 1/1/3/4 = 100%; comercial só vê as próprias (9/9 do responsável); ficha re-testada sem regressão.
-- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook reffeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
+- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook refeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
 - Versão no ar: v0.0.70 (06079a3), publicada 15/10 02:11 UTC.
 
 ## [0.0.66] - 2026-10-14 — SPEC-1-003 completa: linhas de negócio + concluir/reagendar
@@ -30,7 +30,7 @@
 
 ## [0.0.62] - 2026-10-14 — task ae167e8a (SPEC-1-003): visita e oportunidade + áudio — TESTE APROVADO
 - Diogo: "funcionou a gravação" + "a transcrição funcionou"; transcrição de arquivo gravado dispensada por ele (sem API externa por ora).
-- Visit a: botão "Registrar visita" na ficha do produtor (faltava no bundle — 3 patches só no espelho), formulário curto (data, assuntos, "Mais detalhes"), próximo passo em 1 toque, histórico Visitas/Oportunidades na ficha.
+- Visita: botão "Registrar visita" na ficha do produtor (faltava no bundle — 3 patches só no espelho), formulário curto (data, assuntos, "Mais detalhes"), próximo passo em 1 toque, histórico Visitas/Oportunidades na ficha.
 - Backend: coleções linhas_negocio (carga 8 Agrospy/5 Rumo + fixa Relacionamento), visitas, oportunidades e acoes_oportunidade (histórico imutável) — migrações 0019-0025; hooks: destino obrigatório, próxima ação vigente, data passada recusada, linha fixa, responsável padrão do produtor.
 - Emenda áudio (pedido 14/10): gravar no app (MediaRecorder) + anexar do celular (m4a/mp3/wav/ogg/aac/amr/3gp/webm, 25 MB), player na ficha, upload multipart (FormData com empresa) provado por API com download íntegro.
 - Emenda transcrição por voz (pedido 14/10): botão "Transcrever o que eu falar" (Web Speech API, pt-BR, contínuo) adiciona o dito ao campo assuntos — sem conflito com gravação de áudio (só aparece quando não está gravando). Sem transcrição de arquivo gravado (requer API externa — decisão futura).
@@ -99,7 +99,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 ## [0.0.15] - 2026-10-12 — Task 3: ajustes finais
 - Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (0006, RED 4).
 - Migração 0008: recálculo de acesso_* de todos os usuários + remoção de usuários de teste órfãos.
-- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servida pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
+- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servido pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
 - Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo/usuario por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
 
 ## [0.0.19] - 2026-10-12 — Task 3: bug do teste corrigido (auto-rebaixamento do último admin)
@@ -137,3 +137,21 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Teste humano aprovado pelo Diogo: "testei 'minha carteira' e funcionou - pode concluir".
 - Emenda durante o teste: botão "Sair" no header (v0.0.71, cf078e3) — troca de usuário.
 - Fase 1: 20/36 tasks concluídas. Próxima: visão do gestor (684e8557).
+
+## [FECHAMENTO] - 2026-10-15 — task 684e8557 CONCLUÍDA
+- Teste humano aprovado pelo Diogo: "Testei e funcionou — pode concluir".
+- SPEC-1-005 completa (Minha carteira + visão do gestor). Fase 1: 21/36 tasks concluídas.
+- Restam para a fase: offline (4da366fe + 3 sub), testes de acesso (ed490cca + 2 sub), cadastro da equipe (6af46d50), testes de falha (f5877532 + 2 sub), demonstração (8187b1f6), call de validação (7acbab78) e revisão de evidências (99563d4a).
+
+## [0.0.73–0.0.81] - 2026-10-15 — task 4da366fe: offline/modo avião (SPEC-1-004, CA-1-15/16)
+- Instalável (CA-1-15): manifest.webmanifest + service worker da casca (network-first, API nunca cacheada), index.html com manifest/theme-color/apple-touch-icon, título "Agrospy". /sw.js e /manifest servidos (200 provado por curl).
+- Fila offline em IndexedDB nativo (src/services/fila-offline.ts): enfileirar com id_local (UUID v4), dependências (propriedade→produtor, oportunidade→visita_origem), envio na ordem produtor→propriedade→visita→oportunidade→ação com troca do id_local pelo id do servidor, idempotência por consulta prévia, falhas 401 (mantém pendente)/403/404/400 (precisa_revisao com motivo), RN-25 (fila por usuário), descarte só em revisão (RN-22).
+- Telas de criação enfileiram offline: Produtores (criar), ProdutorFicha (propriedade nova), RegistrarVisita (visita + oportunidade dependente; áudio offline bloqueado com aviso — fase 2). Edição offline bloqueada (RN-21).
+- Indicador de conexão no topo (todas as telas): "Sem conexão — N aguardando envio" + "Sincronizar agora"; ao reconectar envia e mostra "Enviado". Pendências de envio (/pendencias) com motivo, Tentar de novo e Descartar com confirmação. Sair com pendências pede confirmação (RN-24). Carteira mostra data/hora da última sincronização e lê do cache offline (CA-1-15).
+- RED 1 CONFIRMADO COMO BUG REAL: os índices únicos de id_local NUNCA existiram — causa-raiz: no JSVM, newQuery({query: sql}) vira "[object Object]" e o try/catch de 0011/0021/0022 engoliu o erro. 2 POSTs com o mesmo id_local criavam 2 registros. Correção: 0030 dedup (newQuery posicional) + 0031 col.addIndex (caminho gerenciado) nas 5 coleções. Prova: 1º POST 200, 2º POST 400, 1 registro no servidor.
+- Versões: 0.0.73→0.0.81 (81463d7), publicada 15/10 18:07 UTC.
+## [0.0.82] - 2026-10-15 — fix: erro no teste do offline
+- CAUSA: /logo-agrospy.svg retornava 404 (o logo só existia em src/assets, empacotado pelo Vite, não em public/). O arquivo estava na lista SHELL do service worker → cache.addAll falhava → SW NUNCA instalava → nada ficava em cache → app não abria no modo avião (prova: 0 registros de SW no navegador).
+- FIX 1: logo real copiado para public/logo-agrospy.svg (200 provado).
+- FIX 2: cache.addAll → Promise.allSettled (cache tolerante: um arquivo do shell que falhar não derruba a instalação).
+- PROVA: SW registrado e ativado (1 registro, estado activated); cache agrospy-shell-v1 com 5 entradas (/ , /index.html, /logo-agrospy.svg, /favicon.ico, /manifest.webmanifest); index.html confirmado em cache. Diogo deve fechar e reabrir o app (1x com internet para o novo SW assumir) e repetir o modo avião.
