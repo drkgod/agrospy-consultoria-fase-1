@@ -41,7 +41,7 @@ tarefas que já têm um.
   > Prova: teste sem login recusado e prints das telas. SPEC-1-001, CA-1-01 e CA-1-02.
   - [x] Cadastrar as duas empresas com nome, cor e logo @Agrospy !07/10/2026  <!-- id:47d2b87b-3e1d-4124-96cf-03eebe97b85f -->
     > Criar Agrospy e Rumo Agro no sistema, cada uma com nome, cor e logo próprios. Prova: lista das duas empresas no Skip.
-  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-44705554d4cc -->
+  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-2a4758ea6a58 -->
     > O topo de todas as telas mostra logo, nome e cor da empresa ativa e o botão “Trocar empresa”, que limpa da tela os dados da anterior. Prova: prints nas duas empresas.
 - [x] Configurar os perfis e a tela de usuários do administrador @Agrospy !08/10/2026  <!-- id:f1624dc7-d84e-424d-840b-414ed775636e -->
   > Perfis por empresa: Administrador, Gestão, Comercial e Operador, como combinado na call de 22/09. O administrador cria usuário, dá o perfil e desativa quando precisar.
