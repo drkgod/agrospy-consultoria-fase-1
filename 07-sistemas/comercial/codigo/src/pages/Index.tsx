@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import pb from '@/lib/pocketbase/client'
+import { filaOffline } from '@/services/fila-offline'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
@@ -15,6 +16,22 @@ import { carteiraService, type GruposCarteira } from '@/services/carteira'
 import { produtoresService, type Produtor } from '@/services/produtores'
 import type { Oportunidade } from '@/services/oportunidades'
 import AcaoOportunidadeForm from '@/components/AcaoOportunidadeForm'
+
+/** CA-1-15 — data/hora da última sincronização na carteira. */
+function UltimaSincronizacao() {
+  const [quando, setQuando] = useState<string | null>(null)
+  useEffect(() => {
+    filaOffline.ultimaSincronizacao().then((v) => setQuando(v))
+  }, [])
+  if (!quando) return null
+  const d = new Date(quando)
+  return (
+    <p className="text-sm text-muted-foreground">
+      Última sincronização: {d.toLocaleDateString('pt-BR')} às{' '}
+      {d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+    </p>
+  )
+}
 
 const GRUPOS: { chave: keyof GruposCarteira; titulo: string }[] = [
   { chave: 'atrasadas', titulo: 'Atrasadas' },
@@ -32,6 +49,7 @@ export default function Index() {
 
   const [perfil, setPerfil] = useState<string>('')
   const [carregando, setCarregando] = useState(true)
+  const [cacheUsado, setCacheUsado] = useState(false)
   const [erro, setErro] = useState('')
   const [grupos, setGrupos] = useState<GruposCarteira | null>(null)
   const [semOportunidade, setSemOportunidade] = useState<Produtor[]>([])
@@ -70,6 +88,31 @@ export default function Index() {
   }
 
   useEffect(() => {
+    // SPEC-1-004: com internet, atualiza a cópia de consulta (CA-1-15) e envia a fila pendente.
+    if (navigator.onLine && usuarioId && empresaId) {
+      filaOffline.atualizarCache(empresaId, usuarioId).catch(() => {})
+      filaOffline.sincronizar(usuarioId, empresaId).catch(() => {})
+    } else if (usuarioId && empresaId) {
+      // Offline: lê a carteira do cache (CA-1-15).
+      setCacheUsado(true)
+      Promise.all([
+        filaOffline.cacheLer<never[]>('oportunidades_abertas'),
+        filaOffline.cacheLer<never[]>('produtores'),
+      ])
+        .then(([oportunidades, produtores]) => {
+          const abertas = (oportunidades ?? []) as never[]
+          setGrupos(carteiraService.agrupar(abertas as never, carteiraService.hojeBrasilia()))
+          const comOport = new Set(
+            (abertas as unknown as { produtor: string }[]).map((o) => o.produtor),
+          )
+          setSemOportunidade(
+            (produtores ?? []).filter(
+              (p: { arquivado?: boolean; id: string }) => !p.arquivado && !comOport.has(p.id),
+            ) as never,
+          )
+        })
+        .catch(() => {})
+    }
     carregar()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [empresaId, usuarioId])
@@ -84,6 +127,13 @@ export default function Index() {
   return (
     <div className="container mx-auto py-6 px-4 space-y-4">
       <h1 className="text-2xl font-bold">Minha carteira</h1>
+      <UltimaSincronizacao />
+
+      {cacheUsado && (
+        <p className="text-sm text-muted-foreground">
+          Exibindo a carteira da última sincronização (sem conexão).
+        </p>
+      )}
 
       {carregando && <p className="text-muted-foreground">Carregando…</p>}
 

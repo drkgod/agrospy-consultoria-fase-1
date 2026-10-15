@@ -1,0 +1,23 @@
+{
+  "name": "Agrospy",
+  "short_name": "Agrospy",
+  "description": "CRM comercial da Agrospy Consultoria — produtores, visitas e oportunidades.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F2F5F1",
+  "theme_color": "#153A1D",
+  "icons": [
+    {
+      "src": "/logo-agrospy.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

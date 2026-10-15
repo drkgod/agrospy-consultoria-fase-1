@@ -16,6 +16,8 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { empresasService } from '@/services/empresas'
 import { produtoresService, ORIGENS, type Produtor } from '@/services/produtores'
+import { filaOffline } from '@/services/fila-offline'
+import pb from '@/lib/pocketbase/client'
 
 const VAZIO = {
   nome: '',
@@ -141,8 +143,22 @@ export default function Produtores() {
     try {
       const dados = { ...form, documento: form.documento.replace(/\D/g, '') }
       if (editandoId) {
+        // RN-21: edição exige internet.
+        if (!navigator.onLine) {
+          setErroForm('Esta edição precisa de internet. Conecte-se e tente de novo.')
+          return
+        }
         await produtoresService.atualizar(editandoId, dados)
         toast({ title: 'Produtor atualizado' })
+      } else if (!navigator.onLine) {
+        // SPEC-1-004: criação offline vai para a fila com id_local (CA-1-16).
+        const usuarioId = pb.authStore.record?.id ?? ''
+        await filaOffline.enfileirar('produtores', dados, usuarioId, empresa.id)
+        toast({
+          title: 'Sem conexão — produtor salvo no aparelho',
+          description: 'Será enviado sozinho quando a internet voltar.',
+        })
+        setDialogoAberto(false)
       } else {
         await produtoresService.criar(dados, empresa.id)
         toast({ title: 'Produtor cadastrado' })
@@ -247,6 +263,7 @@ export default function Produtores() {
                   onChange={(e) => setForm({ ...form, documento: e.target.value })}
                 />
               </div>
+              <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="telefone">Telefone</Label>
                 <Input
