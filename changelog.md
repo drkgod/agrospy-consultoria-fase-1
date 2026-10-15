@@ -9,7 +9,7 @@
 - Hook `proxima_acao_vigente.js`: recusa data passada no concluir/reagendar (CA-1-21) e RN-19 alinhada ao fuso de Brasília (antes UTC).
 - Layout: botão "Carteira" no header para não-Operador.
 - Provas: RED 1 (4 oportunidades ontem/hoje/+3/+10) → GREEN com grupos corretos; reagendar para ontem 400 com mensagem; concluir sem resultado 400; concluir moveu o item de Hoje para Próximos 7 dias (API + tela); reconciliação tela × base 1/1/3/4 = 100%; comercial só vê as próprias (9/9 do responsável); ficha re-testada sem regressão.
-- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook reffeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
+- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook refeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
 - Versão no ar: v0.0.70 (06079a3), publicada 15/10 02:11 UTC.
 
 ## [0.0.66] - 2026-10-14 — SPEC-1-003 completa: linhas de negócio + concluir/reagendar
@@ -125,3 +125,8 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Ficha: cada propriedade ganhou Editar (form inline) e Excluir (confirmação inline, sem popup).
 - Backend: deleteRule de propriedades (0016; reaplicada na 0017 porque o DELETE ainda respondia 403 após o publish da 0.0.38 — regra não chegou ao banco).
 - Provas API: PATCH propriedade 200 (nome/área/link), DELETE 204, lista atualizada. Navegador: botões renderizados na ficha real do teste do Diogo.
+
+## [FECHAMENTO] - 2026-10-15 — task baad9730 CONCLUÍDA
+- Teste humano aprovado pelo Diogo: "testei 'minha carteira' e funcionou - pode concluir".
+- Emenda durante o teste: botão "Sair" no header (v0.0.71, cf078e3) — troca de usuário.
+- Fase 1: 20/36 tasks concluídas. Próxima: visão do gestor (684e8557).
