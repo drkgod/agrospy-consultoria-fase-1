@@ -22,7 +22,7 @@
 - Visit a: botão "Registrar visita" na ficha do produtor (faltava no bundle — 3 patches só no espelho), formulário curto (data, assuntos, "Mais detalhes"), próximo passo em 1 toque, histórico Visitas/Oportunidades na ficha.
 - Backend: coleções linhas_negocio (carga 8 Agrospy/5 Rumo + fixa Relacionamento), visitas, oportunidades e acoes_oportunidade (histórico imutável) — migrações 0019-0025; hooks: destino obrigatório, próxima ação vigente, data passada recusada, linha fixa, responsável padrão do produtor.
 - Emenda áudio (pedido 14/10): gravar no app (MediaRecorder) + anexar do celular (m4a/mp3/wav/ogg/aac/amr/3gp/webm, 25 MB), player na ficha, upload multipart (FormData com empresa) provado por API com download íntegro.
-- Emenda transcrição por voz (pedido 14/10): botão "Transcrever o que eu falar" (Web Speech API, pt-BR, contínuo) adiciona o dito ao campo assuntos — sem conflito com gravação de espelho (só aparece quando não está gravando). Sem transcrição de arquivo gravado (requer API externa — decisão futura).
+- Emenda transcrição por voz (pedido 14/10): botão "Transcrever o que eu falar" (Web Speech API, pt-BR, contínuo) adiciona o dito ao campo assuntos — sem conflito com gravação de áudio (só aparece quando não está gravando). Sem transcrição de arquivo gravado (requer API externa — decisão futura).
 - 22 provas de API verdes (RED 1-4 + GREEN + hook da próxima ação); usuários de teste recriados por migração idempotente 0023.
 - Lições duras: migrações só rodam no publish; diretório real é pocketbase/; patches de tela precisam ser conferidos no arquivo do Skip (o botão não subiu); FormData com arquivo exige empresa; runtime sem startOfDay — datas por string; no create hook a ação atual não está no histórico.
 - Versão final no ar: v0.0.62 (a56c629).
@@ -58,7 +58,7 @@ empresa volta à escolha. Pendente para a conclusão: prova RED 1 pela API (list
 ## 2026-10-07 — task 3f7fb2d0: projeto criado e SPECs guardadas no Skip
 
 Executada a task 3f7fb2d0 (SPEC-1-001, pré-condições): projeto Skip 64376 "Agrospy" confirmado e
-conector operando; as 6 de código (SPECs + código) copiadas para `docs/specs/`
+conector operando; as 6 SPECs da fase (00-INDICE + SPEC-1-001 a 1-005) copiadas para `docs/specs/`
 no projeto. Versão 0.0.4 (`44b71de`) aplicada com QA completo (setup, análise estática, build,
 integrações e testes) e publicada em https://agrospy-8aca5.goskip.app às 21:02 UTC.
 Subtarefas c1886bd3 (conector) e ceeec8f6 (projeto + SPECs) concluídas; task 3f7fb2d0 em
