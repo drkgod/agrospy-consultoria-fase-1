@@ -92,7 +92,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Campos acesso_* em users + hooks de recálculo (create/update/delete de vinculos); e-mail denormalizado no vínculo.
 - Regras de vinculos/empresas validadas em PocketBase local (v0.23.12) antes de aplicar: padrão @collection self-join (users_via_acesso_admin/empresas).
 - Tela /usuarios (lista + criar com senha temporária + alterar perfil + desativar/reativar com confirmação); menu Usuários só para administrador.
-- Rumo Agro: cor #304A54 na migração + logo real enviada ao campo `logo` da empresa (JPEG 77 KB servido pela API).
+- Rumo Agro: cor #304A54 na migração + logo real enviada ao campo `logo` da empresa (JPEG 77 KB servida pela API).
 - Correções durante o ciclo: createRule de users bloqueia acesso_* no corpo (RED 4); bug de re-render na tela /usuarios (deps por id); limpeza/recarga de acesso_* (0008) e remoção de usuários de teste órfãos.
 - Provas: login/escolha/menu/tela no navegador; API — empresas 2 itens (admin) vs 1 (operador), vínculo alheio 404, criação de vínculo por operador 400, autoelevação PATCH 404.
 
@@ -163,4 +163,9 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - MATRIZ PERFIL × RECURSO (Agrospy, via API): gestao — ver todos (9), criar 200, editar alheio 200, criar linha de negócio 400; comercial1/comercial2 — ver todos, criar 200, editar SÓ o próprio (alheio 404), criar LN 400; operador — ver todos, criar 400, editar 404, criar LN 400.
 - GAP CORRIGIDO: fixture 0023 não tinha usuário com perfil 'administrador' — a tela Linhas de negócio (só aparece p/ ehAdmin) e o createRule de LN (exige acesso_admin) ficavam sem prova. Migração 0032 cria teste.admin@agrospy.com.br (senha Teste#2026, vínculo administrador na Agrospy). Prova: admin cria LN 200; comercial continua 400.
 - LIMPEZA: produtores "MATRIZ" dos testes arquivados (deleteRule null — regra da casa: registro não se apaga); LN de prova desativada.
-- Versão 0.0.84 (b6afce0) publicada 20/10 19:27 UTC. Falta: tabela perfil × recurso na tela (teste visual) e o mesmo teste com usuário real do Diogo.
+- Versão 0.0.84 (b6afce0) publicada 20/10 19:27 UTC. Falta: tabela perfil × recurso na tela (teste visual) e o mesmo teste com usuário real do Diogo.## [0.0.85–0.0.86] - 2026-10-20 — 6af46d50: prova de ponta a ponta da tela Usuários + 2 bugs de servidor corrigidos
+- PROVA do fluxo completo (mesmo caminho da tela, via API, com teste.admin@agrospy.com.br): criar usuário (200) → criar vínculo com perfil (200) → listar equipe (15 vínculos visíveis, incluindo diogo.rojas@agrospy.com.br e diogo.rojas@rumoagro.com.br como administradores, rodrigo.ferreira@rumoagro.com.br como gestão) → trocar perfil (200) → desativar acesso (200 após fix 0.0.86) → usuário desativado perde acesso a produtores (0 registros, login ainda válido mas sem dados).
+- BUG 1 (0.0.85, migração 0033): teste.admin ficou com acesso_* zerado — a 0032 setou os campos direto no user, fora do fluxo dos hooks, e um recálculo posterior zerou. Migração 0033 refaz o recálculo de TODOS os usuários com a mesma lógica dos hooks (idempotente). Prova: acesso_admin repovoado, admin volta a ver os 15 vínculos e a criar LN (200).
+- BUG 2 (0.0.86, migração 0034): campo `ativo` (bool REQUIRED) rejeitava false via API — "validation_required: Cannot be blank" no PATCH {ativo:false} e no CREATE com ativo=false (PocketBase trata false como blank em bool required). A tela "Desativar" estava quebrada para TODOS os usuários. Correção: required sai do campo (false é valor legítimo); hooks e regras já filtram ativo=true. Prova: PATCH {ativo:false} → 200, usuário desativado com 0 acesso.
+- LIMPEZA: usuário/vínculo de prova desativados (regra da casa: registro não se apaga); LN de prova desativada.
+- Versões: 0.0.85 (112029a) e 0.0.86 (cc43557) publicadas 20/10 à noite.
