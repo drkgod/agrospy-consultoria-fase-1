@@ -81,14 +81,14 @@ tarefas que já têm um.
 - [x] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->
   > Para Gestão e Administrador: ações atrasadas, de hoje e da semana por responsável, produtores sem oportunidade aberta e visitas da semana.
   > Prova: números da tela iguais aos da base. SPEC-1-005, CA-1-22.
-- [/] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
+- [x] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026 2026-10-20  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
   > Usar o sistema no campo sem sinal: o app fica na tela inicial, guarda o que foi registrado e envia sozinho quando a internet volta, sem duplicar.
   > Prova: gravação em modo avião e conferência no servidor. SPEC-1-004, CA-1-15 e CA-1-16.
-  - [ ] Deixar o app instalável na tela inicial do celular @Agrospy !15/10/2026  <!-- id:394e3cf8-1f15-48ca-ae90-b2b4c5c6cf57 -->
+  - [x] Deixar o app instalável na tela inicial do celular @Agrospy !15/10/2026 2026-10-20  <!-- id:394e3cf8-1f15-48ca-ae90-b2b4c5c6cf57 -->
     > Ícone na tela inicial do Android e do iPhone da empresa, abrindo mesmo sem internet. Prova: print do ícone e do app abrindo em modo avião.
-  - [ ] Guardar visita, oportunidade e produtor novo sem internet @Agrospy !16/10/2026  <!-- id:97a859bc-947a-4f36-b0c0-43b7ba743b3c -->
+  - [x] Guardar visita, oportunidade e produtor novo sem internet @Agrospy !16/10/2026 2026-10-20  <!-- id:97a859bc-947a-4f36-b0c0-43b7ba743b3c -->
     > Sem sinal, só criar registros novos; editar cadastro antigo pede internet. Prova: gravação em modo avião mostrando "aguardando envio".
-  - [ ] Enviar automaticamente o que ficou pendente ao voltar a internet @Agrospy !16/10/2026  <!-- id:8971a540-0b68-46a4-ab73-59d77ffed401 -->
+  - [x] Enviar automaticamente o que ficou pendente ao voltar a internet @Agrospy !16/10/2026 2026-10-20  <!-- id:8971a540-0b68-46a4-ab73-59d77ffed401 -->
     > Ao voltar o sinal, abrir o app ou tocar "Sincronizar agora", tudo é enviado uma vez só. Prova: conferência no servidor de que cada registro existe uma única vez.
 - [ ] Testar o acesso: outra empresa e perfil sem permissão ficam bloqueados @Agrospy !16/10/2026  <!-- id:ed490cca-8143-49af-9065-856a9f9ade9c -->
   > Prova de que a Agrospy e a Rumo Agro não se misturam e de que cada perfil só faz o que foi combinado, testando também por fora da tela.

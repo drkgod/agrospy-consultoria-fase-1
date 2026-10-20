@@ -97,10 +97,10 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Provas: login/escolha/menu/tela no navegador; API — empresas 2 itens (admin) vs 1 (operador), vínculo alheio 404, criação de vínculo por operador 400, autoelevação PATCH 404.
 
 ## [0.0.15] - 2026-10-12 — Task 3: ajustes finais
-- Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (0006, RED 4).
+- Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (RED 4).
 - Migração 0008: recálculo de acesso_* de todos os usuários + remoção de usuários de teste órfãos.
 - Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servido pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
-- Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo/usuario por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
+- Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
 
 ## [0.0.19] - 2026-10-12 — Task 3: bug do teste corrigido (auto-rebaixamento do último admin)
 - Bug relatado ("escolho o perfil e a página some"): o sistema permitia o próprio admin trocar o próprio perfil para não-admin — sem outro admin, a tela /usuarios fechava (e o menu sumia).
@@ -155,3 +155,8 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - FIX 1: logo real copiado para public/logo-agrospy.svg (200 provado).
 - FIX 2: cache.addAll → Promise.allSettled (cache tolerante: um arquivo do shell que falhar não derruba a instalação).
 - PROVA: SW registrado e ativado (1 registro, estado activated); cache agrospy-shell-v1 com 5 entradas (/ , /index.html, /logo-agrospy.svg, /favicon.ico, /manifest.webmanifest); index.html confirmado em cache. Diogo deve fechar e reabrir o app (1x com internet para o novo SW assumir) e repetir o modo avião.
+## [0.0.83] - 2026-10-20 — fix2: falhas do teste offline do Diogo (passos 3-5)
+- CAUSAS: (1) item enfileirado offline gravava os dados SEM o campo `empresa` → servidor recusava a criação → item ia para precisa_revisao em silêncio → nada subia ao reconectar; (2) após enfileirar offline, a tela ainda recarregava a lista do servidor → falhava → "Não foi possível carregar os produtores" (mensagem enganosa); (3) "Tentar de novo" em Pendências recriava+apagava o item (podia se autoapagar); (4) itens em revisão não tinham caminho visível.
+- FIX: fila-offline.ts grava `empresa` no payload (e injeta item.empresa no envio, resgatando itens antigos); status 0 (rede caiu no meio) mantém pendente; novo método reencaminhar(); Produtores.tsx com fallback offline (cópia local + itens da fila, com aviso "Sem conexão — exibindo os dados do aparelho"); Pendencias.tsx usa reencaminhar(); IndicadorConexao.tsx com banner vermelho de revisão → atalho para /pendencias.
+- PROVA: QA verde, publicada 20/10 17:56 UTC (f355b3d); login e carteira verificados no navegador.
+- NOTA: espelho local estava defasado (subagente já corrigiu no GitHub); re-sincronizar espelho local na próxima rodada.
