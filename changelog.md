@@ -16,7 +16,7 @@
 - Hook `proxima_acao_vigente.js`: recusa data passada no concluir/reagendar (CA-1-21) e RN-19 alinhada ao fuso de Brasília (antes UTC).
 - Layout: botão "Carteira" no header para não-Operador.
 - Provas: RED 1 (4 oportunidades ontem/hoje/+3/+10) → GREEN com grupos corretos; reagendar para ontem 400 com mensagem; concluir sem resultado 400; concluir moveu o item de Hoje para Próximos 7 dias (API + tela); reconciliação tela × base 1/1/3/4 = 100%; comercial só vê as próprias (9/9 do responsável); ficha re-testada sem regressão.
-- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook refeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
+- Correções no caminho: JSVM do PocketBase não tem `Intl` (ReferenceError em runtime — hook reffeito com UTC−3) e não expõe declarações top-level nos callbacks; import de oportunidadesService na ficha (crash do ErrorBoundary).
 - Versão no ar: v0.0.70 (06079a3), publicada 15/10 02:11 UTC.
 
 ## [0.0.66] - 2026-10-14 — SPEC-1-003 completa: linhas de negócio + concluir/reagendar
@@ -30,7 +30,7 @@
 
 ## [0.0.62] - 2026-10-14 — task ae167e8a (SPEC-1-003): visita e oportunidade + áudio — TESTE APROVADO
 - Diogo: "funcionou a gravação" + "a transcrição funcionou"; transcrição de arquivo gravado dispensada por ele (sem API externa por ora).
-- Visita: botão "Registrar visita" na ficha do produtor (faltava no bundle — 3 patches só no espelho), formulário curto (data, assuntos, "Mais detalhes"), próximo passo em 1 toque, histórico Visitas/Oportunidades na ficha.
+- Visit a: botão "Registrar visita" na ficha do produtor (faltava no bundle — 3 patches só no espelho), formulário curto (data, assuntos, "Mais detalhes"), próximo passo em 1 toque, histórico Visitas/Oportunidades na ficha.
 - Backend: coleções linhas_negocio (carga 8 Agrospy/5 Rumo + fixa Relacionamento), visitas, oportunidades e acoes_oportunidade (histórico imutável) — migrações 0019-0025; hooks: destino obrigatório, próxima ação vigente, data passada recusada, linha fixa, responsável padrão do produtor.
 - Emenda áudio (pedido 14/10): gravar no app (MediaRecorder) + anexar do celular (m4a/mp3/wav/ogg/aac/amr/3gp/webm, 25 MB), player na ficha, upload multipart (FormData com empresa) provado por API com download íntegro.
 - Emenda transcrição por voz (pedido 14/10): botão "Transcrever o que eu falar" (Web Speech API, pt-BR, contínuo) adiciona o dito ao campo assuntos — sem conflito com gravação de áudio (só aparece quando não está gravando). Sem transcrição de arquivo gravado (requer API externa — decisão futura).
@@ -97,10 +97,10 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Provas: login/escolha/menu/tela no navegador; API — empresas 2 itens (admin) vs 1 (operador), vínculo alheio 404, criação de vínculo por operador 400, autoelevação PATCH 404.
 
 ## [0.0.15] - 2026-10-12 — Task 3: ajustes finais
-- Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (RED 4).
+- Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (0006, RED 4).
 - Migração 0008: recálculo de acesso_* de todos os usuários + remoção de usuários de teste órfãos.
-- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servido pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
-- Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
+- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servida pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
+- Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo/usuario por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
 
 ## [0.0.19] - 2026-10-12 — Task 3: bug do teste corrigido (auto-rebaixamento do último admin)
 - Bug relatado ("escolho o perfil e a página some"): o sistema permitia o próprio admin trocar o próprio perfil para não-admin — sem outro admin, a tela /usuarios fechava (e o menu sumia).
@@ -154,9 +154,13 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - CAUSA: /logo-agrospy.svg retornava 404 (o logo só existia em src/assets, empacotado pelo Vite, não em public/). O arquivo estava na lista SHELL do service worker → cache.addAll falhava → SW NUNCA instalava → nada ficava em cache → app não abria no modo avião (prova: 0 registros de SW no navegador).
 - FIX 1: logo real copiado para public/logo-agrospy.svg (200 provado).
 - FIX 2: cache.addAll → Promise.allSettled (cache tolerante: um arquivo do shell que falhar não derruba a instalação).
-- PROVA: SW registrado e ativado (1 registro, estado activated); cache agrospy-shell-v1 com 5 entradas (/ , /index.html, /logo-agrospy.svg, /favicon.ico, /manifest.webmanifest); index.html confirmado em cache. Diogo deve fechar e reabrir o app (1x com internet para o novo SW assumir) e repetir o modo avião.
-## [0.0.83] - 2026-10-20 — fix2: falhas do teste offline do Diogo (passos 3-5)
+- PROVA: SW registrado e ativado (1 registro, estado activated); cache agrospy-shell-v1 com 5 entradas (/ , /index.html, /logo-agrospy.svg, /favicon.ico, /manifest.webmanifest); index.html confirmado em cache. Diogo deve fechar e reabrir o app (1x com internet para o novo SW assumir) e repetir o modo avião.## [0.0.83] - 2026-10-20 — fix2: falhas do teste offline do Diogo (passos 3-5)
 - CAUSAS: (1) item enfileirado offline gravava os dados SEM o campo `empresa` → servidor recusava a criação → item ia para precisa_revisao em silêncio → nada subia ao reconectar; (2) após enfileirar offline, a tela ainda recarregava a lista do servidor → falhava → "Não foi possível carregar os produtores" (mensagem enganosa); (3) "Tentar de novo" em Pendências recriava+apagava o item (podia se autoapagar); (4) itens em revisão não tinham caminho visível.
 - FIX: fila-offline.ts grava `empresa` no payload (e injeta item.empresa no envio, resgatando itens antigos); status 0 (rede caiu no meio) mantém pendente; novo método reencaminhar(); Produtores.tsx com fallback offline (cópia local + itens da fila, com aviso "Sem conexão — exibindo os dados do aparelho"); Pendencias.tsx usa reencaminhar(); IndicadorConexao.tsx com banner vermelho de revisão → atalho para /pendencias.
 - PROVA: QA verde, publicada 20/10 17:56 UTC (f355b3d); login e carteira verificados no navegador.
-- NOTA: espelho local estava defasado (subagente já corrigiu no GitHub); re-sincronizar espelho local na próxima rodada.
+- NOTA: espelho local estava defasado (subagente já corrigiu no GitHub); re-sincronizar espelho local na próxima rodada.## [0.0.84] - 2026-10-20 — ed490cca: testes de acesso multiempresa (prova por fora da tela)
+- ISOLAMENTO ENTRE EMPRESAS: 100% bloqueado nas duas direções (Rumo→Agrospy e Agrospy→Rumo): listar produtores/visitas/oportunidades = 0 registros; abrir registro específico = 404; criar = 400/403. Nota de método: o primeiro teste acusou "1 produtor visível" — artefato do script (urllib.parse.quote com safe padrão corrompia o filtro); com filtro correto, zero.
+- MATRIZ PERFIL × RECURSO (Agrospy, via API): gestao — ver todos (9), criar 200, editar alheio 200, criar linha de negócio 400; comercial1/comercial2 — ver todos, criar 200, editar SÓ o próprio (alheio 404), criar LN 400; operador — ver todos, criar 400, editar 404, criar LN 400.
+- GAP CORRIGIDO: fixture 0023 não tinha usuário com perfil 'administrador' — a tela Linhas de negócio (só aparece p/ ehAdmin) e o createRule de LN (exige acesso_admin) ficavam sem prova. Migração 0032 cria teste.admin@agrospy.com.br (senha Teste#2026, vínculo administrador na Agrospy). Prova: admin cria LN 200; comercial continua 400.
+- LIMPEZA: produtores "MATRIZ" dos testes arquivados (deleteRule null — regra da casa: registro não se apaga); LN de prova desativada.
+- Versão 0.0.84 (b6afce0) publicada 20/10 19:27 UTC. Falta: tabela perfil × recurso na tela (teste visual) e o mesmo teste com usuário real do Diogo.
