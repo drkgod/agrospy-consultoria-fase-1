@@ -97,7 +97,7 @@ tarefas que já têm um.
     > Com o usuário de teste da Rumo Agro, listar, abrir e criar registros da Agrospy — tudo deve ser recusado, e o mesmo no sentido inverso. Prova: respostas dos testes.
   - [ ] Testar o que cada perfil pode ver e editar @Agrospy !16/10/2026  <!-- id:d37a78c4-d2a3-405a-bad8-38233f11db40 -->
     > Para cada usuário de teste, conferir na tabela de permissões o que pode ver, criar e editar. Prova: tabela com o esperado e o obtido.
-- [ ] Cadastrar a equipe da Agrospy e da Rumo Agro com o perfil certo @Agrospy !16/10/2026  <!-- id:6af46d50-9e9c-4182-b201-865b2bf00278 -->
+- [x] Cadastrar a equipe da Agrospy e da Rumo Agro com o perfil certo @Agrospy !16/10/2026 2026-10-22  <!-- id:6af46d50-9e9c-4182-b201-865b2bf00278 -->
   > Depois do teste de acesso aprovado, o Diogo cadastra cada pessoa com e-mail, empresa e perfil (ex.: Linessa em Gestão, Alisson em Comercial, Carlos e Lucas em Operador).
   > Prova: lista de usuários por empresa e perfil. SPEC-1-001, CA-1-05.
 - [ ] Testar falhas de envio sem perder nenhum registro @Agrospy !19/10/2026  <!-- id:f5877532-2383-4554-a079-f61bc68dd8cc -->
