@@ -23,7 +23,7 @@
     - a chave fica no cofre do Skip, no segredo `TRANSCRICAO_API_KEY`, criada pelo Diogo (CL-PEND-009).
   - **Organização do rascunho:** `$ai.chat` do Skip com o alias `fast` e resposta só em JSON.
   - **Quem cria rascunho:** Administrador, Gestão e Comercial, como para visitas na fase 1. O Operador não cria.
-  - **Fila única:** esta SPEC cria a fila que as SPECs 2-003 (WhatsApp) e 2-004 (gravações) também usam.
+  - **Fila única:** esta SPEC cria a fila que as SPECs 2-003 (assistente dentro do app) e 2-004 (gravações) também usam.
   - **Formulário de visita da fase 1:** continua igual. O áudio sem internet entra por "Gravar pós-visita", e o anexo de áudio do formulário continua pedindo internet.
 - **Matriz de acesso da fase 1 (vale para toda a fase 2):** as regras estão nas migrações da fase 1, como `0024_regras_acesso_padrao_casa.js`. Confira as regras vigentes no Skip antes de alterar.
 
@@ -52,7 +52,7 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
   - "Tentar de novo" quando falhar;
   - limpeza automática de áudios antigos.
 - **Fora de escopo:**
-  - WhatsApp (SPEC-2-003);
+  - assistente dentro do app (SPEC-2-003);
   - arquivos do Plaud e da pasta do Drive (SPEC-2-004);
   - avisos (SPEC-2-002);
   - editar visita antiga pelo rascunho;
@@ -77,18 +77,17 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
 ## Dados e integrações
 
 **Coleção `rascunhos`:**
-- `empresa`, `autor` (usuário) e `origem` (`app_audio`; as SPECs 2-003 e 2-004 usam `whatsapp_audio`, `whatsapp_texto`, `arquivo_gravador` e `drive`).
+- `empresa`, `autor` (usuário) e `origem` (`app_audio`; a SPEC-2-003 usa `app_texto` e a SPEC-2-004 usa `arquivo_gravador` e `drive`).
 - `midia`: arquivo de áudio até 25 MB, `protected: true`; o app usa token de arquivo para tocar.
 - `texto_original`: quando já vier texto.
 - `chave_dedup`: idempotência da porta, única:
   - `id_local` no app;
-  - `messages[].id` no WhatsApp;
+  - id da mensagem no assistente;
   - id do arquivo no Drive.
 - `hash_conteudo`: SHA-256 do conteúdo em base64, único por empresa quando preenchido:
   - no app, calculado no aparelho com `crypto.subtle.digest` antes de entrar na fila;
-  - no WhatsApp, o `sha256` que a Meta manda;
   - no Drive, o `sha256Checksum` convertido de hex para base64;
-  - texto digitado no WhatsApp não tem hash.
+  - texto escrito no assistente não tem hash.
 - `id_local` e `criado_em_aparelho`.
 - `status`: `recebido`, `aguardando_transcricao`, `transcrevendo`, `pronto_para_revisar`, `confirmado`, `descartado` ou `falhou`.
 - `transcricao`, `proposta` (JSON, formato abaixo), `produtor` (opcional), `motivo_falha` e `tentativas`.

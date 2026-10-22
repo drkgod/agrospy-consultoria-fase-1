@@ -10,13 +10,12 @@
 | SPECs | 4, com TDD e critérios CA-2-01 a CA-2-18 |
 | Tasks | 21: 4 de topo (uma por SPEC) e 17 subtarefas, todas com ID do portal |
 | Teste humano | só na última task de cada SPEC; as demais fecham pela prova automática |
-| Ordem | pós-visita por áudio no app → avisos → WhatsApp → gravações do Plaud e teste final |
+| Ordem | pós-visita por áudio no app → avisos → assistente dentro do app → gravações do Plaud e teste final |
 
 ## Entradas da Agrospy (só travam a task que depende delas)
 
 | Item | Para quê | Quando o Maestro pede |
 |---|---|---|
-| Número de WhatsApp dedicado e conta Meta Business verificada | agente de campo (SPEC-2-003) | antes de ligar o número real |
 | Pasta do Google Drive de cada empresa | gravações pela pasta (SPEC-2-004) | na task da pasta |
 | Sistema dos celulares da equipe | avisos (SPEC-2-002) | no teste dos avisos |
 | Conta gratuita do Groq (transcrição) | só se o Skip não transcrever áudio (SPEC-2-001) | na task de transcrição |

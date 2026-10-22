@@ -51,23 +51,23 @@ tarefas que já têm um.
     > Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
   - [ ] Testar os avisos no celular @Agrospy !06/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
     > Teste do Diogo com um vendedor: ativar os avisos, conferir o aviso das 7h no dia da ação e o aviso de atraso com a cópia no celular do Diogo. Fecha com o "testei, pode seguir". SPEC-2-002.
-- [ ] Usar o agente de campo no WhatsApp @Agrospy !13/11/2026  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
-  > O vendedor manda áudio ou texto do pós-visita para o número da empresa, e isso vira rascunho para confirmar no app. Ele também pode perguntar ao agente sobre a própria carteira. SPEC-2-003.
-  - [ ] Cadastrar o WhatsApp da equipe e receber mensagens de teste @Agrospy !10/11/2026  <!-- id:864c6848-16e6-48d3-9538-53abe6a9f91c -->
-    > O Administrador cadastra o WhatsApp de cada pessoa, um número por pessoa. O sistema recebe mensagens de teste no formato da Meta, recusa as sem assinatura e não responde a número desconhecido. Fecha pela prova automática. SPEC-2-003, CA-2-11, CA-2-12 e CA-2-14.
-  - [ ] Receber o pós-visita pelo WhatsApp como rascunho @Agrospy !11/11/2026  <!-- id:c504f635-645d-4304-8f81-88ae6f1149f5 -->
-    > Áudio ou texto de pós-visita enviado ao agente vira rascunho na fila de quem mandou. A confirmação de recebimento sai na hora, e o link para confirmar no app chega em até 10 minutos. A mesma mensagem não vira dois rascunhos. Fecha pela prova automática. SPEC-2-003, CA-2-10 e CA-2-13.
-  - [ ] Responder perguntas sobre o histórico pelo WhatsApp @Agrospy !12/11/2026  <!-- id:09510a74-c541-4d88-adb1-6c2be8d3b9c5 -->
-    > O agente responde perguntas como "minhas ações de hoje" e "o que conversei com o produtor X", só com o que a pessoa pode ver na empresa dela. Fecha pela prova automática. SPEC-2-003, CA-2-12 e CA-2-14.
-  - [ ] Testar o agente do WhatsApp com a equipe @Agrospy !13/11/2026  <!-- id:fcbe8d32-044e-4881-9a7b-4d07f85687fa -->
-    > Com a autorização do Diogo, ligar o número real da empresa (API oficial da Meta, número dedicado) e testar com um vendedor: mandar um áudio real, confirmar o rascunho pelo link e fazer perguntas. Também confirmar se o Comercial continua consultando todos os produtores e o prazo de guarda das mensagens. Fecha com o "testei, pode seguir". SPEC-2-003.
+- [ ] Perguntar ao assistente do app sobre a carteira @Agrospy !13/11/2026  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
+  > Dentro do app, o vendedor pergunta por texto ou voz sobre a própria carteira e também pode escrever um pós-visita curto, que vira rascunho. Sem WhatsApp. SPEC-2-003.
+  - [ ] Criar a tela do assistente dentro do app @Agrospy !10/11/2026  <!-- id:864c6848-16e6-48d3-9538-53abe6a9f91c -->
+    > Nova tela "Assistente" no app, na empresa ativa. Sem internet, ela avisa e oferece o botão "Gravar pós-visita". O assistente só lê dados, nunca altera. Fecha pela prova automática. SPEC-2-003, CA-2-13 e CA-2-14.
+  - [ ] Registrar o pós-visita por texto no assistente @Agrospy !12/11/2026  <!-- id:c504f635-645d-4304-8f81-88ae6f1149f5 -->
+    > Um recado escrito ou ditado no assistente, como "visitei o produtor X, ficou de ver o orçamento até sexta", vira rascunho para confirmar. A mesma mensagem não vira dois rascunhos. Fecha pela prova automática. SPEC-2-003, CA-2-12.
+  - [ ] Responder perguntas sobre a carteira no assistente @Agrospy !11/11/2026  <!-- id:09510a74-c541-4d88-adb1-6c2be8d3b9c5 -->
+    > Perguntas como "minhas ações de amanhã" e "o que conversei com o produtor X" são respondidas com links para os registros, só com o que a pessoa pode ver na empresa dela. Fecha pela prova automática. SPEC-2-003, CA-2-10 e CA-2-11.
+  - [ ] Perguntar ao assistente por voz @Agrospy !12/11/2026  <!-- id:fcbe8d32-044e-4881-9a7b-4d07f85687fa -->
+    > O vendedor toca no microfone e faz a pergunta falando; o áudio é transcrito e respondido como se fosse escrito. Fecha pela prova automática. SPEC-2-003, CA-2-13.
+  - [ ] Testar o assistente do app com a equipe @Agrospy !13/11/2026  <!-- id:47f28655-1831-466a-b9bb-69438c63314b -->
+    > Teste do Diogo com um vendedor: perguntar por voz, abrir pelo link, escrever um pós-visita e confirmar o rascunho, e trocar de empresa. Também confirmar se o Comercial continua consultando todos os produtores e o prazo de guarda das conversas. Fecha com o "testei, pode seguir". SPEC-2-003.
 - [ ] Trazer as gravações do Plaud e de outros gravadores @Agrospy !19/11/2026  <!-- id:c53689d5-d8b3-4e94-a4f3-527716ad1218 -->
-  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app ou pelo WhatsApp, e a fase 2 fecha com o teste final do Diogo. SPEC-2-004.
+  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app e, se der, pela pasta do Drive. A fase 2 fecha com o teste final do Diogo. SPEC-2-004.
   - [ ] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
     > Pelo botão "Enviar gravação". O áudio é transcrito, e a transcrição pronta do Plaud (txt, docx ou pdf) vai direto para o rascunho. O mesmo arquivo não vira dois rascunhos. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
-  - [ ] Mandar gravações para o WhatsApp do agente @Agrospy !17/11/2026  <!-- id:47f28655-1831-466a-b9bb-69438c63314b -->
-    > O arquivo mandado ao agente vira rascunho e recebe o link. O mesmo arquivo enviado pelo app e pelo WhatsApp vira um rascunho só. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
   - [ ] Importar as gravações da pasta do Drive @Agrospy !18/11/2026  <!-- id:993bc32b-f785-4096-bc52-c05b1e6b439c -->
-    > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app e pelo WhatsApp continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-17.
+    > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-16 e CA-2-17.
   - [ ] Demonstrar a fase 2 no celular (teste final da fase) @Agrospy !19/11/2026  <!-- id:2bb2808a-63c0-4f55-8427-aef3b1e10c6a -->
-    > Teste final do Diogo: o áudio pelo WhatsApp vira rascunho e é confirmado, a visita aparece na ficha do produtor, o aviso da próxima ação chega no dia e uma transcrição do Plaud vira rascunho. Antes do teste, as contas de teste são limpas. Com o "testei, pode seguir", a fase 2 fecha. SPEC-2-004, CA-2-18.
+    > Teste final do Diogo: o pós-visita gravado sem sinal vira rascunho e é confirmado, a visita aparece na ficha do produtor, o aviso da próxima ação chega no dia, o assistente responde por voz e uma transcrição do Plaud vira rascunho. Antes do teste, as contas de teste são limpas. Com o "testei, pode seguir", a fase 2 fecha. SPEC-2-004, CA-2-18.

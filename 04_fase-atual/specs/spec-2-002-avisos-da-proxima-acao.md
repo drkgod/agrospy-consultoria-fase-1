@@ -42,7 +42,7 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
   - atraso com cópia ao gestor;
   - configuração do Administrador;
   - opção de desligar a cópia.
-- **Fora de escopo:** avisos por WhatsApp (pode virar emenda depois da SPEC-2-003); avisos para produtores; e-mail.
+- **Fora de escopo:** avisos por WhatsApp (fora do ciclo, decisão P10); avisos para produtores; e-mail.
 - **Entradas e pré-condições:** fase 1 no ar; app instalado na tela inicial dos celulares de teste; sistema dos celulares da equipe confirmado (CL-PEND-005; já se sabe que há iPhone); CL-PEND-010 para a notificação.
 - **Saídas/artefatos:**
   - coleções `avisos`, `inscricoes_push`, `config_avisos` e `preferencias_avisos`;

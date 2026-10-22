@@ -1,3 +1,8 @@
+## [22/10/2026] — Emenda P10: fase 2 sem WhatsApp
+- O agente de campo no WhatsApp foi trocado por um assistente dentro do app (SPEC-2-003 reescrita: `spec-2-003-assistente-de-campo-no-app.md`), como alinhado na 2ª consultoria.
+- A SPEC-2-004 deixa de ter a porta do WhatsApp; o Plaud e os gravadores entram pelo app e pela pasta do Drive.
+- Os IDs das tasks foram mantidos. A task 47f28655 passou para a SPEC-2-003 como "Perguntar ao assistente por voz".
+
 ## [22/10/2026] — Fase 1 concluída e Fase 2 liberada
 - Fase 1 encerrada com 34/34 tasks concluídas e teste final do Diogo (22/10). Tasks e SPECs da fase 1 movidas para `05_entregas/fase-1/`.
 - Fase 2 (Captura em campo e avisos) publicada em `04_fase-atual/`: 4 SPECs (pós-visita por áudio no app, avisos da próxima ação, agente de campo no WhatsApp, gravações do Plaud e de outros gravadores) e 21 tasks com ID do portal.
