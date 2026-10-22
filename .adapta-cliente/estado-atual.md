@@ -1,17 +1,23 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- fase: 2
-- task_id: 0b522b2b-8c1b-4166-9c07-6f600881ed75
+- task_id: fase-2-0035 (Fase 2 — ficha de perfil e classificação)
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
-- spec: 04_fase-atual/specs/spec-2-001-pos-visita-por-audio-no-app.md
-- etapa: pronta_para_iniciar
-- modo_execucao: ciclo contínuo — seguir as tasks em sequência sem pedir autorização; teste humano só na última task de cada SPEC (descrição "Fecha com o 'testei, pode seguir'"); as demais fecham pela prova automática da SPEC
+- spec: 07-sistemas/comercial/escopo_sistema_vendas_agrospy.md (Fase 2 do guardanapo)
+- analise: .adapta-cliente/analises/fase-2-*.md
+- etapa: implementando (primeira entrega: migração 0035 + campos na ficha)
+- ciclo: continuo 2026-10-22 — "Atualize o repositório e comece a fase 2"
+- teste_humano: pendente — teste do fluxo na task f2-006-teste-fluxo
+- verificacao_automatica: passou — QA verde (0.0.89 6c70ee2 + 0.0.90 be9f973); PATCH perfil 200 e valor inválido 400 provados via API
+- autorizacao_implementacao: confirmada 2026-10-15 — "pode implementar"
+- teste_humano: APROVADO pelo Diogo em 20/10/2026 16:00 — "agora deu certo" (após fixes 0.0.82 e 0.0.83)
+- aprendizado: capturado:06_notas/aprendizado-continuo/controle.md (newQuery posicional; col.addIndex; dedup antes de UNIQUE; pb export default; empresa obrigatória no payload da fila; fallback offline na lista)
+- verificacao_automatica: passou — QA verde (0.0.73→0.0.83 f355b3d); índices id_local corrigidos (1º POST 200, 2º POST 400); SW ativado e shell em cache; login/carteira provados no navegador
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: 10d0940 (0.0.88)
-- ultima_acao: consultor liberou a Fase 2 em 22/10/2026 (4 SPECs, 21 tasks com ID); Fase 1 concluída e arquivada em 05_entregas/fase-1/
-- proxima_acao: task 0b522b2b — "Criar a fila de rascunhos para revisar o pós-visita" (SPEC-2-001, CA-2-04); depois seguir a ordem do fase.md. Se faltar algo que só a Agrospy providencia (chave do Groq, conta do OneSignal, número e conta da Meta, pasta do Drive), parar só aquela task, avisar o Diogo e seguir com a próxima independente
-- aviso_consultor: antes de gravar fase.md, puxar a versão do GitHub e usá-la como base (a gravação de 22/10 14:07 partiu de cópia antiga)
-- atualizado_em: 2026-10-22T16:00:00-03:00
+- skip_versao: be9f973 (0.0.90)
+- skip_publicacao: publicada:be9f973 em 2026-10-22T21:03:53Z
+- ultima_acao: Fase 2 INICIADA — migração 0035 (5 campos de perfil/classificação em produtores) + ficha com os campos novos (v0.0.90); fase-2.md criado com 6 tasks; provas via API (PATCH 200, inválido 400)
+- proxima_acao: task f2-002 — classificar potencial e época direto no formulário da visita
+- atualizado_em: 2026-10-22T18:10:00-03:00

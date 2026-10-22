@@ -29,6 +29,12 @@ const VAZIO = {
   observacoes: '',
   nivel_tecnologia: '',
   tecnologias: '',
+  // FASE 2 — perfil do produtor (SPEC-2-001)
+  perfil_tecnologia: '',
+  perfil_ap: '',
+  perfil_estrutura: '',
+  status_comercial: '',
+  epoca_efetividade: '',
 }
 
 const NIVEIS = [
@@ -98,6 +104,11 @@ export default function ProdutorFicha() {
           observacoes: p.observacoes,
           nivel_tecnologia: p.nivel_tecnologia,
           tecnologias: p.tecnologias,
+          perfil_tecnologia: ((p as Record<string, unknown>).perfil_tecnologia as string) ?? '',
+          perfil_ap: ((p as Record<string, unknown>).perfil_ap as string) ?? '',
+          perfil_estrutura: ((p as Record<string, unknown>).perfil_estrutura as string) ?? '',
+          status_comercial: ((p as Record<string, unknown>).status_comercial as string) ?? '',
+          epoca_efetividade: ((p as Record<string, unknown>).epoca_efetividade as string) ?? '',
         })
       })
       .catch(() => toast({ title: 'Produtor não encontrado.', variant: 'destructive' }))
@@ -220,6 +231,15 @@ export default function ProdutorFicha() {
         observacoes: atualizado.observacoes,
         nivel_tecnologia: atualizado.nivel_tecnologia,
         tecnologias: atualizado.tecnologias,
+        perfil_tecnologia:
+          ((atualizado as Record<string, unknown>).perfil_tecnologia as string) ?? '',
+        perfil_ap: ((atualizado as Record<string, unknown>).perfil_ap as string) ?? '',
+        perfil_estrutura:
+          ((atualizado as Record<string, unknown>).perfil_estrutura as string) ?? '',
+        status_comercial:
+          ((atualizado as Record<string, unknown>).status_comercial as string) ?? '',
+        epoca_efetividade:
+          ((atualizado as Record<string, unknown>).epoca_efetividade as string) ?? '',
       })
       setEditando(false)
       toast({ title: 'Produtor atualizado' })
@@ -713,6 +733,53 @@ export default function ProdutorFicha() {
               onChange={(e) => setFormEdicao({ ...formEdicao, tecnologias: e.target.value })}
               rows={4}
               className="w-full min-h-20 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            />
+            {/* FASE 2 — perfil do produtor (SPEC-2-001) */}
+            <select
+              aria-label="Adoção de tecnologia"
+              value={formEdicao.perfil_tecnologia}
+              onChange={(e) => setFormEdicao({ ...formEdicao, perfil_tecnologia: e.target.value })}
+              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="">Adoção de tecnologia: não informado</option>
+              <option value="adepto">Adepto (usa e gosta)</option>
+              <option value="parcial">Parcial (usa parte)</option>
+              <option value="nao_adepto">Não adepto</option>
+            </select>
+            <select
+              aria-label="Agricultura de precisão"
+              value={formEdicao.perfil_ap}
+              onChange={(e) => setFormEdicao({ ...formEdicao, perfil_ap: e.target.value })}
+              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="">Agricultura de precisão: não informado</option>
+              <option value="faz">Já faz</option>
+              <option value="fez">Já fez</option>
+              <option value="nunca">Nunca fez</option>
+            </select>
+            <textarea
+              placeholder="Equipamentos e estrutura que possui (ex.: piloto automático, plantadeira com desligamento, estação meteorológica…)"
+              value={formEdicao.perfil_estrutura}
+              onChange={(e) => setFormEdicao({ ...formEdicao, perfil_estrutura: e.target.value })}
+              rows={3}
+              className="w-full min-h-16 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            />
+            <select
+              aria-label="Classificação comercial"
+              value={formEdicao.status_comercial}
+              onChange={(e) => setFormEdicao({ ...formEdicao, status_comercial: e.target.value })}
+              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="">Classificação: não informado</option>
+              <option value="potencial">Potencial</option>
+              <option value="nao_potencial">Não potencial</option>
+              <option value="cliente">Cliente</option>
+            </select>
+            <input
+              placeholder="Época de maior efetividade (ex.: set-dez)"
+              value={formEdicao.epoca_efetividade}
+              onChange={(e) => setFormEdicao({ ...formEdicao, epoca_efetividade: e.target.value })}
+              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
             />
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setEditando(false)}>

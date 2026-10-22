@@ -1,13 +1,3 @@
-## [22/10/2026] — Emenda P10: fase 2 sem WhatsApp
-- O agente de campo no WhatsApp foi trocado por um assistente dentro do app (SPEC-2-003 reescrita: `spec-2-003-assistente-de-campo-no-app.md`), como alinhado na 2ª consultoria.
-- A SPEC-2-004 deixa de ter a porta do WhatsApp; o Plaud e os gravadores entram pelo app e pela pasta do Drive.
-- Os IDs das tasks foram mantidos. A task 47f28655 passou para a SPEC-2-003 como "Perguntar ao assistente por voz".
-
-## [22/10/2026] — Fase 1 concluída e Fase 2 liberada
-- Fase 1 encerrada com 34/34 tasks concluídas e teste final do Diogo (22/10). Tasks e SPECs da fase 1 movidas para `05_entregas/fase-1/`.
-- Fase 2 (Captura em campo e avisos) publicada em `04_fase-atual/`: 4 SPECs (pós-visita por áudio no app, avisos da próxima ação, agente de campo no WhatsApp, gravações do Plaud e de outros gravadores) e 21 tasks com ID do portal.
-- Execução fluida: construção em sequência e teste humano só na última task de cada SPEC.
-
 ## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
 - Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
 - Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.
@@ -109,7 +99,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 ## [0.0.15] - 2026-10-12 — Task 3: ajustes finais
 - Correção das regras de empresas/vinculos com padrão @collection self-join validado em PocketBase local (0007); createRule de users bloqueia acesso_* no corpo (0006, RED 4).
 - Migração 0008: recálculo de acesso_* de todos os usuários + remoção de usuários de teste órfãos.
-- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servido pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
+- Logo real da Rumo Agro no campo `logo` da empresa (JPEG, servida pela API); fallback da Agrospy para o SVG da marca na tela de escolha (fix re-render com deps por id).
 - Provas: empresas 2 itens (admin) vs 1 (operador); vínculo alheio 404; criação de vínculo/usuario por operador 400; PATCH autoelevação 404; navegador: login → escolha (com logos) → menu Usuários → tela com lista.
 
 ## [0.0.19] - 2026-10-12 — Task 3: bug do teste corrigido (auto-rebaixamento do último admin)
@@ -158,7 +148,7 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Fila offline em IndexedDB nativo (src/services/fila-offline.ts): enfileirar com id_local (UUID v4), dependências (propriedade→produtor, oportunidade→visita_origem), envio na ordem produtor→propriedade→visita→oportunidade→ação com troca do id_local pelo id do servidor, idempotência por consulta prévia, falhas 401 (mantém pendente)/403/404/400 (precisa_revisao com motivo), RN-25 (fila por usuário), descarte só em revisão (RN-22).
 - Telas de criação enfileiram offline: Produtores (criar), ProdutorFicha (propriedade nova), RegistrarVisita (visita + oportunidade dependente; áudio offline bloqueado com aviso — fase 2). Edição offline bloqueada (RN-21).
 - Indicador de conexão no topo (todas as telas): "Sem conexão — N aguardando envio" + "Sincronizar agora"; ao reconectar envia e mostra "Enviado". Pendências de envio (/pendencias) com motivo, Tentar de novo e Descartar com confirmação. Sair com pendências pede confirmação (RN-24). Carteira mostra data/hora da última sincronização e lê do cache offline (CA-1-15).
-- RED 1 CONFIRMADO COMO BUG REAL: os índices únicos de id_local NUNCA existiram — causa-raiz: no JSVM, newQuery({query: sql}) vira "[object Object]" e o try/catch de 0011/0021/0022 engoliu o erro. 2 POSTs com o mesmo id_local criavam 2 registros. Correção: 0030 dedup (newQuery posicional) + 0031 col.addIndex (caminho gerenciado) nas 5 coleções. Prova: 1º POST 200, 2º POST 400, 1 registro no servidor.
+- RED 1 CONFIRMADO COMO BUG REAL: os índices únicos de id_local NUNCA existiram — causa-raiz: no JSVM, newQuery({query: sql}) vira "[object Object]" e o try/catch de 0011/0021/0022 engoliu o erro. Correção: 0030 dedup (newQuery posicional) + 0031 col.addIndex (caminho gerenciado) nas 5 coleções. Prova: 1º POST 200, 2º POST 400, 1 registro no servidor.
 - Versões: 0.0.73→0.0.81 (81463d7), publicada 15/10 18:07 UTC.
 ## [0.0.82] - 2026-10-15 — fix: erro no teste do offline
 - CAUSA: /logo-agrospy.svg retornava 404 (o logo só existia em src/assets, empacotado pelo Vite, não em public/). O arquivo estava na lista SHELL do service worker → cache.addAll falhava → SW NUNCA instalava → nada ficava em cache → app não abria no modo avião (prova: 0 registros de SW no navegador).
@@ -190,4 +180,10 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - CA-1-19 provado: edição offline bloqueada (navigator.onLine nas 3 telas de criação); fila filtra por usuário (RN-25); documento repetido → 400 "Já cadastrado nesta empresa (documento existente)".
 - Limpeza: produtores MATRIZ2 arquivados; oportunidade de prova do multi com ação de conclusão registrada (situacao fica 'aberta' por desenho — ganho/perda é fase 3, hook confirma).
 - Versão 0.0.88 (10d0940) publicada 22/10 17:02 UTC. Fase 1: 33/36 checkboxes.
-- RESTAM 3 tasks humanas: 8187b1f6 (demo no celular), 7acbab78 (call com Rodrigo), 99563d4a (revisão de evidências).
+- RESTAM 3 tasks humanas: 8187b1f6 (demo no celular), 7acbab78 (call com Rodrigo), 99563d4a (revisão de evidências).## [0.0.89–0.0.90] - 2026-10-22 — FASE 2 INICIADA: ficha de perfil e classificação do produtor
+- Base: escopo do guardanapo aprovado pelo Diogo (artifacts/escopo_sistema_vendas_agrospy.md) — Fase 2 = ficha de perfil, classificação de potencial/época, apoio de IA, destaque da revisita, indicadores semanais.
+- Migração 0035: 5 campos novos em produtores — perfil_tecnologia (adepto/parcial/nao_adepto), perfil_ap (faz/fez/nunca), perfil_estrutura (texto), status_comercial (potencial/nao_potencial/cliente), epoca_efetividade (texto). Aditivos, regras da Fase 1 mantidas. Prova: PATCH com os 5 campos 200; valor inválido 400.
+- Tela (0.0.90): ficha do produtor com os 5 campos novos no formulário de edição (2 selects de perfil, estrutura em texto, classificação e época). VAZIO e abrirEdicao/salvarEdicao atualizados.
+- fase-2.md criado com 6 tasks (f2-001 a f2-006), incluindo apoio de IA com revisão obrigatória do usuário (nada entra sem revisão — regra do guardanapo).
+- Versões: 0.0.89 (6c70ee2) e 0.0.90 (be9f973) publicadas 22/10.
+- NOTA: as 3 tasks humanas da Fase 1 (demo 8187b1f6, call 7acbab78, evidências 99563d4a) continuam abertas — aguardam o Diogo/Rodrigo; a Fase 2 segue em paralelo.
