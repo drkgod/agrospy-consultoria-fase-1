@@ -90,10 +90,14 @@ export const filaOffline = {
     empresa: string,
     depende_de?: string,
   ): Promise<ItemFila> {
+    // id calculado UMA vez (antes, dois chamados geravam ids diferentes entre a chave
+    // e o payload — quebrava a idempotência no reenvio).
+    const id = String(dados.id_local ?? this.novoIdLocal())
     const item: ItemFila = {
-      id_local: String(dados.id_local ?? this.novoIdLocal()),
+      id_local: id,
       colecao,
-      dados: { ...dados, id_local: String(dados.id_local ?? this.novoIdLocal()) },
+      // empresa vai no payload: sem ela o servidor recusa a criação do registro.
+      dados: { ...dados, id_local: id, empresa },
       depende_de,
       usuario,
       empresa,
@@ -101,7 +105,6 @@ export const filaOffline = {
       estado: 'pendente',
       tentativas: 0,
     }
-    item.dados.id_local = item.id_local
     await comStore(
       STORE_FILA,
       'readwrite',
@@ -151,6 +154,24 @@ export const filaOffline = {
     }
   },
 
+  /** Volta um item em revisão para a fila de envio (botão "Tentar de novo"). */
+  async reencaminhar(id_local: string, usuario: string): Promise<void> {
+    const item = await comStore<ItemFila | undefined>(
+      STORE_FILA,
+      'readonly',
+      (s) => s.get(id_local) as IDBRequest<ItemFila | undefined>,
+    )
+    if (item && item.usuario === usuario) {
+      item.estado = 'pendente'
+      item.tentativas = 0
+      await comStore(
+        STORE_FILA,
+        'readwrite',
+        (s) => s.put(item) as unknown as IDBRequest<IDBValidKey>,
+      )
+    }
+  },
+
   /** Sincroniza a fila do usuário: ordem das dependências, id_local trocado pelo id real.
    * Devolve { enviados, revisao } para o indicador. */
   async sincronizar(
@@ -168,8 +189,9 @@ export const filaOffline = {
         // Pai ainda não resolvido → espera o próximo gatilho (RN-23).
         if (item.depende_de && !idsServidor.has(item.depende_de)) continue
 
-        // Substitui referências locais pelos ids do servidor.
-        const payload: Record<string, unknown> = { ...item.dados }
+        // Substitui referências locais pelos ids do servidor; empresa sempre do item
+        // (resgata itens antigos enfileirados sem empresa).
+        const payload: Record<string, unknown> = { ...item.dados, empresa: item.empresa }
         if (item.depende_de) {
           const paiCampo = this.campoPai(colecao)
           if (paiCampo) payload[paiCampo] = idsServidor.get(item.depende_de)
@@ -200,9 +222,23 @@ export const filaOffline = {
             item.tentativas++
             continue
           }
+          if (status === 0) {
+            // Rede caiu no meio do envio: continua pendente (não marca revisão).
+            item.tentativas++
+            continue
+          }
+          // Motivo claro por tipo de falha (f5877532: nada se perde em silêncio).
+          const detalhes = (e as { response?: { data?: Record<string, { message?: string }> } })
+            ?.response?.data
+          const campo = detalhes
+            ? Object.entries(detalhes)
+                .map(([k, v]) => `${k}: ${v?.message ?? 'inválido'}`)
+                .join('; ')
+            : ''
           item.estado = 'precisa_revisao'
           item.motivo =
-            (e as { response?: { message?: string } })?.response?.message ??
+            campo ||
+            (e as { response?: { message?: string } })?.response?.message ||
             (status === 403 || status === 404
               ? 'Sem permissão para enviar este registro.'
               : 'Registro recusado pelo servidor.')
