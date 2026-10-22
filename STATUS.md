@@ -1,17 +1,17 @@
 # STATUS — Agrospy
 
-**Atualizado em:** 20/10/2026
+**Atualizado em:** 22/10/2026
 **Fase atual:** 1 — MVP comercial multiempresa no celular
 **Período planejado:** 06/10/2026 a 20/10/2026
-**Versão no ar:** 0.0.83 (f355b3d) publicada 2026-10-20T17:56:12Z
-**Estado:** execução em curso; 27/36 tasks concluídas (offline 4da366fe + 3 sub concluídas — teste humano aprovado pelo Diogo em 20/10/2026: "agora deu certo", após os fixes 0.0.82 e 0.0.83). Próxima: testes de acesso (ed490cca) e falhas de envio (f5877532).
+**Versão no ar:** 0.0.87 (2976e0f) publicada 2026-10-22T14:48Z
+**Estado:** execução em curso; 28/34 tasks concluídas. Em 22/10 o consultor tirou da fase a call de validação (7acbab78) e a revisão do consultor (99563d4a): a fase fecha com o teste final do Diogo (8187b1f6).
 
 | Item | Situação |
 |---|---|
 | SPECs | 5, com TDD e critérios CA-1-01 a CA-1-24 |
-| Tasks | 36: 15 de topo e 21 subtarefas |
-| Estado das tasks | 9 abertas, 27 concluídas (3f7fb2d0 + 2 sub; e6893843 + 2 sub; f1624dc7 + 2 sub; 147a4f1b + 3 sub; ae167e8a + 2 sub; 448d4044 + 3 sub; baad9730; 684e8557; 4da366fe + 3 sub; 6af46d50) |
-| IDs | 36 IDs existentes preservados |
+| Tasks | 34: 13 de topo e 21 subtarefas (2 removidas em 22/10) |
+| Estado das tasks | 6 abertas, 28 concluídas. Abertas: ed490cca + 2 sub e 2 sub da f5877532 (já provadas, falta marcar) e 8187b1f6 (teste final do Diogo) |
+| IDs | 34 IDs preservados; 7acbab78 e 99563d4a removidos |
 | Validação do pacote | formato das tasks e vínculos com as SPECs aprovados |
 | Validação da entrega | acontece durante a execução, conforme cada SPEC |
 
@@ -22,4 +22,4 @@
 
 ## Próxima ação
 
-SPEC-1-004 (uso no celular sem internet) fechada com teste humano aprovado pelo Diogo em 20/10/2026 ("agora deu certo"), após os fixes 0.0.82 (logo 404 travava o service worker) e 0.0.83 (empresa no payload da fila offline, fallback offline da lista, reencaminhar, banner de revisão). Próxima: testes de acesso multiempresa (ed490cca) — outra empresa e perfil sem permissão bloqueados.
+Fechar com as provas automáticas os testes de acesso (ed490cca + 2 sub, provas da 0.0.84) e as subtarefas de falhas de envio (provas da 0.0.87). Depois, o teste final da fase (8187b1f6): o Diogo faz a demonstração no celular pelo roteiro. Com o "testei, pode seguir" dele, a Fase 1 fecha e o consultor libera a Fase 2.

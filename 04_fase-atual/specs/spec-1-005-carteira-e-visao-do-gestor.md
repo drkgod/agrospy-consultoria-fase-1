@@ -27,7 +27,7 @@ O Alisson abre o app de manhã e vê “2 atrasadas, 1 para hoje”; toca numa, 
 - **Fora de escopo:** gráficos, funil, conversão, motivos e exportação (fase 3); avisos push (fase 2); visão do gestor sem internet.
 - **Entradas e pré-condições:** SPECs 1-001 a 1-003 em GREEN; para a demonstração final, também a SPEC-1-004.
 - **Saídas/artefatos:** duas telas; consultas de contagem; roteiro de reconciliação; registro da demonstração e do aceite.
-- **Dependências e responsáveis:** Agrospy executa e demonstra; Diogo testa (CL-004); Rodrigo Santos conduz a call de validação e decide o fechamento da fase.
+- **Dependências e responsáveis:** Agrospy executa e demonstra; o Diogo faz o teste final da fase (CL-004), e com a confirmação dele a fase fecha.
 - **Atores e permissões mínimas:** conforme a matriz da SPEC-1-001.
 - **Superfícies/arquivos/configurações afetadas:** telas “Minha carteira” e “Visão do gestor”; serviços de consulta em `src/services/carteira.ts`.
 - **Risco e plano B:** contagem da tela divergir da base (filtro de data ou de fuso errado) — a reconciliação do TDD compara com consulta direta.
@@ -87,7 +87,7 @@ O Alisson abre o app de manhã e vê “2 atrasadas, 1 para hoje”; toca numa, 
 - [ ] **CA-1-21:** concluir uma ação na carteira exige a próxima e move o item para o grupo correspondente; reagendar para data passada é recusado.
 - [ ] **CA-1-22:** as contagens da visão do gestor por responsável batem com a contagem direta na base da empresa ativa; o Comercial não acessa a visão do gestor nem pela tela nem pela consulta.
 - [ ] **CA-1-23:** o fluxo completo da fase é demonstrado no celular com um produtor real: login → empresa → produtor indicado → visita sem internet → oportunidade com próxima ação → sincronização → Minha carteira → visão do gestor → um usuário da outra empresa não vê nada disso.
-- [ ] **CA-1-24:** o Diogo executa o teste humano e confirma; o consultor revisa as evidências de todas as SPECs da fase e registra a decisão de fechamento.
+- [ ] **CA-1-24:** o Diogo executa o teste final e confirma ("testei, pode seguir"); com isso e com as evidências de todas as SPECs da fase registradas, a fase fecha.
 
 ## TDD da SPEC
 
@@ -124,12 +124,10 @@ O Alisson abre o app de manhã e vê “2 atrasadas, 1 para hoje”; toca numa, 
 |---|---|---|---|---|---|---|---|
 | baad9730-ed85-4a49-a5e9-6a3b8a30454a | Montar a tela Minha carteira com ações atrasadas, de hoje e próximas | Agrospy | SPEC-1-005 | CA-1-20, CA-1-21 | RED 1 → GREEN | prints dos grupos e da ação concluída | SPECs 1-001 a 1-003 em GREEN |
 | 684e8557-4e70-420b-8479-a570f9ff33ad | Montar a visão do gestor com a carteira de toda a equipe | Agrospy | SPEC-1-005 | CA-1-22 | RED 2 → GREEN → REFACTOR/REGRESSÃO (reconciliação) | tabela tela × base | Minha carteira pronta |
-| 8187b1f6-4eef-42e6-91ca-32cfe9b2eaa4 | Demonstrar o fluxo completo da Fase 1 no celular | Agrospy | SPEC-1-005 | CA-1-23 | prova final da fase | gravação de tela + prints | SPECs 1-001 a 1-004 em GREEN |
-| 7acbab78-166f-4684-91ad-13dda69e9901 | Fazer a call de validação da Fase 1 com a Agrospy | Rodrigo Santos | SPEC-1-005 | CA-1-23, CA-1-24 | teste humano do cliente (CL-004) | registro da call e mensagem do Diogo | demonstração pronta |
-| 99563d4a-ae5b-488a-a4ba-b45b7d24bfea | Revisar as evidências e decidir o fechamento da Fase 1 | Rodrigo Santos | SPEC-1-005 | CA-1-24 | evidências das SPECs 1-001 a 1-005 | decisão registrada no card e no STATUS | call de validação feita |
+| 8187b1f6-4eef-42e6-91ca-32cfe9b2eaa4 | Demonstrar o fluxo completo da Fase 1 no celular | Agrospy | SPEC-1-005 | CA-1-23, CA-1-24 | prova final e teste humano da fase (CL-004) | gravação de tela + prints + mensagem do Diogo | SPECs 1-001 a 1-004 em GREEN |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
-| | | | |
+| 22/10/2026 | decisão do consultor | tasks 7acbab78 (call de validação) e 99563d4a (revisão do consultor) removidas | a validação fica com o teste final do Diogo na task 8187b1f6; a fase fecha sem call de validação |

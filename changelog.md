@@ -1,3 +1,7 @@
+## [22/10/2026] — validação do consultor fora da fase 1 (decisão do consultor)
+- Tasks 7acbab78 (call de validação) e 99563d4a (revisão das evidências pelo consultor) removidas de fase.md e da SPEC-1-005. A fase fecha com o teste final do Diogo na 8187b1f6, que agora cobre CA-1-23 e CA-1-24 e inclui a conferência dos perfis.
+- Estado e STATUS: os testes de acesso (ed490cca) e as subtarefas de falhas de envio (f5877532) fecham pelas provas automáticas já feitas (0.0.84 e 0.0.87), sem teste na tela.
+
 ## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
 - Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
 - Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.

@@ -108,11 +108,5 @@ tarefas que já têm um.
   - [ ] Testar sessão expirada, cadastro duplicado e acesso removido @Agrospy !19/10/2026  <!-- id:f694b486-cffc-4841-b5ff-98a64d0ff182 -->
     > Os três casos devem ir para "Pendências de envio" com o motivo, sem apagar o registro. Prova: prints da tela de pendências.
 - [ ] Demonstrar o fluxo completo da Fase 1 no celular @Agrospy !19/10/2026  <!-- id:8187b1f6-4eef-42e6-91ca-32cfe9b2eaa4 -->
-  > Com um produtor real: entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, e confirmar que a outra empresa não vê.
-  > Prova: gravação de tela. SPEC-1-005, CA-1-23.
-- [ ] Fazer a call de validação da Fase 1 com a Agrospy @"Rodrigo Santos" !20/10/2026  <!-- id:7acbab78-166f-4684-91ad-13dda69e9901 -->
-  > Call com o Diogo para ele testar o fluxo completo e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
-  > Resultado: "testei, pode seguir" ou a lista do que mudar. SPEC-1-005, teste humano CL-004.
-- [ ] Revisar as evidências e decidir o fechamento da Fase 1 @"Rodrigo Santos" !20/10/2026  <!-- id:99563d4a-ae5b-488a-a4ba-b45b7d24bfea -->
-  > Conferir as evidências de todas as SPECs da Fase 1 e decidir se a fase fecha ou o que fica pendente.
-  > Resultado: decisão registrada no card. SPEC-1-005, CA-1-24.
+  > Teste final da fase, feito pelo Diogo: com um produtor real, entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, confirmar que a outra empresa não vê e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
+  > Prova: gravação de tela e o "testei, pode seguir" do Diogo. Com isso a Fase 1 fecha. SPEC-1-005, CA-1-23 e CA-1-24.
