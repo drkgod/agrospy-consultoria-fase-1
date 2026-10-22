@@ -62,7 +62,7 @@ tarefas que já têm um.
 - [x] Criar o registro de visita com o roteiro da conversa @Agrospy !13/10/2026  <!-- id:ae167e8a-d5f2-4d51-b78f-9b9aa5acda14 -->
   > Registrar a visita em poucos toques: data, produtor e o que foi conversado (dá para ditar pelo teclado do celular); o resto do roteiro fica em "Mais detalhes".
   > Prova: prints do formulário e da ficha. SPEC-1-003, CA-1-10 e CA-1-13.
-- [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
+  - [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
     > Só três campos obrigatórios; estrutura, perfil tecnológico, investimento, máquinas, necessidades e acordos ficam opcionais. Prova: print do formulário.
   - [x] Mostrar visitas e oportunidades na ficha do produtor @Agrospy !13/10/2026  <!-- id:bd7652e9-6149-4aa2-bce3-30d517108d4d -->
     > A ficha mostra visitas e oportunidades da mais recente para a mais antiga, com quem registrou. Prova: print da ficha.
@@ -100,7 +100,7 @@ tarefas que já têm um.
 - [x] Cadastrar a equipe da Agrospy e da Rumo Agro com o perfil certo @Agrospy !16/10/2026 2026-10-22  <!-- id:6af46d50-9e9c-4182-b201-865b2bf00278 -->
   > Depois do teste de acesso aprovado, o Diogo cadastra cada pessoa com e-mail, empresa e perfil (ex.: Linessa em Gestão, Alisson em Comercial, Carlos e Lucas em Operador).
   > Prova: lista de usuários por empresa e perfil. SPEC-1-001, CA-1-05.
-- [ ] Testar falhas de envio sem perder nenhum registro @Agrospy !19/10/2026  <!-- id:f5877532-2383-4554-a079-f61bc68dd8cc -->
+- [x] Testar falhas de envio sem perder nenhum registro @Agrospy !19/10/2026 2026-10-22  <!-- id:f5877532-2383-4554-a079-f61bc68dd8cc -->
   > Provar que, mesmo com falha de sinal, sessão vencida ou cadastro repetido, nada se perde e nada duplica.
   > Prova: prints e gravações de cada caso. SPEC-1-004, CA-1-17 a CA-1-19.
   - [ ] Testar envio interrompido sem duplicar registros @Agrospy !19/10/2026  <!-- id:8d83c95c-d8b4-429c-81ed-be79b7bf7c46 -->
