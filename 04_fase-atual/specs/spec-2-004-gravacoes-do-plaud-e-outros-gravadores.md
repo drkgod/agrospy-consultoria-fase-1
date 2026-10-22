@@ -165,4 +165,4 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
-| 22/10/2026 | decisão P10 | porta do WhatsApp removida; task 47f28655 passa para a SPEC-2-003 como "Perguntar ao assistente por voz"; teste final troca o WhatsApp pelo pós-visita gravado sem sinal e pela pergunta ao assistente | fase 2 sem WhatsApp |
+| 22/10/2026 | decisão P10 | porta do WhatsApp removida; task 47f28655 passa para a SPEC-2-003 (hoje "Testar o assistente do app com a equipe", pela ordem dos cartões no portal); teste final troca o WhatsApp pelo pós-visita gravado sem sinal e pela pergunta ao assistente | fase 2 sem WhatsApp |
