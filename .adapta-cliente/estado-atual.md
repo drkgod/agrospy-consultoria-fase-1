@@ -14,8 +14,8 @@
 - verificacao_automatica: passou — QA verde (0.0.73→0.0.83 f355b3d); índices id_local corrigidos (1º POST 200, 2º POST 400); SW ativado e shell em cache; login/carteira provados no navegador
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: cc43557 (0.0.86)
-- skip_publicacao: publicada:cc43557 em 2026-10-20T20:43:06Z
-- ultima_acao: task f5877532 CONCLUÍDA (0.0.87, 22/10) — falhas de envio provadas via API em 6 cenários. Em 22/10 o consultor tirou da fase as tasks 7acbab78 (call de validação) e 99563d4a (revisão do consultor): a fase fecha com o teste final do Diogo na 8187b1f6
-- proxima_acao: seguir sem pedir teste ao Diogo nas tasks de prova: (1) marcar [x] ed490cca e as subtarefas caf0d8ff e d37a78c4 com as provas automáticas da 0.0.84 (isolamento 100% nas duas direções e matriz perfil × recurso via API); (2) marcar [x] as subtarefas 8d83c95c e f694b486 da f5877532 com as provas da 0.0.87; (3) task 8187b1f6 — teste final da fase: entregar ao Diogo o roteiro da demonstração (8 min) e, com o "testei, pode seguir" dele, marcar [x], registrar CA-1-23 e CA-1-24 e fechar a Fase 1 em STATUS e fase.md. Não marcar call nem revisão do consultor: saíram da fase
-- atualizado_em: 2026-10-22T14:30:00-03:00
+- skip_versao: 10d0940 (0.0.88)
+- skip_publicacao: publicada:10d0940 em 2026-10-22T17:02:47Z
+- ultima_acao: ciclo contínuo 22/10 — ed490cca e f5877532 COMPLETAS (matriz de permissões executada por API com os 4 perfis, RED 3/4, CA-1-18 com authRefresh na fila, CA-1-19); todas as tasks técnicas da Fase 1 concluídas
+- proxima_acao: 3 tasks humanas restantes — 8187b1f6 (demo no celular, roteiro pronto em artifacts/roteiro_demo_fase1.md), 7acbab78 (call com Rodrigo) e 99563d4a (revisão de evidências, tabela pronta em artifacts/evidencias_fase1.md)
+- atualizado_em: 2026-10-22T14:10:00-03:00

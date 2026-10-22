@@ -58,6 +58,12 @@ const abrir = (): Promise<IDBDatabase> =>
     req.onerror = () => reject(req.error)
   })
 
+/** Extrai o objeto data (motivos por campo) do erro do PocketBase. */
+const detalhesPorCampo = (e: unknown): Record<string, { message?: string }> | null => {
+  const data = (e as { response?: { data?: Record<string, { message?: string }> } })?.response?.data
+  return data && typeof data === 'object' ? data : null
+}
+
 const comStore = async <T>(
   store: string,
   modo: IDBTransactionMode,
@@ -217,19 +223,42 @@ export const filaOffline = {
           enviados++
         } catch (e: unknown) {
           const status = (e as { status?: number })?.status ?? 0
-          if (status === 401) {
-            // Sessão expirada: mantém pendente; o app pede login (CA-1-18).
+          if (status === 401 || status === 0) {
+            // Sessão expirada ou rede caiu no meio: mantém pendente (CA-1-18).
             item.tentativas++
             continue
           }
-          if (status === 0) {
-            // Rede caiu no meio do envio: continua pendente (não marca revisão).
-            item.tentativas++
-            continue
+          // Token malformado/expirado chega como 400 genérico ("Failed to create
+          // record") — distinguir com authRefresh: se a sessão não renova, é
+          // sessão expirada → mantém pendente e o app pede login (CA-1-18).
+          if (status === 400) {
+            const mensagem = (e as { response?: { message?: string } })?.response?.message ?? ''
+            const semDetalheDeCampo =
+              !detalhesPorCampo(e) || Object.keys(detalhesPorCampo(e)).length === 0
+            if (semDetalheDeCampo) {
+              try {
+                await pb.collection('users').authRefresh()
+              } catch {
+                // Sessão realmente expirada: mantém pendente (nada se perde).
+                item.tentativas++
+                continue
+              }
+              if (mensagem.includes('Failed to create record')) {
+                // Sessão válida e recusa genérica: trata como revisão com motivo claro.
+                item.estado = 'precisa_revisao'
+                item.motivo = 'Registro recusado pelo servidor (sem detalhe). Verifique os dados.'
+                await comStore(
+                  STORE_FILA,
+                  'readwrite',
+                  (s) => s.put(item) as unknown as IDBRequest<IDBValidKey>,
+                )
+                revisao++
+                continue
+              }
+            }
           }
           // Motivo claro por tipo de falha (f5877532: nada se perde em silêncio).
-          const detalhes = (e as { response?: { data?: Record<string, { message?: string }> } })
-            ?.response?.data
+          const detalhes = detalhesPorCampo(e)
           const campo = detalhes
             ? Object.entries(detalhes)
                 .map(([k, v]) => `${k}: ${v?.message ?? 'inválido'}`)

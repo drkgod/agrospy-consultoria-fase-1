@@ -62,7 +62,7 @@ tarefas que já têm um.
 - [x] Criar o registro de visita com o roteiro da conversa @Agrospy !13/10/2026  <!-- id:ae167e8a-d5f2-4d51-b78f-9b9aa5acda14 -->
   > Registrar a visita em poucos toques: data, produtor e o que foi conversado (dá para ditar pelo teclado do celular); o resto do roteiro fica em "Mais detalhes".
   > Prova: prints do formulário e da ficha. SPEC-1-003, CA-1-10 e CA-1-13.
-  - [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
+- [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
     > Só três campos obrigatórios; estrutura, perfil tecnológico, investimento, máquinas, necessidades e acordos ficam opcionais. Prova: print do formulário.
   - [x] Mostrar visitas e oportunidades na ficha do produtor @Agrospy !13/10/2026  <!-- id:bd7652e9-6149-4aa2-bce3-30d517108d4d -->
     > A ficha mostra visitas e oportunidades da mais recente para a mais antiga, com quem registrou. Prova: print da ficha.
@@ -90,12 +90,12 @@ tarefas que já têm um.
     > Sem sinal, só criar registros novos; editar cadastro antigo pede internet. Prova: gravação em modo avião mostrando "aguardando envio".
   - [x] Enviar automaticamente o que ficou pendente ao voltar a internet @Agrospy !16/10/2026 2026-10-20  <!-- id:8971a540-0b68-46a4-ab73-59d77ffed401 -->
     > Ao voltar o sinal, abrir o app ou tocar "Sincronizar agora", tudo é enviado uma vez só. Prova: conferência no servidor de que cada registro existe uma única vez.
-- [ ] Testar o acesso: outra empresa e perfil sem permissão ficam bloqueados @Agrospy !16/10/2026  <!-- id:ed490cca-8143-49af-9065-856a9f9ade9c -->
+- [x] Testar o acesso: outra empresa e perfil sem permissão ficam bloqueados @Agrospy !16/10/2026 2026-10-22  <!-- id:ed490cca-8143-49af-9065-856a9f9ade9c -->
   > Prova de que a Agrospy e a Rumo Agro não se misturam e de que cada perfil só faz o que foi combinado, testando também por fora da tela.
   > Depende das telas de produtor, visita e oportunidade prontas. Prova: tabela perfil × recurso preenchida. SPEC-1-001, CA-1-03 e CA-1-04.
-  - [ ] Testar que a Rumo Agro não vê dados da Agrospy, nem por fora da tela @Agrospy !16/10/2026  <!-- id:caf0d8ff-2613-4382-a118-95e1f2134e0e -->
+  - [x] Testar que a Rumo Agro não vê dados da Agrospy, nem por fora da tela @Agrospy !16/10/2026 2026-10-22  <!-- id:caf0d8ff-2613-4382-a118-95e1f2134e0e -->
     > Com o usuário de teste da Rumo Agro, listar, abrir e criar registros da Agrospy — tudo deve ser recusado, e o mesmo no sentido inverso. Prova: respostas dos testes.
-  - [ ] Testar o que cada perfil pode ver e editar @Agrospy !16/10/2026  <!-- id:d37a78c4-d2a3-405a-bad8-38233f11db40 -->
+  - [x] Testar o que cada perfil pode ver e editar @Agrospy !16/10/2026 2026-10-22  <!-- id:d37a78c4-d2a3-405a-bad8-38233f11db40 -->
     > Para cada usuário de teste, conferir na tabela de permissões o que pode ver, criar e editar. Prova: tabela com o esperado e o obtido.
 - [x] Cadastrar a equipe da Agrospy e da Rumo Agro com o perfil certo @Agrospy !16/10/2026 2026-10-22  <!-- id:6af46d50-9e9c-4182-b201-865b2bf00278 -->
   > Depois do teste de acesso aprovado, o Diogo cadastra cada pessoa com e-mail, empresa e perfil (ex.: Linessa em Gestão, Alisson em Comercial, Carlos e Lucas em Operador).
@@ -103,10 +103,16 @@ tarefas que já têm um.
 - [x] Testar falhas de envio sem perder nenhum registro @Agrospy !19/10/2026 2026-10-22  <!-- id:f5877532-2383-4554-a079-f61bc68dd8cc -->
   > Provar que, mesmo com falha de sinal, sessão vencida ou cadastro repetido, nada se perde e nada duplica.
   > Prova: prints e gravações de cada caso. SPEC-1-004, CA-1-17 a CA-1-19.
-  - [ ] Testar envio interrompido sem duplicar registros @Agrospy !19/10/2026  <!-- id:8d83c95c-d8b4-429c-81ed-be79b7bf7c46 -->
+  - [x] Testar envio interrompido sem duplicar registros @Agrospy !19/10/2026 2026-10-22  <!-- id:8d83c95c-d8b4-429c-81ed-be79b7bf7c46 -->
     > Cortar a internet no meio do envio e reconectar. Prova: cada registro aparece uma única vez no servidor.
-  - [ ] Testar sessão expirada, cadastro duplicado e acesso removido @Agrospy !19/10/2026  <!-- id:f694b486-cffc-4841-b5ff-98a64d0ff182 -->
+  - [x] Testar sessão expirada, cadastro duplicado e acesso removido @Agrospy !19/10/2026 2026-10-22  <!-- id:f694b486-cffc-4841-b5ff-98a64d0ff182 -->
     > Os três casos devem ir para "Pendências de envio" com o motivo, sem apagar o registro. Prova: prints da tela de pendências.
 - [ ] Demonstrar o fluxo completo da Fase 1 no celular @Agrospy !19/10/2026  <!-- id:8187b1f6-4eef-42e6-91ca-32cfe9b2eaa4 -->
-  > Teste final da fase, feito pelo Diogo: com um produtor real, entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, confirmar que a outra empresa não vê e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
-  > Prova: gravação de tela e o "testei, pode seguir" do Diogo. Com isso a Fase 1 fecha. SPEC-1-005, CA-1-23 e CA-1-24.
+  > Com um produtor real: entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, e confirmar que a outra empresa não vê.
+  > Prova: gravação de tela. SPEC-1-005, CA-1-23.
+- [ ] Fazer a call de validação da Fase 1 com a Agrospy @"Rodrigo Santos" !20/10/2026  <!-- id:7acbab78-166f-4684-91ad-13dda69e9901 -->
+  > Call com o Diogo para ele testar o fluxo completo e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
+  > Resultado: "testei, pode seguir" ou a lista do que mudar. SPEC-1-005, teste humano CL-004.
+- [ ] Revisar as evidências e decidir o fechamento da Fase 1 @"Rodrigo Santos" !20/10/2026  <!-- id:99563d4a-ae5b-488a-a4ba-b45b7d24bfea -->
+  > Conferir as evidências de todas as SPECs da Fase 1 e decidir se a fase fecha ou o que fica pendente.
+  > Resultado: decisão registrada no card. SPEC-1-005, CA-1-24.
