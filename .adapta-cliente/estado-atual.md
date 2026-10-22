@@ -17,5 +17,6 @@
 - skip_versao: 10d0940 (0.0.88)
 - skip_publicacao: publicada:10d0940 em 2026-10-22T17:02:47Z
 - ultima_acao: ciclo contínuo 22/10 — ed490cca e f5877532 COMPLETAS (matriz de permissões executada por API com os 4 perfis, RED 3/4, CA-1-18 com authRefresh na fila, CA-1-19); todas as tasks técnicas da Fase 1 concluídas
-- proxima_acao: 3 tasks humanas restantes — 8187b1f6 (demo no celular, roteiro pronto em artifacts/roteiro_demo_fase1.md), 7acbab78 (call com Rodrigo) e 99563d4a (revisão de evidências, tabela pronta em artifacts/evidencias_fase1.md)
-- atualizado_em: 2026-10-22T14:10:00-03:00
+- proxima_acao: task 8187b1f6 — teste final da fase: entregar ao Diogo o roteiro da demonstração (artifacts/roteiro_demo_fase1.md) e, com o "testei, pode seguir" dele, marcar [x], registrar CA-1-23 e CA-1-24 e fechar a Fase 1 em STATUS e fase.md. As tasks 7acbab78 (call) e 99563d4a (revisão do consultor) NÃO fazem mais parte da fase: não recriar
+- aviso_consultor: 22/10 — antes de gravar fase.md, puxar a versão do GitHub; a gravação de 14:07 partiu de uma cópia antiga, recriou 7acbab78 e 99563d4a e tirou a indentação da 979d69ff. Use sempre a versão do repositório como base
+- atualizado_em: 2026-10-22T15:20:00-03:00
