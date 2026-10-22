@@ -1,3 +1,8 @@
+## [22/10/2026] — Fase 1 concluída e Fase 2 liberada
+- Fase 1 encerrada com 34/34 tasks concluídas e teste final do Diogo (22/10). Tasks e SPECs da fase 1 movidas para `05_entregas/fase-1/`.
+- Fase 2 (Captura em campo e avisos) publicada em `04_fase-atual/`: 4 SPECs (pós-visita por áudio no app, avisos da próxima ação, agente de campo no WhatsApp, gravações do Plaud e de outros gravadores) e 21 tasks com ID do portal.
+- Execução fluida: construção em sequência e teste humano só na última task de cada SPEC.
+
 ## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
 - Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
 - Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.

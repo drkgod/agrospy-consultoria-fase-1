@@ -1,22 +1,17 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: 6af46d50-9e9c-4182-b201-865b2bf00278
+- fase: 2
+- task_id: 0b522b2b-8c1b-4166-9c07-6f600881ed75
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
-- spec: 07-sistemas/comercial/codigo/docs/specs/spec-1-001-usuarios-e-acessos.md
-- analise: .adapta-cliente/analises/6af46d50-*.md
-- etapa: concluida
-- teste_humano: APROVADO pelo Diogo em 22/10/2026 — equipe cadastrada (Linessa gestao, Walisson operador, Carlos Tonet operador, além dos usuários de teste)
-- autorizacao_implementacao: confirmada 2026-10-15 — "pode implementar"
-- teste_humano: APROVADO pelo Diogo em 20/10/2026 16:00 — "agora deu certo" (após fixes 0.0.82 e 0.0.83)
-- aprendizado: capturado:06_notas/aprendizado-continuo/controle.md (newQuery posicional; col.addIndex; dedup antes de UNIQUE; pb export default; empresa obrigatória no payload da fila; fallback offline na lista)
-- verificacao_automatica: passou — QA verde (0.0.73→0.0.83 f355b3d); índices id_local corrigidos (1º POST 200, 2º POST 400); SW ativado e shell em cache; login/carteira provados no navegador
+- spec: 04_fase-atual/specs/spec-2-001-pos-visita-por-audio-no-app.md
+- etapa: pronta_para_iniciar
+- modo_execucao: ciclo contínuo — seguir as tasks em sequência sem pedir autorização; teste humano só na última task de cada SPEC (descrição "Fecha com o 'testei, pode seguir'"); as demais fecham pela prova automática da SPEC
 - sistema: comercial
 - skip_projeto: 64376
 - skip_versao: 10d0940 (0.0.88)
-- skip_publicacao: publicada:10d0940 em 2026-10-22T17:02:47Z
-- ultima_acao: ciclo contínuo 22/10 — ed490cca e f5877532 COMPLETAS (matriz de permissões executada por API com os 4 perfis, RED 3/4, CA-1-18 com authRefresh na fila, CA-1-19); todas as tasks técnicas da Fase 1 concluídas
-- proxima_acao: task 8187b1f6 — teste final da fase: entregar ao Diogo o roteiro da demonstração (artifacts/roteiro_demo_fase1.md) e, com o "testei, pode seguir" dele, marcar [x], registrar CA-1-23 e CA-1-24 e fechar a Fase 1 em STATUS e fase.md. As tasks 7acbab78 (call) e 99563d4a (revisão do consultor) NÃO fazem mais parte da fase: não recriar
-- aviso_consultor: 22/10 — antes de gravar fase.md, puxar a versão do GitHub; a gravação de 14:07 partiu de uma cópia antiga, recriou 7acbab78 e 99563d4a e tirou a indentação da 979d69ff. Use sempre a versão do repositório como base
-- atualizado_em: 2026-10-22T15:20:00-03:00
+- ultima_acao: consultor liberou a Fase 2 em 22/10/2026 (4 SPECs, 21 tasks com ID); Fase 1 concluída e arquivada em 05_entregas/fase-1/
+- proxima_acao: task 0b522b2b — "Criar a fila de rascunhos para revisar o pós-visita" (SPEC-2-001, CA-2-04); depois seguir a ordem do fase.md. Se faltar algo que só a Agrospy providencia (chave do Groq, conta do OneSignal, número e conta da Meta, pasta do Drive), parar só aquela task, avisar o Diogo e seguir com a próxima independente
+- aviso_consultor: antes de gravar fase.md, puxar a versão do GitHub e usá-la como base (a gravação de 22/10 14:07 partiu de cópia antiga)
+- atualizado_em: 2026-10-22T16:00:00-03:00

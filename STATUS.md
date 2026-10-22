@@ -1,25 +1,27 @@
 # STATUS — Agrospy
 
 **Atualizado em:** 22/10/2026
-**Fase atual:** 1 — MVP comercial multiempresa no celular
-**Período planejado:** 06/10/2026 a 20/10/2026
+**Fase atual:** 2 — Captura em campo e avisos
 **Versão no ar:** 0.0.88
-**Estado:** 33/34 tasks concluídas (todas as técnicas). Falta só o teste final do Diogo (8187b1f6): a demonstração no celular pelo roteiro. A call de validação (7acbab78) e a revisão do consultor (99563d4a) saíram da fase em 22/10.
+**Estado:** fase 2 liberada em 22/10/2026; 0/21 tasks concluídas. Fase 1 concluída em 22/10/2026 (34/34, teste final do Diogo); histórico em `05_entregas/fase-1/`.
 
 | Item | Situação |
 |---|---|
-| SPECs | 5, com TDD e critérios CA-1-01 a CA-1-24 |
-| Tasks | 34: 13 de topo e 21 subtarefas (2 removidas em 22/10) |
-| Estado das tasks | 1 aberta (8187b1f6, teste final do Diogo), 33 concluídas |
-| IDs | 34 IDs preservados; 7acbab78 e 99563d4a removidos |
-| Validação do pacote | formato das tasks e vínculos com as SPECs aprovados |
-| Validação da entrega | acontece durante a execução, conforme cada SPEC |
+| SPECs | 4, com TDD e critérios CA-2-01 a CA-2-18 |
+| Tasks | 21: 4 de topo (uma por SPEC) e 17 subtarefas, todas com ID do portal |
+| Teste humano | só na última task de cada SPEC; as demais fecham pela prova automática |
+| Ordem | pós-visita por áudio no app → avisos → WhatsApp → gravações do Plaud e teste final |
 
-## Entradas necessárias
+## Entradas da Agrospy (só travam a task que depende delas)
 
-- Lista da equipe por empresa, com e-mails e perfis (cadastrada na task 6af46d50, depois do roteiro de acesso).
-- Celulares para os testes de instalação e uso sem internet.
+| Item | Para quê | Quando o Maestro pede |
+|---|---|---|
+| Número de WhatsApp dedicado e conta Meta Business verificada | agente de campo (SPEC-2-003) | antes de ligar o número real |
+| Pasta do Google Drive de cada empresa | gravações pela pasta (SPEC-2-004) | na task da pasta |
+| Sistema dos celulares da equipe | avisos (SPEC-2-002) | no teste dos avisos |
+| Conta gratuita do Groq (transcrição) | só se o Skip não transcrever áudio (SPEC-2-001) | na task de transcrição |
+| Conta gratuita do OneSignal (avisos) | notificação no celular (SPEC-2-002) | na task de notificações |
 
 ## Próxima ação
 
-Teste final da fase (8187b1f6): o Diogo faz a demonstração no celular pelo roteiro. Com o "testei, pode seguir" dele, a Fase 1 fecha e o consultor libera a Fase 2.
+Começar pela task "Criar a fila de rascunhos para revisar o pós-visita" (SPEC-2-001) e seguir a ordem do arquivo de tasks.

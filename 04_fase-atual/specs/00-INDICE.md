@@ -1,29 +1,39 @@
-# Índice de SPECs — Fase 1
+# Índice de SPECs — Fase 2
 
-**Fase:** 1 — MVP comercial multiempresa no celular · **Período:** 06/10/2026 a 20/10/2026
-**Gerado em:** 05/10/2026 · **Status das SPECs:** planejadas e revisadas (painel em `fallback_serial`)
+**Fase:** 2 — Captura em campo e avisos
+**Gerado em:** 22/10/2026 · **Status das SPECs:** planejadas e revisadas
+**Resultado da fase:** o vendedor registra o pós-visita falando, sem formulário, e ninguém perde a data de retorno.
 
 | SPEC | Entrega | Degrau da solução | Critérios | Depende de |
 |---|---|---|---|---|
-| [SPEC-1-001](spec-1-001-acesso-por-empresa-e-perfis.md) | Acesso por empresa e perfis | nativo da plataforma (Skip) | CA-1-01 a CA-1-05 | — |
-| [SPEC-1-002](spec-1-002-cadastro-de-produtor-e-propriedade.md) | Cadastro de produtor e propriedade com origem e responsável | nativo da plataforma (Skip) | CA-1-06 a CA-1-09 | SPEC-1-001 |
-| [SPEC-1-003](spec-1-003-visita-e-oportunidade-com-proxima-acao.md) | Visita e oportunidade com próxima ação obrigatória | nativo da plataforma (Skip) | CA-1-10 a CA-1-14 | SPEC-1-001, SPEC-1-002 |
-| [SPEC-1-004](spec-1-004-uso-no-celular-sem-internet.md) | Uso no celular sem internet e sincronização | construção mínima (app instalável + fila local) | CA-1-15 a CA-1-19 | SPEC-1-001 a SPEC-1-003 |
-| [SPEC-1-005](spec-1-005-carteira-e-visao-do-gestor.md) | Minha carteira, visão do gestor e demonstração da fase | reuso | CA-1-20 a CA-1-24 | SPEC-1-001 a SPEC-1-004 |
+| [SPEC-2-001](spec-2-001-pos-visita-por-audio-no-app.md) | Pós-visita por áudio no app, com fila de rascunhos | reuso + nativo da plataforma | CA-2-01 a CA-2-05 | fase 1 |
+| [SPEC-2-002](spec-2-002-avisos-da-proxima-acao.md) | Avisos da próxima ação no celular, com cópia ao gestor | nativo da plataforma + construção mínima | CA-2-06 a CA-2-09 | fase 1 |
+| [SPEC-2-003](spec-2-003-agente-de-campo-no-whatsapp.md) | Agente de campo no WhatsApp | nativo da plataforma + construção mínima (API oficial da Meta) | CA-2-10 a CA-2-14 | SPEC-2-001 |
+| [SPEC-2-004](spec-2-004-gravacoes-do-plaud-e-outros-gravadores.md) | Gravações do Plaud e de outros gravadores, e teste final da fase | reuso + construção mínima | CA-2-15 a CA-2-18 | SPEC-2-001 (app); SPEC-2-003 (WhatsApp e teste final) |
 
-## Ordem de execução
+## Como executar
 
-Preparação (06/10) → acesso e perfis (07–08/10) → cadastro (09/10) → visita e oportunidade (13–14/10) →
-carteira e visão do gestor (15/10) → uso sem internet (15–16/10) → testes de acesso e cadastro da
-equipe (16/10) → testes de falha de envio e demonstração (19/10) → call de validação e fechamento (20/10).
+1. **Construção em sequência**, uma task depois da outra, sem pedir autorização antes de cada uma.
+2. **Teste humano só na última task de cada SPEC.** As demais tasks fecham pela prova automática da própria SPEC.
+3. **Ordem:**
+   1. pós-visita por áudio no app (SPEC-2-001);
+   2. avisos (SPEC-2-002);
+   3. WhatsApp (SPEC-2-003): a construção segue no modo de teste, e o número real entra quando a Meta liberar e o Diogo autorizar;
+   4. gravações e teste final da fase (SPEC-2-004).
+4. **Se faltar algo que só a Agrospy pode providenciar**, pare só aquela task e siga com a próxima que não depende disso:
+   - a chave do serviço de transcrição;
+   - a conta do serviço de notificação;
+   - o número e a conta da Meta;
+   - a pasta do Drive.
 
 ## Fora desta fase
 
-Avisos no celular e captura por WhatsApp, Plaud e Drive (fase 2); funil, ganho/perda, propostas e
-painel com indicadores (fase 3); RDV e contratos (fase 4); vínculo de produtor entre as empresas e
-importação de planilhas (fase 3); edição de cadastro sem internet; qualquer uso de IA.
+- funil, propostas, ganho e perda com motivo, e painel com indicadores (fase 3);
+- vínculo de produtor entre as empresas e importação de planilhas (fase 3);
+- RDV e contratos (fase 4);
+- sugestões por IA para reabordagem (fase 5);
+- qualquer mensagem automática para produtores.
 
 ## Tasks
 
-As tasks desta fase estão no arquivo de tarefas da fase (fonte única de status, responsável e prazo)
-e listadas em `## Tasks vinculadas` de cada SPEC.
+As tasks desta fase estão no arquivo de tarefas da fase e listadas em `## Tasks vinculadas` de cada SPEC.

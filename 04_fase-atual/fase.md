@@ -1,4 +1,4 @@
-# Fase 1 — Tarefas
+# Fase 2 — Tarefas
 
 <!-- fase-format:2 -->
 
@@ -29,84 +29,45 @@ Marque `[x]` para concluir e adicione linhas novas à vontade: elas entram no qu
 sincronização e voltam aqui com o `<!-- id:… -->` preenchido. **Não apague o marcador de id** das
 tarefas que já têm um.
 
-- [x] Conectar o Skip ao Maestro e criar o projeto do sistema comercial @Agrospy !06/10/2026  <!-- id:3f7fb2d0-64a9-459f-a006-44805554d4cc -->
-  > Preparação da Fase 1. Ligar a conta Skip do Diogo ao Maestro e criar o projeto onde o sistema comercial vai morar.
-  > Pronto quando o projeto abre pelo link e o Maestro consegue trabalhar nele. SPEC-1-001 (pré-condições).
-  - [x] Conectar a conta Skip no Maestro @Agrospy !06/10/2026  <!-- id:c1886bd3-5193-4208-a20e-187112a261e8 -->
-    > No Maestro: Conectores → Skip → Conectar, com o login do Diogo. Prova: print do Skip como conectado.
-  - [x] Criar o projeto do sistema comercial no Skip pelo Maestro @Agrospy !06/10/2026  <!-- id:ceeec8f6-4f9d-4db1-becd-2eb47ee2a5e1 -->
-    > Pedir ao Maestro para criar no Skip o projeto do sistema comercial da Agrospy e da Rumo Agro e guardar nele as SPECs da Fase 1. Prova: link do projeto abrindo.
-- [x] Montar o login e a escolha de empresa (Agrospy ou Rumo Agro) @Agrospy !07/10/2026  <!-- id:e6893843-4b81-4fb9-8fe4-f6b841e9aa6d -->
-  > Cada pessoa entra com e-mail e senha próprios e escolhe em qual empresa vai trabalhar; quem só tem uma empresa entra direto.
-  > Prova: teste sem login recusado e prints das telas. SPEC-1-001, CA-1-01 e CA-1-02.
-  - [x] Cadastrar as duas empresas com nome, cor e logo @Agrospy !07/10/2026  <!-- id:47d2b87b-3e1d-4124-96cf-03eebe97b85f -->
-    > Criar Agrospy e Rumo Agro no sistema, cada uma com nome, cor e logo próprios. Prova: lista das duas empresas no Skip.
-  - [x] Mostrar a empresa ativa em todas as telas e permitir trocar @Agrospy !07/10/2026  <!-- id:70cb051a-c050-40ef-a76b-2a4758ea6a58 -->
-    > O topo de todas as telas mostra logo, nome e cor da empresa ativa e o botão “Trocar empresa”, que limpa da tela os dados da anterior. Prova: prints nas duas empresas.
-- [x] Configurar os perfis e a tela de usuários do administrador @Agrospy !08/10/2026  <!-- id:f1624dc7-d84e-424d-840b-414ed775636e -->
-  > Perfis por empresa: Administrador, Gestão, Comercial e Operador, como combinado na call de 22/09. O administrador cria usuário, dá o perfil e desativa quando precisar.
-  > Ninguém consegue aumentar o próprio acesso. Prova: teste da API e prints. SPEC-1-001, CA-1-05.
-  - [x] Criar a tela de usuários para o administrador @Agrospy !08/10/2026  <!-- id:0e80de88-0d2e-4042-bd9b-ba197320b2ff -->
-    > Tela “Usuários” da empresa ativa: criar com senha temporária, alterar perfil e desativar. Prova: prints da tela e o usuário desativado perdendo o acesso.
-  - [x] Criar os usuários de teste de cada perfil @Agrospy !08/10/2026  <!-- id:f1425ca3-e9c6-4675-b37c-f072c518932e -->
-    > Usuários de teste (um por perfil na Agrospy, um Comercial na Rumo Agro e um com perfis diferentes nas duas) para provar o acesso sem usar dados reais. Prova: lista dos usuários de teste.
-- [x] Criar o cadastro de produtor e propriedade com a origem da indicação @Agrospy !09/10/2026  <!-- id:147a4f1b-2f57-4098-833b-ce69a962b4b6 -->
-  > Cadastro do produtor com de onde veio, quem indicou, de quem é próximo e o responsável (a carteira), mais as propriedades com município e área.
-  > Prova: testes de validação e prints do cadastro e da ficha. SPEC-1-002, CA-1-06 a CA-1-09.
-  - [x] Cadastrar produtor com quem indicou e responsável pela carteira @Agrospy !09/10/2026  <!-- id:761c4105-3d3f-4bdb-9d9d-462422092837 -->
-    > Quando a origem é indicação, "quem indicou" é obrigatório; quem cadastra vira o responsável. Prova: print do cadastro e teste da indicação sem nome sendo recusada.
-  - [x] Cadastrar propriedade com município, área e localização @Agrospy !09/10/2026  <!-- id:eaf9ddb6-e396-4766-be07-45f78d0ec093 -->
-    > Propriedade ligada ao produtor, com município, área em hectares, posse e, se quiser, a localização do celular. Prova: print da ficha com a propriedade.
-  - [x] Avisar quando o produtor já estiver cadastrado @Agrospy !09/10/2026  <!-- id:9eef36f2-fb98-4daf-9164-d49e269f7aa8 -->
-    > CPF/CNPJ repetido na mesma empresa é barrado; mesmo nome e município geram aviso de possível duplicado. Prova: print do aviso e teste da API.
-- [x] Criar o registro de visita com o roteiro da conversa @Agrospy !13/10/2026  <!-- id:ae167e8a-d5f2-4d51-b78f-9b9aa5acda14 -->
-  > Registrar a visita em poucos toques: data, produtor e o que foi conversado (dá para ditar pelo teclado do celular); o resto do roteiro fica em "Mais detalhes".
-  > Prova: prints do formulário e da ficha. SPEC-1-003, CA-1-10 e CA-1-13.
-  - [x] Montar o formulário curto da visita @Agrospy !13/10/2026  <!-- id:979d69ff-c333-4509-a9a1-41476245aa04 -->
-    > Só três campos obrigatórios; estrutura, perfil tecnológico, investimento, máquinas, necessidades e acordos ficam opcionais. Prova: print do formulário.
-  - [x] Mostrar visitas e oportunidades na ficha do produtor @Agrospy !13/10/2026  <!-- id:bd7652e9-6149-4aa2-bce3-30d517108d4d -->
-    > A ficha mostra visitas e oportunidades da mais recente para a mais antiga, com quem registrou. Prova: print da ficha.
-- [x] Registrar oportunidades com responsável e próxima ação obrigatória @Agrospy !14/10/2026  <!-- id:448d4044-5617-4296-806b-371ec39e9a51 -->
-  > Toda visita termina com um próximo passo e toda oportunidade aberta tem linha de negócio, responsável, próxima ação e data.
-  > Prova: testes de recusa e prints. SPEC-1-003, CA-1-11, CA-1-12 e CA-1-14.
-  - [x] Configurar as linhas de negócio de cada empresa @Agrospy !14/10/2026  <!-- id:6850e423-a005-4c52-97c3-84c04bbc219f -->
-    > Carregar as linhas da Agrospy e da Rumo Agro e o Diogo confirmar quais são de cada empresa. Prova: lista por empresa confirmada pelo Diogo.
-  - [x] Exigir o próximo passo ao salvar cada visita @Agrospy !14/10/2026  <!-- id:623899c6-debc-4514-85f7-d6e0857871c0 -->
-    > Ao salvar: nova oportunidade, atualizar uma oportunidade aberta ou "sem oportunidade agora" com motivo. Prova: visita sem próximo passo sendo recusada.
-  - [x] Concluir e reagendar a próxima ação guardando o histórico @Agrospy !14/10/2026  <!-- id:9705e5f8-3cd7-4336-b9ff-7e00dfc1615a -->
-    > Concluir pede o resultado e a próxima ação; reagendar pede a nova data. O histórico não pode ser apagado. Prova: print do histórico da oportunidade.
-- [x] Montar a tela Minha carteira com ações atrasadas, de hoje e próximas @Agrospy !15/10/2026  <!-- id:baad9730-ed85-4a49-a5e9-6a3b8a30454a -->
-  > Tela inicial do vendedor: atrasadas, hoje, próximos 7 dias e depois, com atalhos para concluir ou reagendar.
-  > Prova: datas de teste nos grupos certos. SPEC-1-005, CA-1-20 e CA-1-21.
-- [x] Montar a visão do gestor com a carteira de toda a equipe @Agrospy !15/10/2026  <!-- id:684e8557-4e70-420b-8479-a570f9ff33ad -->
-  > Para Gestão e Administrador: ações atrasadas, de hoje e da semana por responsável, produtores sem oportunidade aberta e visitas da semana.
-  > Prova: números da tela iguais aos da base. SPEC-1-005, CA-1-22.
-- [x] Instalar o app no celular e registrar visita sem internet @Agrospy !16/10/2026 2026-10-20  <!-- id:4da366fe-2f89-4585-88dc-c46b28672483 -->
-  > Usar o sistema no campo sem sinal: o app fica na tela inicial, guarda o que foi registrado e envia sozinho quando a internet volta, sem duplicar.
-  > Prova: gravação em modo avião e conferência no servidor. SPEC-1-004, CA-1-15 e CA-1-16.
-  - [x] Deixar o app instalável na tela inicial do celular @Agrospy !15/10/2026 2026-10-20  <!-- id:394e3cf8-1f15-48ca-ae90-b2b4c5c6cf57 -->
-    > Ícone na tela inicial do Android e do iPhone da empresa, abrindo mesmo sem internet. Prova: print do ícone e do app abrindo em modo avião.
-  - [x] Guardar visita, oportunidade e produtor novo sem internet @Agrospy !16/10/2026 2026-10-20  <!-- id:97a859bc-947a-4f36-b0c0-43b7ba743b3c -->
-    > Sem sinal, só criar registros novos; editar cadastro antigo pede internet. Prova: gravação em modo avião mostrando "aguardando envio".
-  - [x] Enviar automaticamente o que ficou pendente ao voltar a internet @Agrospy !16/10/2026 2026-10-20  <!-- id:8971a540-0b68-46a4-ab73-59d77ffed401 -->
-    > Ao voltar o sinal, abrir o app ou tocar "Sincronizar agora", tudo é enviado uma vez só. Prova: conferência no servidor de que cada registro existe uma única vez.
-- [x] Testar o acesso: outra empresa e perfil sem permissão ficam bloqueados @Agrospy !16/10/2026 2026-10-22  <!-- id:ed490cca-8143-49af-9065-856a9f9ade9c -->
-  > Prova de que a Agrospy e a Rumo Agro não se misturam e de que cada perfil só faz o que foi combinado, testando também por fora da tela.
-  > Depende das telas de produtor, visita e oportunidade prontas. Prova: tabela perfil × recurso preenchida. SPEC-1-001, CA-1-03 e CA-1-04.
-  - [x] Testar que a Rumo Agro não vê dados da Agrospy, nem por fora da tela @Agrospy !16/10/2026 2026-10-22  <!-- id:caf0d8ff-2613-4382-a118-95e1f2134e0e -->
-    > Com o usuário de teste da Rumo Agro, listar, abrir e criar registros da Agrospy — tudo deve ser recusado, e o mesmo no sentido inverso. Prova: respostas dos testes.
-  - [x] Testar o que cada perfil pode ver e editar @Agrospy !16/10/2026 2026-10-22  <!-- id:d37a78c4-d2a3-405a-bad8-38233f11db40 -->
-    > Para cada usuário de teste, conferir na tabela de permissões o que pode ver, criar e editar. Prova: tabela com o esperado e o obtido.
-- [x] Cadastrar a equipe da Agrospy e da Rumo Agro com o perfil certo @Agrospy !16/10/2026 2026-10-22  <!-- id:6af46d50-9e9c-4182-b201-865b2bf00278 -->
-  > Depois do teste de acesso aprovado, o Diogo cadastra cada pessoa com e-mail, empresa e perfil (ex.: Linessa em Gestão, Alisson em Comercial, Carlos e Lucas em Operador).
-  > Prova: lista de usuários por empresa e perfil. SPEC-1-001, CA-1-05.
-- [x] Testar falhas de envio sem perder nenhum registro @Agrospy !19/10/2026 2026-10-22  <!-- id:f5877532-2383-4554-a079-f61bc68dd8cc -->
-  > Provar que, mesmo com falha de sinal, sessão vencida ou cadastro repetido, nada se perde e nada duplica.
-  > Prova: prints e gravações de cada caso. SPEC-1-004, CA-1-17 a CA-1-19.
-  - [x] Testar envio interrompido sem duplicar registros @Agrospy !19/10/2026 2026-10-22  <!-- id:8d83c95c-d8b4-429c-81ed-be79b7bf7c46 -->
-    > Cortar a internet no meio do envio e reconectar. Prova: cada registro aparece uma única vez no servidor.
-  - [x] Testar sessão expirada, cadastro duplicado e acesso removido @Agrospy !19/10/2026 2026-10-22  <!-- id:f694b486-cffc-4841-b5ff-98a64d0ff182 -->
-    > Os três casos devem ir para "Pendências de envio" com o motivo, sem apagar o registro. Prova: prints da tela de pendências.
-- [ ] Demonstrar o fluxo completo da Fase 1 no celular @Agrospy !19/10/2026  <!-- id:8187b1f6-4eef-42e6-91ca-32cfe9b2eaa4 -->
-  > Teste final da fase, feito pelo Diogo: com um produtor real, entrar, escolher a empresa, cadastrar a indicação, registrar a visita sem internet, criar a oportunidade, sincronizar, ver na carteira e na visão do gestor, confirmar que a outra empresa não vê e conferir os perfis de cada pessoa (inclusive se o vendedor deve consultar o cadastro de outros vendedores).
-  > Prova: gravação de tela e o "testei, pode seguir" do Diogo. Com isso a Fase 1 fecha. SPEC-1-005, CA-1-23 e CA-1-24.
+- [ ] Registrar o pós-visita por áudio no app @Agrospy !30/10/2026  <!-- id:c72f5276-6770-4bfe-ba35-9092ad2ee556 -->
+  > O vendedor grava o pós-visita falando, mesmo sem sinal, e o sistema monta um rascunho da visita para ele conferir e confirmar. Nada entra no histórico sem confirmação. SPEC-2-001.
+  - [ ] Criar a fila de rascunhos para revisar o pós-visita @Agrospy !24/10/2026  <!-- id:0b522b2b-8c1b-4166-9c07-6f600881ed75 -->
+    > Nova tela "Rascunhos". Cada pessoa vê só os próprios rascunhos, Gestão e Administrador veem os da empresa, e a outra empresa nunca vê. Fecha pela prova automática. SPEC-2-001, CA-2-04.
+  - [ ] Confirmar, corrigir ou descartar o rascunho @Agrospy !27/10/2026  <!-- id:68c2ec27-c5c8-490a-8048-1255343383d7 -->
+    > Ao confirmar, a visita entra na ficha do produtor com o áudio, a oportunidade e a próxima ação, pelas mesmas regras da fase 1. O rascunho descartado não entra em lugar nenhum. Fecha pela prova automática. SPEC-2-001, CA-2-03.
+  - [ ] Transformar o áudio gravado em rascunho de visita @Agrospy !28/10/2026  <!-- id:5f42475d-2083-49e8-9153-c0ded8096569 -->
+    > O áudio enviado é transcrito, e a IA preenche produtor, assuntos e próxima ação com data. O que ela não identificar fica em branco para a pessoa preencher. Se o Skip não transcrever áudio, a Agrospy cria a conta gratuita do Groq e guarda a chave no cofre. Fecha pela prova automática. SPEC-2-001, CA-2-02 e CA-2-05.
+  - [ ] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
+    > Sem sinal, a gravação fica no celular como "aguardando envio" e sobe sozinha quando a internet volta, uma vez só. Fecha pela prova automática. SPEC-2-001, CA-2-01.
+  - [ ] Testar o pós-visita por áudio no celular @Agrospy !30/10/2026  <!-- id:abc5e491-405a-4dab-ae70-b2769743f897 -->
+    > Teste do Diogo com um vendedor: gravar o pós-visita de uma visita real, conferir o rascunho, confirmar e ver a visita na ficha do produtor. Também confirmar por quanto tempo guardar os áudios. Fecha com o "testei, pode seguir". SPEC-2-001.
+- [ ] Receber os avisos da próxima ação no celular @Agrospy !06/11/2026  <!-- id:f20b6ec7-1938-4dcb-a387-1150d0244c68 -->
+  > No dia da próxima ação, o responsável recebe um aviso no celular. Se a ação atrasar, recebe outro aviso, e o gestor recebe cópia. SPEC-2-002.
+  - [ ] Mostrar os avisos do dia dentro do app @Agrospy !03/11/2026  <!-- id:bdca5efe-1e2d-443f-9cb7-c6a026678524 -->
+    > Todo dia às 7h (horário ajustável pelo Administrador), o sistema cria os avisos do dia, que aparecem numa lista "Avisos" com contador no topo, sem repetir. Fecha pela prova automática. SPEC-2-002, CA-2-06 e CA-2-08.
+  - [ ] Avisar o atraso e mandar cópia ao gestor @Agrospy !04/11/2026  <!-- id:4b03eb12-8cf5-42b8-980c-d999ba3a07d9 -->
+    > Ação vencida e não concluída gera aviso de atraso no dia seguinte e a cada 3 dias, com cópia para Gestão e Administrador, que podem desligar a cópia. O Administrador ajusta horário e repetição. Fecha pela prova automática. SPEC-2-002, CA-2-07 e CA-2-09.
+  - [ ] Ativar as notificações no celular @Agrospy !05/11/2026  <!-- id:2ae01199-220f-446b-982d-6174d2348065 -->
+    > Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
+  - [ ] Testar os avisos no celular @Agrospy !06/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
+    > Teste do Diogo com um vendedor: ativar os avisos, conferir o aviso das 7h no dia da ação e o aviso de atraso com a cópia no celular do Diogo. Fecha com o "testei, pode seguir". SPEC-2-002.
+- [ ] Usar o agente de campo no WhatsApp @Agrospy !13/11/2026  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
+  > O vendedor manda áudio ou texto do pós-visita para o número da empresa, e isso vira rascunho para confirmar no app. Ele também pode perguntar ao agente sobre a própria carteira. SPEC-2-003.
+  - [ ] Cadastrar o WhatsApp da equipe e receber mensagens de teste @Agrospy !10/11/2026  <!-- id:864c6848-16e6-48d3-9538-53abe6a9f91c -->
+    > O Administrador cadastra o WhatsApp de cada pessoa, um número por pessoa. O sistema recebe mensagens de teste no formato da Meta, recusa as sem assinatura e não responde a número desconhecido. Fecha pela prova automática. SPEC-2-003, CA-2-11, CA-2-12 e CA-2-14.
+  - [ ] Receber o pós-visita pelo WhatsApp como rascunho @Agrospy !11/11/2026  <!-- id:c504f635-645d-4304-8f81-88ae6f1149f5 -->
+    > Áudio ou texto de pós-visita enviado ao agente vira rascunho na fila de quem mandou. A confirmação de recebimento sai na hora, e o link para confirmar no app chega em até 10 minutos. A mesma mensagem não vira dois rascunhos. Fecha pela prova automática. SPEC-2-003, CA-2-10 e CA-2-13.
+  - [ ] Responder perguntas sobre o histórico pelo WhatsApp @Agrospy !12/11/2026  <!-- id:09510a74-c541-4d88-adb1-6c2be8d3b9c5 -->
+    > O agente responde perguntas como "minhas ações de hoje" e "o que conversei com o produtor X", só com o que a pessoa pode ver na empresa dela. Fecha pela prova automática. SPEC-2-003, CA-2-12 e CA-2-14.
+  - [ ] Testar o agente do WhatsApp com a equipe @Agrospy !13/11/2026  <!-- id:fcbe8d32-044e-4881-9a7b-4d07f85687fa -->
+    > Com a autorização do Diogo, ligar o número real da empresa (API oficial da Meta, número dedicado) e testar com um vendedor: mandar um áudio real, confirmar o rascunho pelo link e fazer perguntas. Também confirmar se o Comercial continua consultando todos os produtores e o prazo de guarda das mensagens. Fecha com o "testei, pode seguir". SPEC-2-003.
+- [ ] Trazer as gravações do Plaud e de outros gravadores @Agrospy !19/11/2026  <!-- id:c53689d5-d8b3-4e94-a4f3-527716ad1218 -->
+  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app ou pelo WhatsApp, e a fase 2 fecha com o teste final do Diogo. SPEC-2-004.
+  - [ ] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
+    > Pelo botão "Enviar gravação". O áudio é transcrito, e a transcrição pronta do Plaud (txt, docx ou pdf) vai direto para o rascunho. O mesmo arquivo não vira dois rascunhos. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
+  - [ ] Mandar gravações para o WhatsApp do agente @Agrospy !17/11/2026  <!-- id:47f28655-1831-466a-b9bb-69438c63314b -->
+    > O arquivo mandado ao agente vira rascunho e recebe o link. O mesmo arquivo enviado pelo app e pelo WhatsApp vira um rascunho só. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
+  - [ ] Importar as gravações da pasta do Drive @Agrospy !18/11/2026  <!-- id:993bc32b-f785-4096-bc52-c05b1e6b439c -->
+    > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app e pelo WhatsApp continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-17.
+  - [ ] Demonstrar a fase 2 no celular (teste final da fase) @Agrospy !19/11/2026  <!-- id:2bb2808a-63c0-4f55-8427-aef3b1e10c6a -->
+    > Teste final do Diogo: o áudio pelo WhatsApp vira rascunho e é confirmado, a visita aparece na ficha do produtor, o aviso da próxima ação chega no dia e uma transcrição do Plaud vira rascunho. Antes do teste, as contas de teste são limpas. Com o "testei, pode seguir", a fase 2 fecha. SPEC-2-004, CA-2-18.
