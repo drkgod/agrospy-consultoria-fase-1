@@ -16,8 +16,8 @@
 - verificacao_automatica: passou — QA verde (0.0.73→0.0.83 f355b3d); índices id_local corrigidos (1º POST 200, 2º POST 400); SW ativado e shell em cache; login/carteira provados no navegador
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: be9f973 (0.0.90)
-- skip_publicacao: publicada:be9f973 em 2026-10-22T21:03:53Z
-- ultima_acao: Fase 2 INICIADA — migração 0035 (5 campos de perfil/classificação em produtores) + ficha com os campos novos (v0.0.90); fase-2.md criado com 6 tasks; provas via API (PATCH 200, inválido 400)
-- proxima_acao: task f2-002 — classificar potencial e época direto no formulário da visita
-- atualizado_em: 2026-10-22T18:10:00-03:00
+- skip_versao: 3edfbec (0.0.96)
+- skip_publicacao: publicada:3edfbec em 2026-10-28T19:00:58Z
+- ultima_acao: Fase 2 em andamento — f2-001 (perfil), f2-002 (classificar na visita), f2-004 (destaque da revisita) e f2-005 (indicadores semanais) CONCLUÍDAS; 2 bugs de base corrigidos (0036/0037 datas ausentes, 0038 gestão sem nomes)
+- proxima_acao: f2-003 (resumo com IA) — PARADA: precisa da decisão do Diogo sobre provedor/chave de IA e revisão humana obrigatória
+- atualizado_em: 2026-10-28T16:05:00-03:00
