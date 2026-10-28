@@ -13,6 +13,13 @@ export interface GruposCarteira {
   depois: Oportunidade[]
 }
 
+/** FASE 2 (f2-005) — os 3 indicadores semanais do guardanapo. */
+export interface IndicadoresSemanais {
+  inicio: string
+  atual: { prospeccoes: number; comPotencial: number; oportunidades: number }
+  anterior: { prospeccoes: number; comPotencial: number; oportunidades: number }
+}
+
 export const carteiraService = {
   /** Data de hoje (Brasília) como "YYYY-MM-DD". */
   hojeBrasilia(): string {
@@ -51,6 +58,66 @@ export const carteiraService = {
     const a = new Date(`${String(dataAcao).slice(0, 10)}T12:00:00Z`)
     const b = new Date(`${hoje}T12:00:00Z`)
     return Math.max(1, Math.round((b.getTime() - a.getTime()) / 86400000))
+  },
+
+  /** FASE 2 (f2-005) — os 3 indicadores semanais do guardanapo.
+   * Semana = segunda a domingo, no fuso de Brasília.
+   * 1) prospecções realizadas = visitas registradas na semana
+   * 2) visitas com potencial = visitas na semana cujo produtor está classificado como potencial/cliente
+   * 3) oportunidades com necessidade reconhecida = oportunidades criadas na semana
+   */
+  async indicadoresSemanais(empresaId: string): Promise<IndicadoresSemanais> {
+    const hoje = this.hojeBrasilia()
+    const d = new Date(`${hoje}T12:00:00Z`)
+    const diaSemana = d.getUTCDay() // 0=domingo
+    const recuo = diaSemana === 0 ? 6 : diaSemana - 1
+    const inicio = new Date(d)
+    inicio.setDate(inicio.getDate() - recuo)
+    const inicioAnterior = new Date(inicio)
+    inicioAnterior.setDate(inicioAnterior.getDate() - 7)
+    const fimAnterior = new Date(inicio)
+    fimAnterior.setDate(fimAnterior.getDate() - 1)
+
+    const iso = (x: Date) => x.toISOString().slice(0, 10)
+    const conta = async (colecao: string, filtroData: string, extra: string) => {
+      try {
+        const r = await pb.collection(colecao).getList(1, 1, { filter: filtroData + extra })
+        return r.totalItems
+      } catch {
+        return 0
+      }
+    }
+    const periodo = (campo: string, de: Date, ate: Date) =>
+      `${campo} >= "${iso(de)} 00:00:00" && ${campo} <= "${iso(ate)} 23:59:59"`
+
+    const semana = async (de: Date, ate: Date) => {
+      const [prospeccoes, oportunidades] = await Promise.all([
+        conta('visitas', periodo('data', de, ate), ` && empresa = "${empresaId}"`),
+        conta('oportunidades', periodo('created', de, ate), ` && empresa = "${empresaId}"`),
+      ])
+      // visitas com potencial: cruza com o status do produtor
+      let comPotencial = 0
+      try {
+        const vis = await pb.collection('visitas').getFullList({
+          filter: periodo('data', de, ate) + ` && empresa = "${empresaId}"`,
+          expand: 'produtor',
+        })
+        comPotencial = vis.filter((v) => {
+          const st = (v.expand?.produtor as { status_comercial?: string } | undefined)
+            ?.status_comercial
+          return st === 'potencial' || st === 'cliente'
+        }).length
+      } catch {
+        comPotencial = 0
+      }
+      return { prospeccoes, comPotencial, oportunidades }
+    }
+
+    const [atual, anterior] = await Promise.all([
+      semana(inicio, d),
+      semana(inicioAnterior, fimAnterior),
+    ])
+    return { inicio: iso(inicio), atual, anterior }
   },
 
   /** RN-28: produtores do usuário, não arquivados, sem nenhuma oportunidade aberta. */

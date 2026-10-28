@@ -9,6 +9,7 @@ import { empresasService } from '@/services/empresas'
 import { produtoresService, ORIGENS, type Produtor } from '@/services/produtores'
 import { propriedadesService, POSSES, type Propriedade } from '@/services/propriedades'
 import { visitasService, type Visita } from '@/services/visitas'
+import { destaqueService, type DestaqueRevisita } from '@/services/destaque-revisita'
 import { filaOffline } from '@/services/fila-offline'
 import pb from '@/lib/pocketbase/client'
 import { oportunidadesService, type Oportunidade } from '@/services/oportunidades'
@@ -69,6 +70,7 @@ export default function ProdutorFicha() {
   const [novoResp, setNovoResp] = useState('')
   const [usuarios, setUsuarios] = useState<UsuarioDaEmpresa[]>([])
   const [visitas, setVisitas] = useState<Visita[]>([])
+  const [destaque, setDestaque] = useState<DestaqueRevisita | null>(null)
   const [oportunidades, setOportunidades] = useState<Oportunidade[]>([])
   const [propEditando, setPropEditando] = useState<string | null>(null)
   const [formProp, setFormProp] = useState({
@@ -110,6 +112,11 @@ export default function ProdutorFicha() {
           status_comercial: ((p as Record<string, unknown>).status_comercial as string) ?? '',
           epoca_efetividade: ((p as Record<string, unknown>).epoca_efetividade as string) ?? '',
         })
+        // FASE 2 (f2-004): destaque da revisita a partir do produtor carregado.
+        destaqueService
+          .montar(p)
+          .then(setDestaque)
+          .catch(() => {})
       })
       .catch(() => toast({ title: 'Produtor não encontrado.', variant: 'destructive' }))
     propriedadesService
@@ -124,6 +131,7 @@ export default function ProdutorFicha() {
       .listarDoProdutor(id)
       .then(setOportunidades)
       .catch(() => {})
+
     vinculosService.listarDoUsuario().then((vs) => {
       const meu = vs.find((v) => v.empresa === empresaId)
       const gestao = meu?.perfil === 'gestao' || meu?.perfil === 'administrador'
@@ -397,6 +405,62 @@ export default function ProdutorFicha() {
       {produtor.observacoes && (
         <Card>
           <CardContent className="text-sm pt-4">{produtor.observacoes}</CardContent>
+        </Card>
+      )}
+
+      {/* FASE 2 (f2-004) — destaque da revisita: o que levar para a próxima conversa. */}
+      {destaque && (
+        <Card className="border-primary/40">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Destaque para a próxima visita</CardTitle>
+            <CardDescription>
+              {destaque.naEpoca.length > 0
+                ? `${destaque.naEpoca.length} demanda(s) atendível(is) agora${produtor.epoca_efetividade ? ` · época: ${produtor.epoca_efetividade}` : ''}`
+                : 'Nenhuma demanda com época aberta neste momento'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            {destaque.naEpoca.length > 0 && (
+              <div className="space-y-1">
+                <p className="font-medium">Demandas para tratar</p>
+                {destaque.naEpoca.map((o) => (
+                  <div key={o.id} className="rounded-md border p-2">
+                    <p className="font-medium">{o.descricao}</p>
+                    <p className="text-xs text-muted-foreground">
+                      Próxima ação: {o.proxima_acao} ·{' '}
+                      {String(o.proxima_acao_data).slice(0, 10).split('-').reverse().join('/')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {destaque.ultimaConversa && (
+              <div>
+                <p className="font-medium">Última conversa</p>
+                <p className="text-muted-foreground whitespace-pre-wrap">
+                  {destaque.ultimaConversa}
+                </p>
+              </div>
+            )}
+            {destaque.necessidades && (
+              <div>
+                <p className="font-medium">Necessidades apontadas</p>
+                <p className="text-muted-foreground whitespace-pre-wrap">{destaque.necessidades}</p>
+              </div>
+            )}
+            {destaque.acordos && (
+              <div>
+                <p className="font-medium">Acordos combinados</p>
+                <p className="text-muted-foreground whitespace-pre-wrap">{destaque.acordos}</p>
+              </div>
+            )}
+            {!destaque.ultimaConversa && destaque.naEpoca.length === 0 && (
+              <p className="text-muted-foreground">
+                Ainda não há histórico suficiente. Registre a primeira visita para o destaque
+                aparecer.
+              </p>
+            )}
+          </CardContent>
         </Card>
       )}
 

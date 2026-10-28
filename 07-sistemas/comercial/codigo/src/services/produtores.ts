@@ -10,6 +10,12 @@ export const ORIGENS: { value: string; label: string }[] = [
 ]
 
 export interface Produtor {
+  /** FASE 2 (SPEC-2-001) — perfil e classificação comercial. */
+  perfil_tecnologia?: string
+  perfil_ap?: string
+  perfil_estrutura?: string
+  status_comercial?: string
+  epoca_efetividade?: string
   id: string
   empresa: string
   nome: string

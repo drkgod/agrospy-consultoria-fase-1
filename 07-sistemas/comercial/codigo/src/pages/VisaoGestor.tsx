@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast'
 import { empresasService } from '@/services/empresas'
 import { vinculosService } from '@/services/vinculos'
 import { usuariosService } from '@/services/usuarios'
-import { carteiraService, type LinhaGestor } from '@/services/carteira'
+import { carteiraService, type IndicadoresSemanais, type LinhaGestor } from '@/services/carteira'
 import type { Produtor } from '@/services/produtores'
 
 export default function VisaoGestor() {
@@ -27,6 +27,7 @@ export default function VisaoGestor() {
   const [nomes, setNomes] = useState<Record<string, string>>({})
   const [semOportunidade, setSemOportunidade] = useState<Produtor[]>([])
   const [filtro, setFiltro] = useState('')
+  const [indicadores, setIndicadores] = useState<IndicadoresSemanais | null>(null)
 
   useEffect(() => {
     if (!empresaId) return
@@ -49,13 +50,15 @@ export default function VisaoGestor() {
     Promise.all([
       carteiraService.visaoGestor(empresaId),
       usuariosService.listarDaEmpresa(empresaId),
+      carteiraService.indicadoresSemanais(empresaId).catch(() => null),
     ])
-      .then(([{ linhas, semOportunidade }, usuarios]) => {
+      .then(([{ linhas, semOportunidade }, usuarios, ind]) => {
         const mapa: Record<string, string> = {}
         for (const u of usuarios) mapa[u.usuarioId] = u.nome || u.email
         setNomes(mapa)
         setLinhas(linhas)
         setSemOportunidade(semOportunidade)
+        setIndicadores(ind)
       })
       .catch(() => {
         setErro('Não foi possível carregar a visão da equipe.')
@@ -114,6 +117,48 @@ export default function VisaoGestor() {
             Tentar de novo
           </Button>
         </div>
+      )}
+
+      {!carregando && !erro && indicadores && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Indicadores da semana</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { rotulo: 'Prospecções', chave: 'prospeccoes' as const },
+                { rotulo: 'Visitas com potencial', chave: 'comPotencial' as const },
+                { rotulo: 'Oportunidades', chave: 'oportunidades' as const },
+              ].map(({ rotulo, chave }) => {
+                const agora = indicadores.atual[chave]
+                const antes = indicadores.anterior[chave]
+                const variacao = agora - antes
+                return (
+                  <div key={chave} className="rounded-lg border p-3">
+                    <p className="text-xs text-muted-foreground">{rotulo}</p>
+                    <p className="text-2xl font-bold">{agora}</p>
+                    <p
+                      className={
+                        variacao > 0
+                          ? 'text-xs text-green-700'
+                          : variacao < 0
+                            ? 'text-xs text-destructive'
+                            : 'text-xs text-muted-foreground'
+                      }
+                    >
+                      {variacao > 0 ? `+${variacao}` : variacao === 0 ? 'igual' : variacao} vs
+                      semana anterior ({antes})
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Semana desde {indicadores.inicio.split('-').reverse().join('/')} (segunda a domingo).
+            </p>
+          </CardContent>
+        </Card>
       )}
 
       {!carregando && !erro && (

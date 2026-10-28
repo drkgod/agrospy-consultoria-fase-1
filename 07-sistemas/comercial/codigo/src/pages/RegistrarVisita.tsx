@@ -41,6 +41,9 @@ export default function RegistrarVisita() {
   const [estrutura, setEstrutura] = useState('')
   const [necessidades, setNecessidades] = useState('')
   const [acordos, setAcordos] = useState('')
+  // FASE 2 (f2-002): classificação e época aplicadas ao produtor ao salvar a visita.
+  const [classificacao, setClassificacao] = useState('')
+  const [epoca, setEpoca] = useState('')
   const [destino, setDestino] = useState<
     '' | 'nova_oportunidade' | 'oportunidade_atualizada' | 'sem_oportunidade'
   >('')
@@ -367,6 +370,18 @@ export default function RegistrarVisita() {
           empresa.id,
         )
       }
+      // FASE 2 (f2-002): aplica classificação e época no produtor (sem internet fica
+      // para depois — a visita em si já foi enfileirada).
+      if (navigator.onLine && (classificacao || epoca.trim())) {
+        try {
+          await produtoresService.atualizar(produtor.id, {
+            ...(classificacao ? { status_comercial: classificacao } : {}),
+            ...(epoca.trim() ? { epoca_efetividade: epoca.trim() } : {}),
+          })
+        } catch {
+          // Não derruba a visita: a classificação pode ser refeita na ficha.
+        }
+      }
       toast({ title: 'Visita registrada' })
       navigate(`/produtores/${produtor.id}`)
     } catch (e: unknown) {
@@ -452,6 +467,25 @@ export default function RegistrarVisita() {
               />
             </div>
           )}
+          {/* FASE 2 (f2-002): classificar o produtor sem sair da visita. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t">
+            <select
+              aria-label="Classificação comercial do produtor"
+              value={classificacao}
+              onChange={(e) => setClassificacao(e.target.value)}
+              className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="">Classificação: manter como está</option>
+              <option value="potencial">Potencial</option>
+              <option value="nao_potencial">Não potencial</option>
+              <option value="cliente">Cliente</option>
+            </select>
+            <Input
+              placeholder="Época de maior efetividade (ex.: set-dez)"
+              value={epoca}
+              onChange={(e) => setEpoca(e.target.value)}
+            />
+          </div>
         </CardContent>
       </Card>
 
