@@ -227,3 +227,43 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
   - **Buraco de segurança fechado** — o CREATE aceitava `status` arbitrário (dava para nascer `pronto_para_revisar`, pulando transcrição). Hook `rascunhos_create.js` força `recebido`. Provado.
 - O que NÃO foi entregue por causa do bloqueio: **5f42475d** (rota `/processar` com transcrição Groq + proposta `$ai.chat`), **6b4bcbde** (gravação offline do áudio), e portanto o teste `abc5e491`.
 - Nota de transparência: tentei 6 vezes reenviar a rota de processamento; a falha é do conector, não do arquivo (a mesma chamada já havia funcionado minutos antes com outros arquivos).
+
+## [0.0.105–0.0.108] - 2026-10-29 — SPEC-2-001 / task 5f42475d: áudio → rascunho (CONCLUÍDA)
+- **Diagnóstico antes do código** (regra do Diogo: precisão, não chute). Três rotas de diagnóstico rodadas no servidor provaram o mecanismo real, e derrubaram duas suposições minhas:
+  - `$filesystem.fileFromRecord()` **não existe** no runtime (TypeError) — a rota que eu ia publicar quebraria 100% das transcrições;
+  - `require('fs')` e `ReadFile` **não existem**;
+  - `$os.readFile(caminho)` **existe e lê os bytes** (25.807 bytes conferidos); caminho = `dataDir() + '/storage/' + collection.id + '/' + record.id + '/' + nome`;
+  - o Skip **não transcreve áudio** (nenhuma menção a áudio/whisper no guia de IA) — confirma o Groq previsto na SPEC;
+  - `TRANSCRICAO_API_KEY` já estava no cofre (cadastrada 14:10).
+- Rota `POST /backend/v1/rascunhos/{id}/processar` (0.0.105): texto_original dispensa transcrição; senão Groq whisper-large-v3 com multipart montado byte a byte (o `$http.send` não tem `files`/`form`); depois `$ai.chat` (fast) só JSON; validação no servidor (ids da empresa, linha ativa, data ≥ hoje, valores de lista da fase 1); campos incertos marcados; falha conta tentativa e volta para `recebido`, 3ª vira `falhou`.
+- **PROVA REAL (GREEN 1)**: áudio com voz sintética → transcrição "Visita ao teste produtora, falamos de sementes de pastagem e da correção do solo. Volto no dia 5 de novembro para levar a proposta." → proposta com assuntos, destino `nova_oportunidade`, linha, próxima ação e data **2026-11-05**; produtor vazio e marcado em `campos_incertos` (a IA não reconheceu — comportamento correto da SPEC).
+- **FALHA SILENCIOSA ACHADA E CORRIGIDA (0.0.106)**: a rota de confirmar engolia o erro da cópia do áudio (`catch` + console.error) — a visita era confirmada **sem o áudio**. Agora a cópia é verificada e, se falhar, a confirmação é recusada com mensagem clara, sem perder o rascunho.
+- **PROVA REAL (GREEN 2)**: confirmar 200; segunda chamada devolve `ja_confirmado: true` com a mesma visita; áudio copiado para `visitas.audio` e **baixado íntegro: 74.133 bytes = 74.133 bytes do original**.
+- Tela de revisão `/rascunhos/:id` (0.0.108): transcrição visível, produtor com aviso de "a IA não identificou", assuntos editáveis, destino, linha, descrição, próxima ação e data; botões Confirmar / Descartar / Voltar. Verificada no navegador com rascunho real.
+- Achados de cadastro (para o teste do Diogo): `produtores.origem` aceita **somente** `outro` entre os valores testados (`indicacao`, `prospeccao`, `evento`, `site` recusados) e exige `municipio` + `origem` — a tela de cadastro precisa conferir isso antes do teste de campo.
+- Versões: 0.0.105 (d06b382), 0.0.106 (510a3e2), 0.0.108 (eb9dc7b) publicadas 29/10.
+
+## [0.0.109–0.0.111] - 2026-10-29 — SPEC-2-001: gravação offline, duplicata clara e rotina
+- **Botão "Gravar pós-visita"** (`GravarPosVisita.tsx`): grava pelo microfone; com internet cria o rascunho e chama `/processar`; sem internet guarda no aparelho e sobe sozinho quando a conexão volta (escuta `online`). Mostra "N gravação(ões) aguardando envio".
+- **Fila de áudio** (`audio-offline.ts`): store próprio no IndexedDB (o DB subiu para a versão 2 sem perder a fila da fase 1), SHA-256 do áudio em base64 calculado no aparelho (`crypto.subtle.digest`) — a mesma regra do `hash_conteudo` do servidor; `chave_dedup = id_local` para subir uma vez só.
+- **Rotina de 10 min** (`rascunhos_rotina.js`): devolve a `recebido` o que travou em `transcrevendo` há mais de 15 min e marca `falhou` o que estourou 3 tentativas — nada fica preso sem aparecer na tela com "Tentar de novo".
+- **DUPLICATA COM RESPOSTA CLARA (0.0.110)** — antes o índice único devolvia erro técnico (`validation_not_unique` em `empresa`/`hash_conteudo`), que o app mostraria como "Failed to create record". Agora o hook de create responde **409** com mensagem legível: "Esta gravação já foi enviada." (mesma pessoa) ou "Esta gravação já foi enviada por outra pessoa da empresa." — e **não abre o rascunho alheio** (devolve `rascunho: ''`).
+- **Fila trata 409 como enviado** (0.0.111): limpa o item e não conta como falha (CA-2-05).
+- **PROVAS**: mesma `chave_dedup` → 409 com mensagem; mesmo `hash_conteudo` com chave nova → 409 sem expor o rascunho de outro autor.
+- **NÃO PROVADO AINDA**: o GREEN 3 (desligar a rede, gravar e religar) exige o teste no aparelho — o código está no ar, a prova é do teste do Diogo.
+- Pendente de decisão do Diogo: retenção dos áudios (RN-50, proposta de 30 dias) e o teste final `abc5e491`.
+- Versões: 0.0.109 (b48fd38), 0.0.110 (1aa2a57), 0.0.111 (d242efd) publicadas 29/10.
+
+## [2026-10-29, fim do dia] — Tela verificada e estado da SPEC-2-001
+- Tela `/rascunhos` verificada no navegador: botão "Gravar pós-visita" presente, contador de rascunhos prontos, cada item com transcrição e os botões "Revisar e confirmar" / "Descartar".
+- Tela `/rascunhos/:id` verificada: transcrição visível, aviso "a IA não identificou, escolha" no produtor (campo incerto), assuntos preenchidos e editáveis, destino, linha de negócio, descrição, próxima ação e data pré-preenchidos.
+- **4 de 5 subtarefas da SPEC-2-001 concluídas**: 0b522b2b (fila), 68c2ec27 (confirmar/descartar), 5f42475d (áudio→rascunho). A 6b4bcbde tem o código no ar e depende da prova no aparelho.
+- **Falta o teste do Diogo** (abc5e491) e a resposta sobre o prazo de guarda dos áudios (RN-50, proposta de 30 dias).
+
+## [0.0.112] - 2026-10-29 — SPEC-2-001 / RN-50: retenção dos áudios
+- Rotina diária `retencao_rascunhos` (03:30 UTC = 00:30 Brasília):
+  - rascunho `descartado` ou `falhou` há mais de 30 dias perde `midia`, `transcricao`, `texto_original` e `proposta` — fica só o registro de que existiu;
+  - rascunho `confirmado` perde a `midia` **somente** depois de conferir que `visitas.audio` está preenchido; se a visita não existir ou estiver sem áudio, o arquivo é preservado (é a única cópia).
+- Prazo de 30 dias é o padrão proposto na SPEC; o Diogo confirma no teste final (abc5e491).
+- Versão 0.0.112 (ea9bda3) publicada 29/10 17:23 UTC.
+- **Estado da SPEC-2-001**: 4 de 5 subtarefas concluídas (fila, confirmar/descartar, áudio→rascunho, retenção). A 6b4bcbde (gravar sem internet) tem o código no ar; a prova do modo avião é do teste no aparelho. Falta só o teste do Diogo (abc5e491).

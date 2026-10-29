@@ -1,30 +1,20 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v3
-- task_id: 0b522b2b-8c1b-4166-9c07-6f600881ed75
-- aguardando_teste: nenhuma
+- task_id: abc5e491-405a-4dab-ae70-b2769743f897
+- aguardando_teste: abc5e491 — teste do Diogo com um vendedor ("testei, pode seguir")
 - em_espera: nenhuma
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
 - spec: 04_fase-atual/specs/spec-2-001-pos-visita-por-audio-no-app.md
-- analise: .adapta-cliente/analises/0b522b2b-8c1b-4166-9c07-6f600881ed75.md
-- etapa: bloqueada
-- ciclo: continuo 2026-10-28 — "Comece por 'Criar a fila de rascunhos para revisar o pós-visita' e siga a ordem do fase.md, sem me pedir autorização entre as tarefas"
-- teste_humano: pendente — teste da SPEC-2-001 na task abc5e491
-- verificacao_automatica: pendente para esta task
+- etapa: aguardando teste humano (4 de 5 subtarefas concluídas)
+- ciclo: continuo 2026-10-29 — "siga a ordem do fase.md, sem me pedir autorização entre as tarefas; o teste é só no fim de cada parte"
+- teste_humano: pendente — SPEC-2-001, task abc5e491
+- verificacao_automatica: passou — RED 1 (acesso/campos travados), GREEN 1 (áudio→rascunho com transcrição real), GREEN 2 (confirmar idempotente + áudio íntegro 74.133 bytes), CA-2-05 (duplicata 409)
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: 7894984 (0.0.100)
-- skip_publicacao: publicada:7894984 em 2026-10-29T13:37:33Z
-- ultima_acao: 0b522b2b e 68c2ec27 CONCLUÍDAS (v0.0.100) com RED 1 verde, rota de confirmação idempotente e buraco de segurança fechado; conector Skip caiu (Forbidden) e bloqueou 5f42475d/6b4bcbde
-- proxima_acao: reconectar o conector Skip e seguir na 5f42475d (rota /processar: transcrição Groq + proposta $ai.chat)
-- atualizado_em: 2026-10-29T11:10:00-03:00
-
-## Pendente imediato (conector Skip fora do ar em 29/10)
-- Rota `/backend/v1/rascunhos/{id}/processar` escrita e revisada, pronta para deploy em
-  `07-sistemas/comercial/codigo/pocketbase/hooks/PENDENTE_rascunhos_processar.js.txt`.
-  Ao reconectar o Skip: salvar como `pocketbase/hooks/rascunhos_processar.js`, publicar
-  e rodar GREEN 1 da SPEC-2-001 (áudio → rascunho com proposta).
-- Falta também: rotina `cronAdd("*/10 * * * *")` de repetição, gravação offline do áudio
-  (6b4bcbde) e a tela de revisão do rascunho (editar proposta antes de confirmar).
-- O segredo `TRANSCRICAO_API_KEY` (Groq) ainda não existe no cofre — o Diogo cadastra.
+- skip_versao: d242efd (0.0.111)
+- skip_publicacao: publicada:d242efd em 2026-10-29T17:21:58Z
+- ultima_acao: SPEC-2-001 quase fechada — 0b522b2b, 68c2ec27 e 5f42475d CONCLUÍDAS; 6b4bcbde com código no ar e prova offline pendente do teste no aparelho
+- proxima_acao: teste do Diogo (abc5e491) — gravar sem sinal, conferir rascunho, confirmar; e definir o prazo de guarda dos áudios (RN-50)
+- atualizado_em: 2026-10-29T14:22:00-03:00

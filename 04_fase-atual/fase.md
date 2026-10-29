@@ -35,9 +35,9 @@ tarefas que já têm um.
     > Nova tela "Rascunhos". Cada pessoa vê só os próprios rascunhos, Gestão e Administrador veem os da empresa, e a outra empresa nunca vê. Fecha pela prova automática. SPEC-2-001, CA-2-04.
   - [x] Confirmar, corrigir ou descartar o rascunho @Agrospy !27/10/2026 2026-10-29  <!-- id:68c2ec27-c5c8-490a-8048-1255343383d7 -->
     > Ao confirmar, a visita entra na ficha do produtor com o áudio, a oportunidade e a próxima ação, pelas mesmas regras da fase 1. O rascunho descartado não entra em lugar nenhum. Fecha pela prova automática. SPEC-2-001, CA-2-03.
-  - [ ] Transformar o áudio gravado em rascunho de visita @Agrospy !28/10/2026  <!-- id:5f42475d-2083-49e8-9153-c0ded8096569 -->
+  - [x] Transformar o áudio gravado em rascunho de visita @Agrospy !28/10/2026 2026-10-29  <!-- id:5f42475d-2083-49e8-9153-c0ded8096569 -->
     > O áudio enviado é transcrito, e a IA preenche produtor, assuntos e próxima ação com data. O que ela não identificar fica em branco para a pessoa preencher. Se o Skip não transcrever áudio, a Agrospy cria a conta gratuita do Groq e guarda a chave no cofre. Fecha pela prova automática. SPEC-2-001, CA-2-02 e CA-2-05.
-  - [ ] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
+  - [/] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026 2026-10-29  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
     > Sem sinal, a gravação fica no celular como "aguardando envio" e sobe sozinha quando a internet volta, uma vez só. Fecha pela prova automática. SPEC-2-001, CA-2-01.
   - [ ] Testar o pós-visita por áudio no celular @Agrospy !30/10/2026  <!-- id:abc5e491-405a-4dab-ae70-b2769743f897 -->
     > Teste do Diogo com um vendedor: gravar o pós-visita de uma visita real, conferir o rascunho, confirmar e ver a visita na ficha do produtor. Também confirmar por quanto tempo guardar os áudios. Fecha com o "testei, pode seguir". SPEC-2-001.
