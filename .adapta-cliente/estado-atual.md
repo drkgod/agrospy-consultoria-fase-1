@@ -1,23 +1,21 @@
 # Estado atual — Adapta Cliente
 
-- schema_version: adapta-cliente-state/v2
-- task_id: fase-2-0035 (Fase 2 — ficha de perfil e classificação)
+- schema_version: adapta-cliente-state/v3
+- task_id: 0b522b2b-8c1b-4166-9c07-6f600881ed75
+- aguardando_teste: nenhuma
+- em_espera: nenhuma
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
-- spec: 07-sistemas/comercial/escopo_sistema_vendas_agrospy.md (Fase 2 do guardanapo)
-- analise: .adapta-cliente/analises/fase-2-*.md
-- etapa: implementando (primeira entrega: migração 0035 + campos na ficha)
-- ciclo: continuo 2026-10-22 — "Atualize o repositório e comece a fase 2"
-- teste_humano: pendente — teste do fluxo na task f2-006-teste-fluxo
-- verificacao_automatica: passou — QA verde (0.0.89 6c70ee2 + 0.0.90 be9f973); PATCH perfil 200 e valor inválido 400 provados via API
-- autorizacao_implementacao: confirmada 2026-10-15 — "pode implementar"
-- teste_humano: APROVADO pelo Diogo em 20/10/2026 16:00 — "agora deu certo" (após fixes 0.0.82 e 0.0.83)
-- aprendizado: capturado:06_notas/aprendizado-continuo/controle.md (newQuery posicional; col.addIndex; dedup antes de UNIQUE; pb export default; empresa obrigatória no payload da fila; fallback offline na lista)
-- verificacao_automatica: passou — QA verde (0.0.73→0.0.83 f355b3d); índices id_local corrigidos (1º POST 200, 2º POST 400); SW ativado e shell em cache; login/carteira provados no navegador
+- spec: 04_fase-atual/specs/spec-2-001-pos-visita-por-audio-no-app.md
+- analise: .adapta-cliente/analises/0b522b2b-8c1b-4166-9c07-6f600881ed75.md
+- etapa: bloqueada
+- ciclo: continuo 2026-10-28 — "Comece por 'Criar a fila de rascunhos para revisar o pós-visita' e siga a ordem do fase.md, sem me pedir autorização entre as tarefas"
+- teste_humano: pendente — teste da SPEC-2-001 na task abc5e491
+- verificacao_automatica: pendente para esta task
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: 3edfbec (0.0.96)
-- skip_publicacao: publicada:3edfbec em 2026-10-28T19:00:58Z
-- ultima_acao: Fase 2 em andamento — f2-001 (perfil), f2-002 (classificar na visita), f2-004 (destaque da revisita) e f2-005 (indicadores semanais) CONCLUÍDAS; 2 bugs de base corrigidos (0036/0037 datas ausentes, 0038 gestão sem nomes)
-- proxima_acao: f2-003 (resumo com IA) — PARADA: precisa da decisão do Diogo sobre provedor/chave de IA e revisão humana obrigatória
-- atualizado_em: 2026-10-28T16:05:00-03:00
+- skip_versao: 7894984 (0.0.100)
+- skip_publicacao: publicada:7894984 em 2026-10-29T13:37:33Z
+- ultima_acao: 0b522b2b e 68c2ec27 CONCLUÍDAS (v0.0.100) com RED 1 verde, rota de confirmação idempotente e buraco de segurança fechado; conector Skip caiu (Forbidden) e bloqueou 5f42475d/6b4bcbde
+- proxima_acao: reconectar o conector Skip e seguir na 5f42475d (rota /processar: transcrição Groq + proposta $ai.chat)
+- atualizado_em: 2026-10-29T11:10:00-03:00
