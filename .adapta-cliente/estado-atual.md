@@ -19,3 +19,12 @@
 - ultima_acao: 0b522b2b e 68c2ec27 CONCLUÍDAS (v0.0.100) com RED 1 verde, rota de confirmação idempotente e buraco de segurança fechado; conector Skip caiu (Forbidden) e bloqueou 5f42475d/6b4bcbde
 - proxima_acao: reconectar o conector Skip e seguir na 5f42475d (rota /processar: transcrição Groq + proposta $ai.chat)
 - atualizado_em: 2026-10-29T11:10:00-03:00
+
+## Pendente imediato (conector Skip fora do ar em 29/10)
+- Rota `/backend/v1/rascunhos/{id}/processar` escrita e revisada, pronta para deploy em
+  `07-sistemas/comercial/codigo/pocketbase/hooks/PENDENTE_rascunhos_processar.js.txt`.
+  Ao reconectar o Skip: salvar como `pocketbase/hooks/rascunhos_processar.js`, publicar
+  e rodar GREEN 1 da SPEC-2-001 (áudio → rascunho com proposta).
+- Falta também: rotina `cronAdd("*/10 * * * *")` de repetição, gravação offline do áudio
+  (6b4bcbde) e a tela de revisão do rascunho (editar proposta antes de confirmar).
+- O segredo `TRANSCRICAO_API_KEY` (Groq) ainda não existe no cofre — o Diogo cadastra.
