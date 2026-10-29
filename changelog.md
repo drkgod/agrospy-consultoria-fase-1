@@ -1,3 +1,13 @@
+## [22/10/2026] — Emenda P10: fase 2 sem WhatsApp
+- O agente de campo no WhatsApp foi trocado por um assistente dentro do app (SPEC-2-003 reescrita: `spec-2-003-assistente-de-campo-no-app.md`), como alinhado na 2ª consultoria.
+- A SPEC-2-004 deixa de ter a porta do WhatsApp; o Plaud e os gravadores entram pelo app e pela pasta do Drive.
+- Os IDs das tasks foram mantidos. A task 47f28655 passou para a SPEC-2-003 como "Perguntar ao assistente por voz".
+
+## [22/10/2026] — Fase 1 concluída e Fase 2 liberada
+- Fase 1 encerrada com 34/34 tasks concluídas e teste final do Diogo (22/10). Tasks e SPECs da fase 1 movidas para `05_entregas/fase-1/`.
+- Fase 2 (Captura em campo e avisos) publicada em `04_fase-atual/`: 4 SPECs (pós-visita por áudio no app, avisos da próxima ação, agente de campo no WhatsApp, gravações do Plaud e de outros gravadores) e 21 tasks com ID do portal.
+- Execução fluida: construção em sequência e teste humano só na última task de cada SPEC.
+
 ## [0.0.72] - 2026-10-15 — task 684e8557: visão do gestor (SPEC-1-005, CA-1-22)
 - Tela "Visão do gestor" na rota /visao-gestor (só Gestão/Administrador; não-gestão é redirecionado para /): tabela por responsável (Atrasadas/Hoje/Próx. 7 dias/Total abertas/Visitas 7d) com linha de totais, filtro por responsável e seção "Produtores sem oportunidade aberta" (clique abre a ficha). No celular a tabela vira cards por responsável (sem rolagem horizontal).
 - Serviço: carteiraService.visaoGestor(empresaId) — 3 consultas paginadas (oportunidades abertas, visitas 7d, produtores) agregadas por responsável com o mesmo agrupamento RN-26 da Minha carteira; listarProdutoresDaEmpresaSemOportunidadeAberta para a equipe toda.
@@ -194,3 +204,26 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - BUG (0.0.95 71b1317): a Visão do gestor mostrava IDs no lugar dos nomes para perfil GESTÃO — a listRule de vinculos só permitia Administrador ou o próprio. Migração 0038 inclui acesso_gestao em list/view (create/update seguem só do Administrador). Prova na tela: nomes aparecem.
 - f2-004 (0.0.96 3edfbec): Destaque da revisita na ficha — demandas atendíveis na época atual (parser de "set-dez", "09", "setembro"), última conversa, necessidades e acordos da última visita. Prova na tela: card exibindo "1 demanda(s) atendível(is) agora" com a demanda e a última conversa.
 - RESTA f2-003 (resumo com IA): precisa de decisão do Diogo — depende de provedor de IA com chave de API e da regra de revisão humana. Não implementado sem autorização.
+
+## [0.0.97–0.0.98] - 2026-10-29 — SPEC-2-001 / task 0b522b2b: fila de rascunhos (CONCLUÍDA)
+- Migração 0039: coleção `rascunhos` com todos os campos da SPEC (empresa, autor, origem app_audio/app_texto/arquivo_gravador/drive, midia protegida 25 MB, texto_original, chave_dedup única, hash_conteudo único por empresa, id_local, criado_em_aparelho, status com os 7 valores, transcricao, proposta JSON, produtor, motivo_falha, tentativas, visita_criada, confirmado_por, confirmado_em, created/updated). Regras: list/view = autor ou Gestão/Administrador da empresa; create = autor + admin/gestão/comercial; update = mesma da leitura; delete = null (RN-29, RN-35).
+- Hook `rascunhos_update.js`: campos controlados pelo servidor travados na API (empresa, autor, origem, midia, chave_dedup, hash_conteudo, status, transcricao, proposta, visita_criada, confirmado_por, confirmado_em) — as rotas usam $app.save e não passam por hook de request.
+- Frontend (0.0.98): serviço `rascunhos.ts` (listar, contarParaRevisar, buscar, descartar) e tela `/rascunhos` com status, produtor sugerido, transcrição/texto, motivo de falha e descarte com confirmação; item "Rascunhos" no menu (Operador não vê).
+- PROVAS RED 1 (CA-2-04) todas verdes: Rumo lista 0 e abre 404; autor tenta mudar status pela API → 400 "O campo status só pode ser alterado pelo sistema"; gestão lista (1); Operador cria → 400. Tela verificada no navegador com o rascunho de teste.
+- Versões: 0.0.97 (fc8ef87) e 0.0.98 (40e4af9) publicadas 29/10 13:32 e 13:33 UTC.
+
+## [0.0.99–0.0.100] - 2026-10-29 — SPEC-2-001 / task 68c2ec27: confirmar, corrigir ou descartar (CONCLUÍDA)
+- Rota `POST /backend/v1/rascunhos/{id}/confirmar` (API v0.36: handler `e`, `e.auth`, `e.request.pathValue`, `e.requestInfo().body`, `$apis.requireAuth`): confere autor/Gestão-Administrador da empresa (RN-29/RN-30), exige status `pronto_para_revisar`, valida que a visita é da mesma empresa e tem `id_local = rasc-<id>`, copia a mídia para `visitas.audio`, grava confirmado/visita_criada/confirmado_por/confirmado_em. Idempotente: já confirmado devolve a visita existente.
+- Serviço `confirmacao-rascunho.ts`: grava visita/oportunidades pela API da fase 1 com o token do usuário (todas as regras e hooks valem — o servidor nunca cria visita por $app.save), com `id_local` determinístico (`rasc-<id>`, `rasc-<id>-<n>`) e verificação prévia de existência; `prepararDados` valida produtor/assuntos/destino/oportunidade/motivo antes de enviar.
+- BURACO DE SEGURANÇA ACHADO E FECHADO (0.0.100): o CREATE aceitava `status` arbitrário — dava para nascer um rascunho já `pronto_para_revisar`, pulando transcrição e validação. Novo hook `rascunhos_create.js` força `recebido`, `tentativas 0` e limpa visita_criada/confirmado_por/confirmado_em/motivo_falha. Prova: criar forçando "pronto_para_revisar" → gravado `recebido`.
+- PROVAS: rota confirmar 200 com visita; segunda chamada devolve `ja_confirmado: true` (mesma visita); segunda visita com o mesmo id_local → 400 (índice único); rascunho não-pronto → 400 com mensagem clara.
+- Versões: 0.0.99 (3e9fedc) e 0.0.100 (7894984) publicadas 29/10.
+
+## [2026-10-29, tarde] — BLOQUEIO TÉCNICO no meio da SPEC-2-001
+- O conector do Skip passou a responder **Forbidden** em todas as chamadas (leitura, escrita, status do projeto). Não é erro de código: é o conector perdendo autorização no meio da sessão. A ÚLTIMA operação que chegou ao servidor foi a publicação da versão **0.0.100 (7894984)**, com a coleção `rascunhos`, o hook de create e a rota de confirmação.
+- O que ficou pronto e provado ANTES do bloqueio (no ar, v0.0.100):
+  - 0b522b2b **fila de rascunhos** — coleção 0039 com todas as regras da SPEC, hook de campos travados, tela `/rascunhos` e item de menu. RED 1 verde (Rumo lista 0 / abre 404; autor não muda status pela API; gestão vê; operador bloqueado).
+  - 68c2ec27 **confirmar/corrigir/descartar** — rota `/backend/v1/rascunhos/{id}/confirmar` (API v0.36: `e.auth`, `e.request.pathValue`, `$apis.requireAuth`), serviço `confirmacao-rascunho.ts` gravando pela API da fase 1 com `id_local` determinístico. Provado: confirmar 200, repetir devolve a mesma visita (`ja_confirmado: true`), segunda visita com o mesmo `id_local` → 400.
+  - **Buraco de segurança fechado** — o CREATE aceitava `status` arbitrário (dava para nascer `pronto_para_revisar`, pulando transcrição). Hook `rascunhos_create.js` força `recebido`. Provado.
+- O que NÃO foi entregue por causa do bloqueio: **5f42475d** (rota `/processar` com transcrição Groq + proposta `$ai.chat`), **6b4bcbde** (gravação offline do áudio), e portanto o teste `abc5e491`.
+- Nota de transparência: tentei 6 vezes reenviar a rota de processamento; a falha é do conector, não do arquivo (a mesma chamada já havia funcionado minutos antes com outros arquivos).
