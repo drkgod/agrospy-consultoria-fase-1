@@ -13,6 +13,10 @@ import ProdutorFicha from './pages/ProdutorFicha'
 import RegistrarVisita from './pages/RegistrarVisita'
 import LinhasNegocio from './pages/LinhasNegocio'
 import VisaoGestor from './pages/VisaoGestor'
+import Pendencias from './pages/Pendencias'
+import Rascunhos from './pages/Rascunhos'
+import RevisarRascunho from './pages/RevisarRascunho'
+import GravarPosVisita from '@/components/GravarPosVisita'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import { authService } from './services/auth'
@@ -57,7 +61,10 @@ const App = () => (
             <Route path="/produtores/:id" element={<ProdutorFicha />} />
             <Route path="/produtores/:id/visita" element={<RegistrarVisita />} />
             <Route path="/linhas-negocio" element={<LinhasNegocio />} />
-            <Route path="/visao-gestor" element={<VisaoGestor />} />{' '}
+            <Route path="/visao-gestor" element={<VisaoGestor />} />
+            <Route path="/pendencias" element={<Pendencias />} />
+            <Route path="/rascunhos" element={<Rascunhos />} />
+            <Route path="/rascunhos/:id" element={<RevisarRascunho />} />{' '}
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
