@@ -69,6 +69,18 @@ export default function Rascunhos() {
     }
   }
 
+  const tentarDeNovo = async (id: string) => {
+    try {
+      await rascunhosService.retomar(id)
+      toast({ title: 'Vai tentar de novo', description: 'Reprocessando a gravação…' })
+      // Dispara na hora; se falhar, a rotina de 10 minutos assume.
+      await rascunhosService.processar(id).catch(() => null)
+      setLista(await rascunhosService.listar())
+    } catch {
+      toast({ title: 'Não foi possível retomar.', variant: 'destructive' })
+    }
+  }
+
   const paraRevisar = lista.filter((r) => r.status === 'pronto_para_revisar').length
 
   return (
@@ -145,10 +157,17 @@ export default function Rascunhos() {
                 <p className="whitespace-pre-wrap">{r.texto_original}</p>
               </div>
             )}
-            {r.status === 'falhou' && r.motivo_falha && (
-              <p className="text-destructive" role="alert">
-                {r.motivo_falha}
-              </p>
+            {r.status === 'falhou' && (
+              <div className="space-y-1">
+                {r.motivo_falha && (
+                  <p className="text-destructive" role="alert">
+                    {r.motivo_falha}
+                  </p>
+                )}
+                <Button size="sm" variant="outline" onClick={() => tentarDeNovo(r.id)}>
+                  Tentar de novo
+                </Button>
+              </div>
             )}
             {r.status === 'pronto_para_revisar' && (
               <div className="flex gap-2 pt-1">

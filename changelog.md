@@ -267,3 +267,19 @@ Validados o formato `fase-format:2`, o vínculo de cada task com uma única SPEC
 - Prazo de 30 dias é o padrão proposto na SPEC; o Diogo confirma no teste final (abc5e491).
 - Versão 0.0.112 (ea9bda3) publicada 29/10 17:23 UTC.
 - **Estado da SPEC-2-001**: 4 de 5 subtarefas concluídas (fila, confirmar/descartar, áudio→rascunho, retenção). A 6b4bcbde (gravar sem internet) tem o código no ar; a prova do modo avião é do teste no aparelho. Falta só o teste do Diogo (abc5e491).
+
+## [fim do dia 29/10] — Onde a SPEC-2-001 parou
+- **No ar e provado (v0.0.112, ea9bda3)**: fila de rascunhos, revisar/confirmar/descartar, áudio→rascunho com transcrição real do Groq, gravação sem internet (código), retenção de 30 dias, duplicata com resposta clara (409).
+- **Pendente**: a rota `retomar` ("Tentar de novo" do rascunho `falhou`) foi escrita em `pocketbase/hooks/rascunhos_retomar.js` mas **não chegou a ser publicada** — o apply_changes falhou e o status do projeto não respondeu no fim da sessão. Ao reconectar: publicar esse arquivo, ligar o botão na tela e rodar a prova.
+- **Falta o teste do Diogo** (abc5e491): gravar sem sinal, conferir o rascunho, confirmar e ver a visita na ficha; e responder o prazo de guarda dos áudios (RN-50).
+- **Achados de cadastro para o teste**: `produtores.origem` aceita só `outro` entre os testados, e `municipio`+`origem` são obrigatórios — a tela de cadastro precisa cobrir isso ou o vendedor trava no campo.
+
+## [0.0.114–0.0.120] - 2026-10-30 — SPEC-2-001 fechada para o teste do Diogo
+- **Rota `descartar`** (0.0.115): o status é campo travado pela API, então o descarte passa pela rota nova (`POST /backend/v1/rascunhos/{id}/descartar`) — antes o botão dava erro. Prova: 200 `descartado`; rascunho já confirmado é recusado.
+- **Rota `retomar`** ("Tentar de novo"): a rota não carregava no deploy (404 real no log do servidor) — causa raiz: o arquivo antigo continuava registrado junto do novo (conflito de rota detectado pelo QA). Reescrita em `rascunho_tentar_novo.js` e publicada. Prova: rascunho `falhou` (3 tentativas, motivo "Transcricao recusada HTTP 400" com áudio inválido proposital) → `retomar` 200 → `recebido` com tentativas 0.
+- **Botão "Tentar de novo"** na tela Rascunhos (só aparece em `falhou`): chama `retomar` + `processar` na hora; se falhar, a rotina de 10 min assume.
+- **Botão "Gravar pós-visita" na ficha do produtor** (0.0.115) — antes só na tela Rascunhos.
+- **Caminho de falha provado de ponta a ponta**: áudio inválido → 3 tentativas com motivo claro → `falhou` → "Tentar de novo" volta para `recebido`. Nada se perde.
+- Diagnósticos temporários removidos (diag_arquivo, diag_bytes, diag_os, diag_rotas).
+- Versões: 0.0.114 c142128 · 0.0.115 40b059e · 0.0.116 549d045 · 0.0.117 764de97 · 0.0.119 311ff0d · 0.0.120 a0fc83a (publicada 30/10 15:03 UTC).
+- **SPEC-2-001 PRONTA PARA O TESTE HUMANO (abc5e491)** — faltam só o teste do Diogo e o prazo de guarda dos áudios.

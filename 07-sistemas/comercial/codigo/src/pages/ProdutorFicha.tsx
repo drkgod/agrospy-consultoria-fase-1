@@ -16,6 +16,7 @@ import { oportunidadesService, type Oportunidade } from '@/services/oportunidade
 import { usuariosService, type UsuarioDaEmpresa } from '@/services/usuarios'
 import { vinculosService } from '@/services/vinculos'
 import AcaoOportunidadeForm from '@/components/AcaoOportunidadeForm'
+import GravarPosVisita from '@/components/GravarPosVisita'
 
 const VAZIO = {
   nome: '',
@@ -335,6 +336,7 @@ export default function ProdutorFicha() {
           <Button onClick={() => navigate(`/produtores/${produtor.id}/visita`)}>
             Registrar visita
           </Button>
+          <GravarPosVisita produtor={produtor.id} produtorNome={produtor.nome} />
           <Button onClick={() => setEditando(true)}>Editar produtor</Button>
         </div>
       </div>

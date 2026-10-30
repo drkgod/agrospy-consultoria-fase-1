@@ -92,6 +92,16 @@ export const rascunhosService = {
 
   /** Descarta: pede confirmação na tela; não entra no histórico (RN-32). */
   async descartar(id: string): Promise<void> {
-    await pb.collection('rascunhos').update(id, { status: 'descartado' })
+    await pb.send(`/backend/v1/rascunhos/${id}/descartar`, { method: 'POST', body: {} })
+  },
+
+  /** "Tentar de novo" do rascunho `falhou`: zera tentativas e volta para a fila. */
+  async retomar(id: string): Promise<void> {
+    await pb.send(`/backend/v1/rascunhos/${id}/retomar`, { method: 'POST', body: {} })
+  },
+
+  /** Reprocessa agora (transcrição + proposta), sem esperar a rotina. */
+  async processar(id: string): Promise<{ status?: string; erro?: string }> {
+    return await pb.send(`/backend/v1/rascunhos/${id}/processar`, { method: 'POST', body: {} })
   },
 }
