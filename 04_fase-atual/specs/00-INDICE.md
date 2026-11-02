@@ -17,12 +17,13 @@
 2. **Teste humano só na última task de cada SPEC.** As demais tasks fecham pela prova automática da própria SPEC.
 3. **Ordem:**
    1. pós-visita por áudio no app (SPEC-2-001);
-   2. avisos (SPEC-2-002);
+   2. avisos dentro do app: lista, contador, atraso e cópia ao gestor (SPEC-2-002, sem a notificação no celular);
    3. assistente dentro do app (SPEC-2-003);
-   4. gravações e teste final da fase (SPEC-2-004).
+   4. gravações do Plaud e da pasta do Drive (SPEC-2-004);
+   5. notificação no celular pelo OneSignal e teste dos avisos (fim da SPEC-2-002), logo antes do teste final da fase (emenda de 02/11/2026).
 4. **Se faltar algo que só a Agrospy pode providenciar**, pare só aquela task e siga com a próxima que não depende disso:
    - a chave do serviço de transcrição;
-   - a conta do serviço de notificação;
+   - a conta do serviço de notificação (só pedir quando chegar a etapa 5);
    - a pasta do Drive.
 
 ## Fora desta fase

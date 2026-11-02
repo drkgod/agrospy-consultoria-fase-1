@@ -125,10 +125,10 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
    1. coleções, `gerarAvisos` e a lista "Avisos", sem notificação;
    2. atraso e cópia ao gestor, com as preferências;
    3. configuração do Administrador;
-   4. inscrição e envio pelo serviço;
-   5. teste em celular real.
+   4. inscrição e envio pelo serviço, só no fim da fase, depois do assistente (SPEC-2-003) e das gravações (SPEC-2-004);
+   5. teste em celular real, junto com o teste final da fase.
 6. **Parar e pedir validação quando:**
-   - `PUSH_APP_ID` ou `PUSH_API_KEY` não existirem (peça ao Diogo a conta gratuita do OneSignal, CL-PEND-010);
+   - chegar a hora da etapa 4 e `PUSH_APP_ID` ou `PUSH_API_KEY` não existirem: aí peça ao Diogo a conta gratuita do OneSignal (CL-PEND-010), explicando em palavras simples o que é e por que precisa. Antes disso, não peça;
    - o serviço exigir plano pago;
    - o `importScripts` do serviço quebrar o service worker da fase 1.
 7. **Estado válido ao parar:** a lista "Avisos" funciona mesmo sem notificação; a rotina não altera nenhuma oportunidade.
@@ -209,4 +209,4 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
-| | | | |
+| 02/11/2026 | consultor (o Diogo travou na criação da conta do OneSignal) | "Ativar as notificações no celular" e "Testar os avisos no celular" | A notificação no celular vai para o fim da fase, depois do assistente e das gravações. Agora entram só os avisos dentro do app (lista, contador, atraso e cópia ao gestor), que não dependem de conta externa. A conta do OneSignal só é pedida quando chegar a hora da notificação. |

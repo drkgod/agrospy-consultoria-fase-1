@@ -41,15 +41,15 @@ tarefas que já têm um.
     > Sem sinal, a gravação fica no celular como "aguardando envio" e sobe sozinha quando a internet volta, uma vez só. Fecha pela prova automática. SPEC-2-001, CA-2-01.
   - [ ] Testar o pós-visita por áudio no celular @Agrospy !30/10/2026  <!-- id:abc5e491-405a-4dab-ae70-b2769743f897 -->
     > Teste do Diogo com um vendedor: gravar o pós-visita de uma visita real, conferir o rascunho, confirmar e ver a visita na ficha do produtor. Também confirmar por quanto tempo guardar os áudios. Fecha com o "testei, pode seguir". SPEC-2-001.
-- [ ] Receber os avisos da próxima ação no celular @Agrospy !06/11/2026  <!-- id:f20b6ec7-1938-4dcb-a387-1150d0244c68 -->
+- [ ] Receber os avisos da próxima ação no celular @Agrospy !19/11/2026  <!-- id:f20b6ec7-1938-4dcb-a387-1150d0244c68 -->
   > No dia da próxima ação, o responsável recebe um aviso no celular. Se a ação atrasar, recebe outro aviso, e o gestor recebe cópia. SPEC-2-002.
   - [ ] Mostrar os avisos do dia dentro do app @Agrospy !03/11/2026  <!-- id:bdca5efe-1e2d-443f-9cb7-c6a026678524 -->
     > Todo dia às 7h (horário ajustável pelo Administrador), o sistema cria os avisos do dia, que aparecem numa lista "Avisos" com contador no topo, sem repetir. Fecha pela prova automática. SPEC-2-002, CA-2-06 e CA-2-08.
   - [ ] Avisar o atraso e mandar cópia ao gestor @Agrospy !04/11/2026  <!-- id:4b03eb12-8cf5-42b8-980c-d999ba3a07d9 -->
     > Ação vencida e não concluída gera aviso de atraso no dia seguinte e a cada 3 dias, com cópia para Gestão e Administrador, que podem desligar a cópia. O Administrador ajusta horário e repetição. Fecha pela prova automática. SPEC-2-002, CA-2-07 e CA-2-09.
-  - [ ] Ativar as notificações no celular @Agrospy !05/11/2026  <!-- id:2ae01199-220f-446b-982d-6174d2348065 -->
-    > Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
-  - [ ] Testar os avisos no celular @Agrospy !06/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
+  - [ ] Ativar as notificações no celular @Agrospy !18/11/2026  <!-- id:2ae01199-220f-446b-982d-6174d2348065 -->
+    > Fica para o fim da fase, depois do assistente e das gravações (emenda de 02/11/2026). Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
+  - [ ] Testar os avisos no celular @Agrospy !19/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
     > Teste do Diogo com um vendedor: ativar os avisos, conferir o aviso das 7h no dia da ação e o aviso de atraso com a cópia no celular do Diogo. Fecha com o "testei, pode seguir". SPEC-2-002.
 - [ ] Perguntar ao assistente do app sobre a carteira @Agrospy !13/11/2026  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
   > Dentro do app, o vendedor pergunta por texto ou voz sobre a própria carteira e também pode escrever um pós-visita curto, que vira rascunho. Sem WhatsApp. SPEC-2-003.
