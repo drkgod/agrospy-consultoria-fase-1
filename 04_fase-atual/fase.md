@@ -66,7 +66,7 @@ tarefas que já têm um.
     > Teste do Diogo com um vendedor: perguntar por voz, abrir pelo link, escrever um pós-visita e confirmar o rascunho, e trocar de empresa. Também confirmar se o Comercial continua consultando todos os produtores e o prazo de guarda das conversas. Fecha com o "testei, pode seguir". SPEC-2-003.
 - [ ] Trazer as gravações do Plaud e de outros gravadores @Agrospy !19/11/2026  <!-- id:c53689d5-d8b3-4e94-a4f3-527716ad1218 -->
   > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app e, se der, pela pasta do Drive. A fase 2 fecha com o teste final do Diogo. SPEC-2-004.
-  - [ ] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
+  - [x] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026 2026-11-09  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
     > Pelo botão "Enviar gravação". O áudio é transcrito, e a transcrição pronta do Plaud (txt, docx ou pdf) vai direto para o rascunho. O mesmo arquivo não vira dois rascunhos. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
   - [ ] Importar as gravações da pasta do Drive @Agrospy !18/11/2026  <!-- id:993bc32b-f785-4096-bc52-c05b1e6b439c -->
     > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-16 e CA-2-17.
