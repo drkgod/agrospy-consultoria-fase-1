@@ -1,8 +1,8 @@
 # STATUS — Agrospy
 
-**Atualizado em:** 09/11/2026
+**Atualizado em:** 11/11/2026
 **Fase atual:** 2 — Captura em campo e avisos
-**Versão no ar:** 0.0.204
+**Versão no ar:** 0.0.213
 **Estado:** fase 2 em andamento. SPEC-2-001 e SPEC-2-003 concluídas e testadas pelo Diogo. SPEC-2-002 com a parte "dentro do app" pronta e provada; a notificação no celular foi movida para o fim da fase (emenda de 02/11/2026). Falta a SPEC-2-004 (Plaud/Drive) e o teste final em 19/11.
 
 | Item | Situação |
@@ -10,7 +10,7 @@
 | SPEC-2-001 — pós-visita por áudio | Concluída e aprovada pelo Diogo (30/10). RN-50 = 30 dias de guarda; Drive desnecessário |
 | SPEC-2-003 — assistente de campo | Concluída e aprovada pelo Diogo em 09/11 ("funcionou no app"): tela, pós-visita por texto, perguntas por texto e voz |
 | SPEC-2-002 — avisos | Lista, contador, aviso do dia, atraso e cópia ao gestor prontos e provados (09/11). Notificação no celular: código pronto e já entregue em teste, mas fora da ordem atual — vai para 18–19/11 |
-| SPEC-2-004 — Plaud e gravadores | Não iniciada. Prazo 19/11 |
+| SPEC-2-004 — Plaud e gravadores | Envio pelo app e importação sob demanda da pasta prontos e provados (09 e 11/11). Falta só o teste final do Diogo em 19/11 |
 | Fase 1 | Concluída em 22/10 (34/34); histórico em `05_entregas/fase-1/` |
 
 ## Ordem da fase (emenda de 02/11/2026)
@@ -25,7 +25,7 @@
 
 | Item | Para quê | Quando o Maestro pede |
 |---|---|---|
-| Pasta do Google Drive de cada empresa | gravações pela pasta (SPEC-2-004) | na task da pasta |
+| Pasta do Google Drive de cada empresa | gravações pela pasta (SPEC-2-004) | **resolvida em 11/11**: pasta compartilhada; leitura provada. Automação de 10 min depende de credencial Google no Skip (não suportada) — ficou sob demanda |
 | Conta gratuita do OneSignal | notificação no celular (SPEC-2-002) | **só ao chegar na parte do celular, no fim da fase** |
 
 ## Decisões pendentes do Diogo (não travam código)
