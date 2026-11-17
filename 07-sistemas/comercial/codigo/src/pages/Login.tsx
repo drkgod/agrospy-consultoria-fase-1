@@ -56,7 +56,11 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <img src={logoAgrospy} alt="Agrospy Consultoria Agronômica" className="h-16 mx-auto mb-2 object-contain" />
+          <img
+            src={logoAgrospy}
+            alt="Agrospy Consultoria Agronômica"
+            className="h-16 mx-auto mb-2 object-contain"
+          />
           <CardTitle>Entrar no sistema</CardTitle>
           <CardDescription>Use o e-mail e a senha da sua conta</CardDescription>
         </CardHeader>

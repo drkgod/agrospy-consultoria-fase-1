@@ -37,16 +37,9 @@ export default function Pendencias() {
   }, [usuarioId])
 
   const tentarDeNovo = async (item: ItemFila) => {
-    item.estado = 'pendente'
-    item.tentativas = 0
-    await filaOffline['enfileirar'](
-      item.colecao,
-      item.dados,
-      item.usuario,
-      item.empresa,
-      item.depende_de,
-    )
-    await filaOffline.descartar(item.id_local, usuarioId)
+    // Reencaminha o PRÓPRIO item (antes recriava + apagava, o que podia apagar o item
+    // recriado quando a chave coincidia com dados.id_local).
+    await filaOffline.reencaminhar(item.id_local, usuarioId)
     toast({ title: 'De volta à fila de envio' })
     carregar()
   }

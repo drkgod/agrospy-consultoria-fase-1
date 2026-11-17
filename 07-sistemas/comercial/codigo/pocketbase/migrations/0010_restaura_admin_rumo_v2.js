@@ -10,7 +10,14 @@ migrate(
     }
     const uid = alvo.getString('usuario')
     const u = app.findRecordById('users', uid)
-    const vins = app.findRecordsByFilter('vinculos', 'usuario = {:uid} && ativo = true', '', 999, 0, { uid })
+    const vins = app.findRecordsByFilter(
+      'vinculos',
+      'usuario = {:uid} && ativo = true',
+      '',
+      999,
+      0,
+      { uid },
+    )
     const empresas = []
     const admin = []
     const gestao = []

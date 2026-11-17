@@ -16,6 +16,7 @@ export const linhasNegocioService = {
     })
   },
 
+  // Tela do Administrador: todas, inclusive desativadas (CA-1-14).
   async listarTodas(empresaId: string): Promise<LinhaNegocio[]> {
     return await pb.collection('linhas_negocio').getFullList({
       filter: `empresa = "${empresaId}"`,

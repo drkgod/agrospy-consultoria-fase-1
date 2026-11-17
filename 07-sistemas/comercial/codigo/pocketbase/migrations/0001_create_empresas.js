@@ -12,14 +12,20 @@ migrate(
         { name: 'nome', type: 'text', required: true },
         { name: 'slug', type: 'text', required: true },
         { name: 'cor_primaria', type: 'text', required: true },
-        { name: 'logo', type: 'file', maxSelect: 1, mimeTypes: ['image/png', 'image/jpeg', 'image/svg+xml'], maxSize: 5242880 },
+        {
+          name: 'logo',
+          type: 'file',
+          maxSelect: 1,
+          mimeTypes: ['image/png', 'image/jpeg', 'image/svg+xml'],
+          maxSize: 5242880,
+        },
         { name: 'ativa', type: 'bool', required: true },
         { name: 'created', type: 'autodate', onCreate: true, onUpdate: false },
         { name: 'updated', type: 'autodate', onCreate: true, onUpdate: true },
       ],
       indexes: [
-        "CREATE UNIQUE INDEX `idx_empresas_slug` ON `empresas` (`slug`)",
-        "CREATE UNIQUE INDEX `idx_empresas_nome` ON `empresas` (`nome`)",
+        'CREATE UNIQUE INDEX `idx_empresas_slug` ON `empresas` (`slug`)',
+        'CREATE UNIQUE INDEX `idx_empresas_nome` ON `empresas` (`nome`)',
       ],
     })
     app.save(collection)

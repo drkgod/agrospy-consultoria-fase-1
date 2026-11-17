@@ -2,15 +2,23 @@ migrate(
   (app) => {
     // Restauração pontual: o teste de 12/10 rebaixou o único administrador da
     // Rumo Agro (vínculo g7jkhzwwgsakkw0) — o sistema permitiu e a tela de
-    // usuários fechou. O hook de proteção só existe a partir da v0.0.17/0.0.19.
+    // usuários fechou. O hook de proteção só existe a partir da v0.0.17.
     const alvo = app.findFirstRecordByFilter('vinculos', 'id = {:id}', { id: 'g7jkhzwwgsakkw0' })
     if (alvo.getString('perfil') !== 'administrador') {
       alvo.set('perfil', 'administrador')
       app.save(alvo)
     }
+    // Recarrega os acesso_* do usuário afetado.
     const uid = alvo.getString('usuario')
     const u = app.findRecordById('users', uid)
-    const vins = app.findRecordsByFilter('vinculos', 'usuario = {:uid} && ativo = true', '', 999, 0, { uid })
+    const vins = app.findRecordsByFilter(
+      'vinculos',
+      'usuario = {:uid} && ativo = true',
+      '',
+      999,
+      0,
+      { uid },
+    )
     const empresas = []
     const admin = []
     const gestao = []

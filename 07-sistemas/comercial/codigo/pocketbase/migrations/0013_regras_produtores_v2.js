@@ -7,10 +7,8 @@ migrate(
     // trocar responsavel/arquivar = acesso_gestao (Gestão/Administrador);
     // apagar = ninguém (null). empresa nunca muda depois de criada.
     const p = app.findCollectionByNameOrId('produtores')
-    p.listRule =
-      "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
-    p.viewRule =
-      "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
+    p.listRule = "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
+    p.viewRule = "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
     p.createRule =
       "@request.auth.id != '' && (" +
       '@request.auth.acesso_gestao.id ?= @request.body.empresa' +
@@ -26,10 +24,8 @@ migrate(
     app.save(p)
 
     const prop = app.findCollectionByNameOrId('propriedades')
-    prop.listRule =
-      "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
-    prop.viewRule =
-      "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
+    prop.listRule = "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
+    prop.viewRule = "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa"
     prop.createRule =
       "@request.auth.id != '' && (" +
       '@request.auth.acesso_gestao.id ?= @request.body.empresa' +

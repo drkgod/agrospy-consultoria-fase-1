@@ -25,12 +25,16 @@ migrate(
     for (const nome of nomesTeste) {
       const lista = app.findRecordsByFilter('produtores', 'nome = {:n}', '', 200, 0, { n: nome })
       for (const p of lista) {
-        const evs = app.findRecordsByFilter('eventos', 'registro = {:rid}', '', 200, 0, { rid: p.id })
+        const evs = app.findRecordsByFilter('eventos', 'registro = {:rid}', '', 200, 0, {
+          rid: p.id,
+        })
         for (const ev of evs) {
           app.delete(ev)
           apagadosEv++
         }
-        const props = app.findRecordsByFilter('propriedades', 'produtor = {:pid}', '', 200, 0, { pid: p.id })
+        const props = app.findRecordsByFilter('propriedades', 'produtor = {:pid}', '', 200, 0, {
+          pid: p.id,
+        })
         for (const pr of props) {
           app.delete(pr)
           apagadosProp++
@@ -39,7 +43,9 @@ migrate(
         apagadosProd++
       }
     }
-    console.log(`0018: limpeza — ${apagadosProd} produtores, ${apagadosProp} propriedades, ${apagadosEv} eventos apagados`)
+    console.log(
+      `0018: limpeza — ${apagadosProd} produtores, ${apagadosProp} propriedades, ${apagadosEv} eventos apagados`,
+    )
   },
   (app) => {
     // down: nada a restaurar (eram registros de teste).

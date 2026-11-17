@@ -18,7 +18,10 @@ export const authService = {
     const tem = await vinculosService.temVinculoAtivo()
     if (!tem) {
       pb.authStore.clear()
-      return { error: 'Você ainda não tem acesso a nenhuma empresa. Fale com o administrador.', destino: 'sem_acesso' }
+      return {
+        error: 'Você ainda não tem acesso a nenhuma empresa. Fale com o administrador.',
+        destino: 'sem_acesso',
+      }
     }
     const vinculos = await vinculosService.listarDoUsuario()
     return { error: null, destino: vinculos.length > 1 ? 'escolher' : 'direto' }

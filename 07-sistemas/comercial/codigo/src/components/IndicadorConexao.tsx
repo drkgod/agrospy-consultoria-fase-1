@@ -1,8 +1,10 @@
 // SPEC-1-004 (task 4da366fe) — indicador de conexão no topo de todas as telas.
 // Offline: banner "Sem conexão — N aguardando envio" + "Sincronizar agora".
 // Ao reconectar (evento online do navegador): envia a fila e mostra "Enviado".
-// Sem pendências e online: não renderiza nada (não polui a tela).
+// Itens recusados pelo servidor: banner vermelho com atalho para Pendências de envio.
+// Sem nada a mostrar e online: não renderiza nada (não polui a tela).
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
 import pb from '@/lib/pocketbase/client'
@@ -10,17 +12,19 @@ import { filaOffline } from '@/services/fila-offline'
 
 export default function IndicadorConexao() {
   const { toast } = useToast()
+  const navigate = useNavigate()
   const [online, setOnline] = useState(navigator.onLine)
   const [pendentes, setPendentes] = useState(0)
+  const [revisao, setRevisao] = useState(0)
   const [enviando, setEnviando] = useState(false)
 
   const usuarioId = pb.authStore.record?.id ?? ''
-  const empresaId = pb.authStore.record?.id ? undefined : undefined // empresa vem do serviço
 
   const atualizar = useCallback(async () => {
     if (!usuarioId) return
     try {
       setPendentes(await filaOffline.contarPendentes(usuarioId))
+      setRevisao((await filaOffline.emRevisao(usuarioId)).length)
     } catch {
       /* IndexedDB indisponível: indicador fica mudo */
     }
@@ -28,19 +32,18 @@ export default function IndicadorConexao() {
 
   const sincronizar = useCallback(async () => {
     if (!usuarioId || enviando) return
-    const empresa = (await filaOffline.cacheLer<Record<string, string>>('empresa_ativa'))?.id ?? ''
     setEnviando(true)
     try {
-      const { enviados, revisao } = await filaOffline.sincronizar(usuarioId, empresa)
+      const { enviados, revisao: emRevisao } = await filaOffline.sincronizar(usuarioId, '')
       if (enviados > 0) {
         await filaOffline.marcarUltimaSincronizacao()
         toast({
           title: `Enviado — ${enviados} registro${enviados > 1 ? 's' : ''} sincronizado${enviados > 1 ? 's' : ''}`,
         })
-      } else if (revisao > 0) {
+      } else if (emRevisao > 0) {
         toast({
-          title: `${revisao} registro${revisao > 1 ? 's' : ''} precisa${revisao > 1 ? 'm' : ''} de revisão`,
-          description: 'Veja a tela Pendências de envio.',
+          title: `${emRevisao} registro${emRevisao > 1 ? 's' : ''} precisa${emRevisao > 1 ? 'm' : ''} de revisão`,
+          description: 'Abra Pendências de envio no banner.',
           variant: 'destructive',
         })
       }
@@ -67,7 +70,23 @@ export default function IndicadorConexao() {
     }
   }, [atualizar, sincronizar])
 
-  if (online && pendentes === 0) return null
+  if (online && pendentes === 0 && revisao === 0) return null
+
+  if (revisao > 0) {
+    return (
+      <div
+        role="status"
+        className="bg-red-100 text-red-900 border-b border-red-300 px-4 py-2 text-sm flex items-center justify-between gap-2"
+      >
+        <span>
+          {revisao} registro{revisao > 1 ? 's' : ''} precisa{revisao > 1 ? 'm' : ''} de revisão
+        </span>
+        <Button variant="outline" size="sm" onClick={() => navigate('/pendencias')}>
+          Abrir pendências
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div

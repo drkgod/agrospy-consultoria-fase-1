@@ -1,19 +1,24 @@
-<!-- HTML template for the frontend react app: https://developer.mozilla.org/en-US/docs/Web/HTML -->
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Agrospy</title>
     <meta name="description" content="CRM comercial da Agrospy Consultoria" />
     <meta name="author" content="Agrospy Consultoria" />
     <meta property="og:image" content="/og-image.png" />
     <!-- SPEC-1-004 (task 4da366fe): instalável na tela inicial (CA-1-15). -->
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#153A1D" />
-    <link rel="apple-touch-icon" href="/logo-agrospy.svg" />
+
+    <!-- iOS: para abrir como APP (e não favorito) e poder pedir permissão de push.
+         Sem estes três, o Safari salva como favorito e o push nunca funciona. -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Agrospy" />
+    <!-- Ícone do app na tela inicial. -->
+    <link rel="apple-touch-icon" href="/logo-agrospy.svg" />
   </head>
 
   <body>

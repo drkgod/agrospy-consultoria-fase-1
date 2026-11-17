@@ -16,6 +16,9 @@ import VisaoGestor from './pages/VisaoGestor'
 import Pendencias from './pages/Pendencias'
 import Rascunhos from './pages/Rascunhos'
 import RevisarRascunho from './pages/RevisarRascunho'
+import Avisos from './pages/Avisos'
+import Assistente from './pages/Assistente'
+import EnviarGravacao from './pages/EnviarGravacao'
 import GravarPosVisita from '@/components/GravarPosVisita'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -64,7 +67,10 @@ const App = () => (
             <Route path="/visao-gestor" element={<VisaoGestor />} />
             <Route path="/pendencias" element={<Pendencias />} />
             <Route path="/rascunhos" element={<Rascunhos />} />
-            <Route path="/rascunhos/:id" element={<RevisarRascunho />} />{' '}
+            <Route path="/rascunhos/:id" element={<RevisarRascunho />} />
+            <Route path="/avisos" element={<Avisos />} />
+            <Route path="/assistente" element={<Assistente />} />
+            <Route path="/enviar-gravacao" element={<EnviarGravacao />} />{' '}
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

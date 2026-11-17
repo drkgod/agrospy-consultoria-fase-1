@@ -35,10 +35,12 @@ export const visitasService = {
     return await pb.collection('visitas').create({ ...dados, empresa: empresaId })
   },
 
+  // Emenda 1: criação com FormData — leva o arquivo de áudio quando houver.
   async criarComFormData(fd: FormData): Promise<Visita> {
     return await pb.collection('visitas').create(fd)
   },
 
+  // URL do arquivo de áudio servido pelo backend.
   urlDoAudio(v: Visita): string {
     return pb.files.getURL(v, v.audio)
   },

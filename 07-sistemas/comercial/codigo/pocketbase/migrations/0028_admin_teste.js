@@ -34,6 +34,7 @@ migrate(
       app.save(nv)
     }
 
+    // Recálculo de acesso_* de todos (salvar sempre — getString não reflete set em relação múltipla)
     const todos = app.findRecordsByFilter(users, '')
     for (const x of todos) {
       const meus = app.findRecordsByFilter(
@@ -68,13 +69,18 @@ migrate(
       app.save(x)
     }
     const conf = app.findFirstRecordByFilter(users, `email = "${EMAIL}"`)
-    console.log(`[0028] admin de teste pronto; acesso_admin: ${JSON.stringify(conf.get('acesso_admin'))}`)
+    console.log(
+      `[0028] admin de teste pronto; acesso_admin: ${JSON.stringify(conf.get('acesso_admin'))}`,
+    )
   },
   (app) => {
+    // reversão: remove o admin de teste
     const users = app.findCollectionByNameOrId('users')
     try {
       const u = app.findFirstRecordByFilter(users, 'email = "teste.admin@agrospy.com.br"')
       app.delete(u)
-    } catch (e) { /* não existe */ }
+    } catch (e) {
+      /* não existe */
+    }
   },
 )

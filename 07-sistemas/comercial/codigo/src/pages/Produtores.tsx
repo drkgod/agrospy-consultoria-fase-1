@@ -87,7 +87,30 @@ export default function Produtores() {
     try {
       setLista(await produtoresService.listarDaEmpresa(empresaId, busca))
     } catch {
-      toast({ title: 'Não foi possível carregar os produtores.', variant: 'destructive' })
+      // SPEC-1-004: sem conexão, mostra a cópia local + o que está na fila de envio.
+      const usuarioId = pb.authStore.record?.id ?? ''
+      const [cache, naFila] = await Promise.all([
+        filaOffline.cacheLer<Produtor[]>('produtores'),
+        filaOffline.pendentes(usuarioId),
+      ])
+      const daFila = naFila
+        .filter((i) => i.colecao === 'produtores')
+        .map(
+          (i) =>
+            ({
+              id: i.id_local,
+              nome: String(i.dados.nome ?? ''),
+              municipio: String(i.dados.municipio ?? ''),
+              documento: String(i.dados.documento ?? ''),
+              origem: String(i.dados.origem ?? ''),
+            }) as unknown as Produtor,
+        )
+      setLista([...daFila, ...(cache ?? [])])
+      if (navigator.onLine) {
+        toast({ title: 'Não foi possível carregar os produtores.', variant: 'destructive' })
+      } else {
+        toast({ title: 'Sem conexão — exibindo os dados do aparelho' })
+      }
     } finally {
       setCarregando(false)
     }
