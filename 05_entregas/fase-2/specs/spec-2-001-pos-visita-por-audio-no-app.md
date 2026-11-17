@@ -233,7 +233,7 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
 
 ## Teste do cliente: Não se aplica
 
-Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-001/` e o log do Skip.
+Sem teste humano (emenda de 17/11/2026, `05_entregas/fase-2/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-001/` e o log do Skip.
 
 A task abc5e491 foi concluída em 30/10 com o teste do Diogo e não reabre. O prazo de guarda dos áudios que ela pedia foi decidido pelo Diogo em 09/11: 90 dias (RN-50).
 

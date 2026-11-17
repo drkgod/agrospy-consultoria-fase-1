@@ -156,7 +156,7 @@ Na estrada, o vendedor abre "Assistente", toca no microfone e pergunta "quais mi
 
 ## Teste do cliente: Não se aplica
 
-Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-003/` e o log do Skip.
+Sem teste humano (emenda de 17/11/2026, `05_entregas/fase-2/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-003/` e o log do Skip.
 
 A task 47f28655 foi concluída em 09/11 e não reabre. As duas perguntas que ela fazia ao Diogo não travam nada:
 - **Comercial:** continua consultando o cadastro de todos os produtores da empresa até o Diogo pedir outra regra, que vira emenda do consultor;

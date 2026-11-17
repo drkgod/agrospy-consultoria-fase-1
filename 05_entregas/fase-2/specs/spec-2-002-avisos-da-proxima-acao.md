@@ -178,7 +178,7 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
 
 ## Teste do cliente: Não se aplica
 
-Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-002/` e o log do Skip. A entrega no celular é provada pela confirmação do OneSignal para a inscrição de teste, não por aparelho de pessoa.
+Sem teste humano (emenda de 17/11/2026, `05_entregas/fase-2/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-002/` e o log do Skip. A entrega no celular é provada pela confirmação do OneSignal para a inscrição de teste, não por aparelho de pessoa.
 
 ## Handoff e operação
 
@@ -203,3 +203,4 @@ Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-tes
 |---|---|---|---|
 | 02/11/2026 | consultor (o Diogo travou na criação da conta do OneSignal) | "Ativar as notificações no celular" e "Testar os avisos no celular" | A notificação no celular vai para o fim da fase, depois do assistente e das gravações. Agora entram só os avisos dentro do app (lista, contador, atraso e cópia ao gestor), que não dependem de conta externa. A conta do OneSignal só é pedida quando chegar a hora da notificação. |
 | 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; b33bfdb7 vira "Provar a entrega dos avisos de atraso e da cópia no celular" | Sem teste humano no projeto: a entrega é provada pela resposta do OneSignal, não pelo celular de uma pessoa |
+| 17/11/2026 | consultor (fechamento da fase 2) | tasks 2ae01199 e b33bfdb7 removidas | A notificação no celular passou para a fase 3 (SPEC-3-001, CA-3-01), e o teste foi excluído (P11) |

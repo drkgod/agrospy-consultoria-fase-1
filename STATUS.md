@@ -1,38 +1,37 @@
 # STATUS — Agrospy
 
 **Atualizado em:** 17/11/2026
-**Fase atual:** 2 — Captura em campo e avisos
-**Versão no ar:** 0.0.213
-**Estado:** fase 2 em andamento. SPEC-2-001 e SPEC-2-003 concluídas e testadas pelo Diogo. SPEC-2-002 com a parte "dentro do app" pronta e provada; a notificação no celular foi movida para o fim da fase (emenda de 02/11/2026). SPEC-2-004 concluída em 11/11. Falta religar a notificação no celular, provar a entrega e rodar a regressão automática que fecha a fase. **Sem teste humano** (emenda de 17/11/2026).
+**Fase atual:** 3 — Gestão comercial e decisão, com o app de cara nova (liberada em 17/11/2026)
+**Versão no ar:** 0.0.213 (11/11/2026)
+**Estado:** fase 3 liberada, com 6 SPECs e 34 tasks. Os IDs são criados pelo portal. Sem teste humano (P11).
 
 | Item | Situação |
 |---|---|
-| SPEC-2-001 — pós-visita por áudio | Concluída e aprovada pelo Diogo (30/10). RN-50 = 90 dias de guarda (decisão do Diogo em 09/11; na última cópia do código a rotina estava em 30, e muda no fechamento da fase) |
-| SPEC-2-003 — assistente de campo | Concluída e aprovada pelo Diogo em 09/11 ("funcionou no app"): tela, pós-visita por texto, perguntas por texto e voz |
-| SPEC-2-002 — avisos | Lista, contador, aviso do dia, atraso e cópia ao gestor prontos e provados (09/11). Notificação no celular: código pronto e já entregue em teste, mas fora da ordem atual — vai para 18–19/11 |
-| SPEC-2-004 — Plaud e gravadores | Envio pelo app e importação sob demanda da pasta prontos e provados (09 e 11/11). A fase fecha pela regressão automática (task 2bb2808a) |
-| Fase 1 | Concluída em 22/10 (34/34); histórico em `05_entregas/fase-1/` |
-
-## Ordem da fase (emenda de 02/11/2026)
-
-1. Avisos **dentro do app** (lista, contador, aviso de atraso, cópia ao gestor) — sem conta externa
-2. Assistente de campo
-3. Gravações do Plaud e outros gravadores
-4. Notificação no celular pelo OneSignal + prova automática da entrega (18/11)
-5. Regressão automática de ponta a ponta e fechamento da fase (19/11), sem teste humano
+| Fase 1 | Concluída em 22/10 (34/34). Histórico em `05_entregas/fase-1/` |
+| Fase 2 | Concluída em 17/11 (18/18), sem teste humano. Histórico em `05_entregas/fase-2/` |
+| SPEC-3-001 — pendências técnicas da fase 2 | A fazer: código no GitHub, dados de teste separados, avisos no celular, 90 dias e pasta do Drive a cada 10 min |
+| SPEC-3-002 — visual de app e navegação | A fazer |
+| SPEC-3-003 — telas no novo visual | A fazer |
+| SPEC-3-004 — funil, proposta e desfecho | A fazer |
+| SPEC-3-005 — painéis e fila priorizada | A fazer |
+| SPEC-3-006 — produtor nas duas empresas e importação | A fazer |
 
 ## Entradas da Agrospy (só travam a task que depende delas)
 
 | Item | Para quê | Quando o Maestro pede |
 |---|---|---|
-| Pasta do Google Drive de cada empresa | gravações pela pasta (SPEC-2-004) | **resolvida em 11/11**: pasta compartilhada; leitura provada. Automação de 10 min depende de credencial Google no Skip (não suportada) — ficou sob demanda |
-| Conta gratuita do OneSignal | notificação no celular (SPEC-2-002) | **só ao chegar na parte do celular, no fim da fase** |
+| Chaves do OneSignal (já usadas em 02/11) | avisos no celular (SPEC-3-001) | só se não estiverem mais no cofre |
+| Aplicativo do Google da Agrospy (3 segredos no cofre) | ler a pasta do Drive a cada 10 min (SPEC-3-001) | ao chegar nessa task, com o passo a passo |
+| Planilha da carteira | importação (SPEC-3-006) | ao chegar na importação; sem ela, vale o modelo da SPEC |
 
-## Decisões com padrão aplicado (o Diogo pode mudar, sem travar código)
+## Padrões aplicados (o Diogo pode mudar sem travar código)
 
-- Guarda das conversas do assistente: 90 dias
-- O perfil Comercial continua consultando o cadastro de todos os produtores da empresa
+- **Guarda:** áudios e conversas do assistente ficam 90 dias.
+- **Consulta do Comercial:** o Comercial continua vendo todos os produtores da empresa.
+- **Etapas do funil:** Necessidade reconhecida, Em amadurecimento, Proposta apresentada e Negociação.
+- **Motivos:** os da SPEC-3-004, editáveis pelo Administrador.
+- **Sem contato:** 20 dias. Proposta "vencendo": 3 dias.
 
 ## Próxima ação
 
-2ae01199: religar a notificação no celular (código da 0.0.177) → b33bfdb7: prova automática da entrega → 2bb2808a: RN-50 em 90 dias, regressão automática de ponta a ponta e limpeza das contas de teste. Nenhuma task espera teste de pessoa (`04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`).
+SPEC-3-001, primeira task: "Atualizar o código do app no GitHub". Depois, siga a ordem do `04_fase-atual/fase.md`, sem parar entre as tasks.

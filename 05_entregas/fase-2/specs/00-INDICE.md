@@ -1,0 +1,52 @@
+# Índice de SPECs — Fase 2
+
+**Fase:** 2 — Captura em campo e avisos
+**Gerado em:** 22/10/2026 · **Status das SPECs:** fase concluída em 17/11/2026, sem teste humano (P11)
+**Resultado da fase:** o vendedor registra o pós-visita falando, sem formulário, e ninguém perde a data de retorno.
+
+| SPEC | Entrega | Degrau da solução | Critérios | Depende de |
+|---|---|---|---|---|
+| [SPEC-2-001](spec-2-001-pos-visita-por-audio-no-app.md) | Pós-visita por áudio no app, com fila de rascunhos | reuso + nativo da plataforma | CA-2-01 a CA-2-05 | fase 1 |
+| [SPEC-2-002](spec-2-002-avisos-da-proxima-acao.md) | Avisos da próxima ação no celular, com cópia ao gestor | nativo da plataforma + construção mínima | CA-2-06 a CA-2-09 | fase 1 |
+| [SPEC-2-003](spec-2-003-assistente-de-campo-no-app.md) | Assistente de campo dentro do app | nativo da plataforma | CA-2-10 a CA-2-14 | SPEC-2-001 |
+| [SPEC-2-004](spec-2-004-gravacoes-do-plaud-e-outros-gravadores.md) | Gravações do Plaud e de outros gravadores, e fechamento da fase | reuso + construção mínima | CA-2-15 a CA-2-18 | SPEC-2-001; SPEC-2-003 para o fechamento |
+
+## Como executar
+
+1. **Construção em sequência**, uma task depois da outra, sem pedir autorização antes de cada uma.
+2. **Sem teste humano (emenda de 17/11/2026).** Toda task fecha pela prova automática da própria SPEC, com evidência em `05_entregas/fase-2/` e o log do Skip. Nenhuma task espera teste, demonstração ou "testei, pode seguir" de pessoa. Regra em `05_entregas/fase-2/emenda-2026-11-17-sem-teste-humano.md`.
+3. **Ordem:**
+   1. pós-visita por áudio no app (SPEC-2-001);
+   2. avisos dentro do app: lista, contador, atraso e cópia ao gestor (SPEC-2-002, sem a notificação no celular);
+   3. assistente dentro do app (SPEC-2-003);
+   4. gravações do Plaud e da pasta do Drive (SPEC-2-004);
+   5. notificação no celular pelo OneSignal e prova automática da entrega (fim da SPEC-2-002, emenda de 02/11/2026);
+   6. regressão automática de ponta a ponta, que fecha a fase (SPEC-2-004).
+4. **Se faltar algo que só a Agrospy pode providenciar**, pare só aquela task e siga com a próxima que não depende disso:
+   - a chave do serviço de transcrição;
+   - a conta do serviço de notificação (só pedir quando chegar a etapa 5);
+   - a pasta do Drive.
+
+## Fora desta fase
+
+- funil, propostas, ganho e perda com motivo, e painel com indicadores (fase 3);
+- vínculo de produtor entre as empresas e importação de planilhas (fase 3);
+- RDV e contratos (fase 4);
+- sugestões por IA para reabordagem (fase 5);
+- WhatsApp (decisão P10: o assistente e o pós-visita ficam dentro do app);
+- qualquer mensagem automática para produtores.
+
+## Tasks
+
+As tasks desta fase estão no arquivo de tarefas da fase e listadas em `## Tasks vinculadas` de cada SPEC.
+
+## Fechamento (17/11/2026)
+
+- **Conclusão:** fase fechada com 18/18 tasks, sem teste humano (P11).
+- **Tasks de teste removidas:** b33bfdb7 e 2bb2808a.
+- **Passaram para a fase 3 (SPEC-3-001):**
+  - a notificação no celular (antes 2ae01199);
+  - a leitura da pasta do Drive a cada 10 minutos;
+  - a guarda de 90 dias;
+  - a separação dos dados de teste;
+  - o espelho do código no GitHub.

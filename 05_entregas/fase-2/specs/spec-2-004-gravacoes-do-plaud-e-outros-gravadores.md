@@ -134,7 +134,7 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 
 ## Teste do cliente: Não se aplica
 
-Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-004/` e o log do Skip.
+Sem teste humano (emenda de 17/11/2026, `05_entregas/fase-2/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-004/` e o log do Skip.
 
 ## Handoff e operação
 
@@ -158,3 +158,4 @@ Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-tes
 |---|---|---|---|
 | 22/10/2026 | decisão P10 | porta do WhatsApp removida; task 47f28655 passa para a SPEC-2-003 (hoje "Testar o assistente do app com a equipe", pela ordem dos cartões no portal); teste final troca o WhatsApp pelo pós-visita gravado sem sinal e pela pergunta ao assistente | fase 2 sem WhatsApp |
 | 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; CA-2-18 e 2bb2808a viram regressão automática de ponta a ponta | Sem teste humano no projeto |
+| 17/11/2026 | consultor (fechamento da fase 2) | task 2bb2808a removida; CA-2-17 fechado pelo ramo "pendência registrada" | Sem teste final (P11). A leitura da pasta a cada 10 min passou para a fase 3 (SPEC-3-001, CA-3-03) |

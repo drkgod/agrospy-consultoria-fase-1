@@ -9,6 +9,9 @@
 - ultima_task: baad9730-ed85-4a49-a5e9-6a3b8a30454a
 - espelho: `codigo/` guarda a última versão de cada arquivo alterado pelas tasks. É cópia de
   consulta; a fonte executável é o Skip. Nunca edite o espelho para mudar o sistema.
+- espelho_completo: a partir da fase 3, o espelho copia todos os arquivos do Skip, inclusive `pocketbase/` (SPEC-3-001, CA-3-05).
+- fora_do_espelho (contém credencial): `pocketbase/migrations/0003_*` (usuário do Diogo com senha temporária).
+- só_no_espelho (documentação, fora da comparação): `LEIA-ME.md` e `docs/`.
 
 ## Histórico de entregas
 

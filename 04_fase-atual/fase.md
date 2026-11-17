@@ -1,4 +1,4 @@
-# Fase 2 — Tarefas
+# Fase 3 — Tarefas
 
 <!-- fase-format:2 -->
 
@@ -29,47 +29,105 @@ Marque `[x]` para concluir e adicione linhas novas à vontade: elas entram no qu
 sincronização e voltam aqui com o `<!-- id:… -->` preenchido. **Não apague o marcador de id** das
 tarefas que já têm um.
 
-- [x] Registrar o pós-visita por áudio no app @Agrospy !30/10/2026 2026-10-30  <!-- id:c72f5276-6770-4bfe-ba35-9092ad2ee556 -->
-  > O vendedor grava o pós-visita falando, mesmo sem sinal, e o sistema monta um rascunho da visita para ele conferir e confirmar. Nada entra no histórico sem confirmação. SPEC-2-001.
-  - [x] Criar a fila de rascunhos para revisar o pós-visita @Agrospy !24/10/2026 2026-10-29  <!-- id:0b522b2b-8c1b-4166-9c07-6f600881ed75 -->
-    > Nova tela "Rascunhos". Cada pessoa vê só os próprios rascunhos, Gestão e Administrador veem os da empresa, e a outra empresa nunca vê. Fecha pela prova automática. SPEC-2-001, CA-2-04.
-  - [x] Confirmar, corrigir ou descartar o rascunho @Agrospy !27/10/2026 2026-10-29  <!-- id:68c2ec27-c5c8-490a-8048-1255343383d7 -->
-    > Ao confirmar, a visita entra na ficha do produtor com o áudio, a oportunidade e a próxima ação, pelas mesmas regras da fase 1. O rascunho descartado não entra em lugar nenhum. Fecha pela prova automática. SPEC-2-001, CA-2-03.
-  - [x] Transformar o áudio gravado em rascunho de visita @Agrospy !28/10/2026 2026-10-29  <!-- id:5f42475d-2083-49e8-9153-c0ded8096569 -->
-    > O áudio enviado é transcrito, e a IA preenche produtor, assuntos e próxima ação com data. O que ela não identificar fica em branco para a pessoa preencher. Se o Skip não transcrever áudio, a Agrospy cria a conta gratuita do Groq e guarda a chave no cofre. Fecha pela prova automática. SPEC-2-001, CA-2-02 e CA-2-05.
-  - [x] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026 2026-10-30  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
-    > Sem sinal, a gravação fica no celular como "aguardando envio" e sobe sozinha quando a internet volta, uma vez só. Fecha pela prova automática. SPEC-2-001, CA-2-01.
-  - [x] Testar o pós-visita por áudio no celular @Agrospy !30/10/2026 2026-10-30  <!-- id:abc5e491-405a-4dab-ae70-b2769743f897 -->
-    > Concluída em 30/10 com o teste do Diogo. Não há novo teste (emenda de 17/11/2026). A guarda dos áudios ficou em 90 dias, por decisão do Diogo em 09/11. SPEC-2-001.
-- [ ] Receber os avisos da próxima ação no celular @Agrospy !19/11/2026  <!-- id:f20b6ec7-1938-4dcb-a387-1150d0244c68 -->
-  > No dia da próxima ação, o responsável recebe um aviso no celular. Se a ação atrasar, recebe outro aviso, e o gestor recebe cópia. SPEC-2-002.
-  - [x] Mostrar os avisos do dia dentro do app @Agrospy !03/11/2026 2026-10-30  <!-- id:bdca5efe-1e2d-443f-9cb7-c6a026678524 -->
-    > Todo dia às 7h (horário ajustável pelo Administrador), o sistema cria os avisos do dia, que aparecem numa lista "Avisos" com contador no topo, sem repetir. Fecha pela prova automática. SPEC-2-002, CA-2-06 e CA-2-08.
-  - [x] Avisar o atraso e mandar cópia ao gestor @Agrospy !04/11/2026 2026-10-30  <!-- id:4b03eb12-8cf5-42b8-980c-d999ba3a07d9 -->
-    > Ação vencida e não concluída gera aviso de atraso no dia seguinte e a cada 3 dias, com cópia para Gestão e Administrador, que podem desligar a cópia. O Administrador ajusta horário e repetição. Fecha pela prova automática. SPEC-2-002, CA-2-07 e CA-2-09.
-  - [ ] Ativar as notificações no celular @Agrospy !18/11/2026  <!-- id:2ae01199-220f-446b-982d-6174d2348065 -->
-    > Fica para o fim da fase, depois do assistente e das gravações (emenda de 02/11/2026). Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
-    > CÓDIGO JÁ PRONTO E PROVADO EM 02/11 (v0.0.177): inscrição criada dentro do gesto, entrega confirmada pelo Diogo duas vezes no iPhone. Fora do ar agora por decisão de ordem da fase, não por falta de código. Ao retomar, é revalidar a entrega, não reimplementar.
-  - [ ] Provar a entrega dos avisos de atraso e da cópia no celular @Agrospy !19/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
-    > Sem teste de pessoa (emenda de 17/11/2026). Com o usuário comercial de teste e o gestor de teste inscritos, o aviso de atraso e a cópia ao gestor saem pelo OneSignal, que responde com a entrega. Inscrição inválida e serviço fora do ar deixam o aviso em `falhou_envio`, e ele continua na lista. A tela bloqueada mostra só o texto curto, sem o nome do produtor. Fecha pela prova automática. SPEC-2-002, CA-2-07 a CA-2-09.
-- [x] Perguntar ao assistente do app sobre a carteira @Agrospy !13/11/2026 2026-11-09  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
-  > Dentro do app, o vendedor pergunta por texto ou voz sobre a própria carteira e também pode escrever um pós-visita curto, que vira rascunho. Sem WhatsApp. SPEC-2-003.
-  - [x] Criar a tela do assistente dentro do app @Agrospy !10/11/2026 2026-11-09  <!-- id:864c6848-16e6-48d3-9538-53abe6a9f91c -->
-    > Nova tela "Assistente" no app, na empresa ativa. Sem internet, ela avisa e oferece o botão "Gravar pós-visita". O assistente só lê dados, nunca altera. Fecha pela prova automática. SPEC-2-003, CA-2-13 e CA-2-14.
-  - [x] Registrar o pós-visita por texto no assistente @Agrospy !12/11/2026 2026-11-09  <!-- id:c504f635-645d-4304-8f81-88ae6f1149f5 -->
-    > Um recado escrito ou ditado no assistente, como "visitei o produtor X, ficou de ver o orçamento até sexta", vira rascunho para confirmar. A mesma mensagem não vira dois rascunhos. Fecha pela prova automática. SPEC-2-003, CA-2-12.
-  - [x] Responder perguntas sobre a carteira no assistente @Agrospy !11/11/2026 2026-11-09  <!-- id:09510a74-c541-4d88-adb1-6c2be8d3b9c5 -->
-    > Perguntas como "minhas ações de amanhã" e "o que conversei com o produtor X" são respondidas com links para os registros, só com o que a pessoa pode ver na empresa dela. Fecha pela prova automática. SPEC-2-003, CA-2-10 e CA-2-11.
-  - [x] Perguntar ao assistente por voz @Agrospy !12/11/2026 2026-11-09  <!-- id:fcbe8d32-044e-4881-9a7b-4d07f85687fa -->
-    > O vendedor toca no microfone e faz a pergunta falando; o áudio é transcrito e respondido como se fosse escrito. Fecha pela prova automática. SPEC-2-003, CA-2-13.
-  - [x] Testar o assistente do app com a equipe @Agrospy !13/11/2026 2026-11-09  <!-- id:47f28655-1831-466a-b9bb-69438c63314b -->
-    > Concluída em 09/11. Não há novo teste (emenda de 17/11/2026). O Comercial continua consultando todos os produtores da empresa, e as conversas ficam guardadas por 90 dias. SPEC-2-003.
-- [/] Trazer as gravações do Plaud e de outros gravadores @Agrospy !19/11/2026  <!-- id:c53689d5-d8b3-4e94-a4f3-527716ad1218 -->
-  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app e, se der, pela pasta do Drive. A fase 2 fecha pela regressão automática de ponta a ponta (emenda de 17/11/2026). SPEC-2-004.
-  - [x] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026 2026-11-09  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
-    > Pelo botão "Enviar gravação". O áudio é transcrito, e a transcrição pronta do Plaud (txt, docx ou pdf) vai direto para o rascunho. O mesmo arquivo não vira dois rascunhos. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
-  - [x] Importar as gravações da pasta do Drive @Agrospy !18/11/2026 2026-11-11  <!-- id:993bc32b-f785-4096-bc52-c05b1e6b439c -->
-    > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-16 e CA-2-17.
-    > FEITO EM 11/11/2026 como importação SOB DEMANDA, não automática a cada 10 min: a pasta "Gravações" está compartilhada e a leitura funciona (provado: arquivo criado, listado e lido de volta), mas o servidor do Skip não tem credencial Google no cofre e não assina o JWT RS256 da conta de serviço. A especificação previu esse caso. Rota /gravacoes/importar-drive + coleção config_drive; dedup por id do arquivo do Drive, provado que reimportar não duplica. A automação de 10 min fica como pendência do consultor.
-  - [ ] Fechar a fase 2 com a regressão automática de ponta a ponta @Agrospy !19/11/2026  <!-- id:2bb2808a-63c0-4f55-8427-aef3b1e10c6a -->
-    > Sem teste de pessoa (emenda de 17/11/2026). Um roteiro automático, com os usuários e o produtor de teste, refaz pela API e pelo navegador automatizado: o pós-visita gravado com a rede desligada sobe ao religar e vira rascunho; confirmado, entra na ficha do produtor; a próxima ação gera aviso no dia; o assistente responde uma pergunta enviada em áudio; uma transcrição do Plaud enviada pelo app vira rascunho. Antes do roteiro, a guarda dos áudios passa para 90 dias (RN-50, decisão do Diogo em 09/11). Depois, as contas de teste são limpas. Evidências em `05_entregas/fase-2/` e log do Skip. Fecha pela prova automática. SPEC-2-004, CA-2-18.
+- [ ] Fechar as pendências técnicas da fase 2 @Agrospy !21/11/2026
+  > O que ficou de técnico da fase 2 entra no ar: avisos no celular, guarda de 90 dias, leitura da pasta do Drive a cada 10 minutos, dados de teste fora das empresas reais e código atualizado no GitHub. Sem teste humano (P11). Fecha pela prova automática. SPEC-3-001, CA-3-01 a CA-3-05.
+  - [ ] Atualizar o código do app no GitHub @Agrospy !18/11/2026
+    > O espelho em 07-sistemas/comercial/codigo/ fica igual à versão publicada no Skip, arquivo por arquivo, sem chave nem senha. A partir daqui, toda task fechada atualiza o espelho. Fecha pela prova automática. SPEC-3-001, CA-3-05.
+  - [ ] Separar os dados de teste das empresas reais @Agrospy !18/11/2026
+    > Cria as empresas "Teste A" e "Teste B" com a mesma carga das empresas reais e o elenco fixo de usuários de teste, com senhas novas. Os registros "TESTE —" saem da Agrospy e da Rumo Agro, e as provas não mudam mais as contagens reais. Fecha pela prova automática. SPEC-3-001, CA-3-04.
+  - [ ] Religar os avisos no celular @Agrospy !19/11/2026
+    > O botão "Ativar avisos no celular" volta, com o código pronto desde 02/11. O aviso do dia, o de atraso e a cópia ao gestor saem pelo OneSignal, e a entrega é provada pela resposta do serviço numa inscrição de teste. A tela bloqueada não mostra o nome do produtor. Fecha pela prova automática. SPEC-3-001, CA-3-01.
+  - [ ] Guardar áudios e conversas por 90 dias @Agrospy !19/11/2026
+    > A rotina de limpeza passa a guardar os áudios dos rascunhos e as conversas do assistente por 90 dias, como o Diogo decidiu em 09/11. Fecha pela prova automática. SPEC-3-001, CA-3-02.
+  - [ ] Ler a pasta do Drive a cada 10 minutos @Agrospy !20/11/2026
+    > Com o aplicativo do Google da Agrospy ligado uma vez (o Maestro manda o passo a passo), cada gravação nova na pasta vira rascunho sozinha em até 10 minutos, sem duplicar. Sem isso, a importação sob demanda continua, e a task fica em andamento com a pendência no STATUS. Fecha pela prova automática. SPEC-3-001, CA-3-03.
+- [ ] Deixar o app com cara de aplicativo de celular @Agrospy !26/11/2026
+  > Visual novo no app inteiro, nas cores de cada empresa:
+  > - no celular: barra de abas embaixo, botão + para registrar, saudação com a data e folhas que sobem de baixo;
+  > - no computador: menu lateral com abas em pílula no topo;
+  > - cartões de vidro claro, cartão de destaque em degradê e gráficos de pontos.
+  > Fecha pela prova automática. SPEC-3-002, CA-3-06 a CA-3-11.
+  - [ ] Aplicar as cores, letras e formas do novo visual em cada empresa @Agrospy !21/11/2026
+    > Tokens claros, fonte do próprio celular e vidro fosco. Tema da Agrospy (verde) e da Rumo Agro (azul-petróleo) pela cor da empresa, com os contrastes mínimos conferidos. Cor só em `lib/cores.ts` e nos tokens. Fecha pela prova automática. SPEC-3-002, CA-3-06.
+  - [ ] Montar os componentes do app e a vitrine de exemplo @Agrospy !24/11/2026
+    > Componentes:
+    > - cartões, cartão de destaque e números com mini gráfico de pontos;
+    > - listas com ícone em círculo, filtros em pílula, selos e botões;
+    > - folha, estados de vazio, erro e carregando, e aviso no topo.
+    > Página `/vitrine` com dados fictícios, nas duas empresas. Capturas em 390 e 1280px, acessibilidade sem falha grave e toque de 44px. Fecha pela prova automática. SPEC-3-002, CA-3-09 e CA-3-10.
+  - [ ] Colocar a barra de abas no celular e o menu lateral no computador @Agrospy !25/11/2026
+    > A casca nova fica no lugar do cabeçalho antigo, com os mesmos caminhos de tela.
+    > - **Celular:** Hoje, Produtores, +, Avisos com contador e Mais.
+    > - **Computador:** menu lateral com seções e abas em pílula.
+    > - **Topo:** saudação com a data e troca de empresa numa folha.
+    > - **Sair:** com envios pendentes, pede confirmação na folha.
+    > Fecha pela prova automática. SPEC-3-002, CA-3-07 e CA-3-08.
+  - [ ] Deixar o app instalável com ícone próprio e a cor da empresa @Agrospy !26/11/2026
+    > Ícones PNG para Android e iPhone, idioma pt-BR e área segura do iPhone. A cor da barra muda com a empresa. O service worker e a fila sem internet continuam funcionando. Fecha pela prova automática. SPEC-3-002, CA-3-11.
+- [ ] Redesenhar todas as telas do app no novo visual @Agrospy !03/12/2026
+  > Todas as telas no visual novo, cada uma com os estados de carregando, vazio, erro e sem internet e com a versão de exemplo na vitrine. As regras, os dados e os caminhos continuam iguais. Fecha pela prova automática. SPEC-3-003, CA-3-12 a CA-3-17.
+  - [ ] Redesenhar a tela inicial com a agenda do dia @Agrospy !27/11/2026
+    > A tela "Hoje" tem:
+    > - saudação;
+    > - cartão de destaque com as ações de hoje e as atrasadas;
+    > - filtros Atrasadas, Hoje, Próximos 7 dias e Depois;
+    > - lista com concluir e reagendar numa folha.
+    > Os números batem com a carteira. Fecha pela prova automática. SPEC-3-003, CA-3-12 e CA-3-16.
+  - [ ] Redesenhar a lista de produtores e a ficha do produtor @Agrospy !28/11/2026
+    > - **Produtores:** busca em pílula e filtros por classificação.
+    > - **Ficha:** cabeçalho com as ações, "Para a próxima visita" e abas Resumo, Oportunidades, Visitas, Propriedades e Perfil.
+    > - **Formulários:** em folha, com os mesmos campos obrigatórios.
+    > Fecha pela prova automática. SPEC-3-003, CA-3-13 e CA-3-16.
+  - [ ] Redesenhar o registro de visita em passos, os rascunhos e o envio de gravação @Agrospy !01/12/2026
+    > - **Registro de visita:** 3 passos (a conversa, o próximo passo, revisar), com o botão fixo embaixo e as mesmas validações.
+    > - **Rascunhos e revisão:** com o player e a confirmação na folha.
+    > - **Também no visual novo:** pendências de envio e enviar gravação.
+    > - **Sem internet:** a visita fica guardada e sobe ao voltar.
+    > Fecha pela prova automática. SPEC-3-003, CA-3-14 e CA-3-16.
+  - [ ] Redesenhar Avisos, Assistente, Visão do gestor, a entrada e as telas do Administrador @Agrospy !02/12/2026
+    > - **Avisos:** lista com não lidos marcados.
+    > - **Assistente:** em formato de chat.
+    > - **Visão do gestor:** números da semana com variação e atrasadas por responsável.
+    > - **Também no visual novo:** login, escolha de empresa, linhas de negócio, usuários e pasta do Drive, com formulários em folha.
+    > Fecha pela prova automática. SPEC-3-003, CA-3-15 e CA-3-16.
+  - [ ] Conferir que todo o app continua funcionando no novo visual @Agrospy !03/12/2026
+    > Conferência completa no app publicado, por perfil:
+    > - carteira e registro de visita, inclusive sem internet;
+    > - gravação vira rascunho; descartar com confirmação;
+    > - avisos e assistente;
+    > - acessos por perfil e troca de empresa.
+    > Saem o aviso antigo de mensagens e o cabeçalho antigo. Verificador, capturas e log do Skip sem erro. Fecha pela prova automática. SPEC-3-003, CA-3-16 e CA-3-17.
+- [ ] Acompanhar a oportunidade até o fechamento @Agrospy !08/12/2026
+  > Cada oportunidade passa a ter etapa no funil, proposta registrada e um fim claro: ganha (com a condição negociada), perdida ou não prioritária (sempre com motivo). O serviço contratado é acompanhado pelas etapas técnicas, de 0 Contratado a 5 Recoleta. Fecha pela prova automática. SPEC-3-004, CA-3-18 a CA-3-23.
+  - [ ] Configurar as etapas do funil de cada empresa @Agrospy !04/12/2026
+    > Agrospy e Rumo Agro começam com 4 etapas padrão (Necessidade reconhecida, Em amadurecimento, Proposta apresentada, Negociação), que só o Administrador renomeia, reordena ou desativa. Os motivos de perda e de não prioritária também ficam editáveis. Toda oportunidade aberta ganha uma etapa. Fecha pela prova automática. SPEC-3-004, CA-3-18.
+  - [ ] Mudar a etapa da oportunidade com histórico @Agrospy !04/12/2026
+    > Nova tela da oportunidade com a trilha de etapas. Cada mudança fica no histórico com quem mudou, quando e o nome da etapa naquele momento. A API comum não muda etapa nem desfecho por fora dos botões. Fecha pela prova automática. SPEC-3-004, CA-3-18 e CA-3-23.
+  - [ ] Registrar o orçamento ou a proposta na oportunidade @Agrospy !07/12/2026
+    > Valor, validade, descrição e o arquivo do orçamento (opcional). A proposta nova substitui a anterior, a oportunidade vai para "Proposta apresentada" e a vencida aparece marcada. Fecha pela prova automática. SPEC-3-004, CA-3-19.
+  - [ ] Fechar a venda com a condição negociada @Agrospy !07/12/2026
+    > "Fechar venda" exige o produto ou serviço, o valor, a entrada e as parcelas com as datas, e só confirma quando a soma bate. O produtor vira cliente, a oportunidade sai da carteira e dos avisos, e o app oferece criar o serviço técnico. Fecha pela prova automática. SPEC-3-004, CA-3-20.
+  - [ ] Registrar perda ou não prioritária com motivo @Agrospy !08/12/2026
+    > Perda e não prioritária pedem um motivo da lista (e texto no "Outro"). A não prioritária pode ter uma data para rever. Só Gestão e Administrador reabrem uma oportunidade encerrada. Fecha pela prova automática. SPEC-3-004, CA-3-21.
+  - [ ] Acompanhar as etapas do serviço técnico contratado @Agrospy !08/12/2026
+    > Tela "Serviços" e seção na ficha do produtor: cada serviço tem safra, talhões e etapa atual. Administrador, Gestão e Operador avançam a etapa, com data e autor. O Comercial só consulta. Inclui a regressão de acesso e das telas. Fecha pela prova automática. SPEC-3-004, CA-3-22 e CA-3-23.
+- [ ] Ver o painel comercial e a fila de prioridades @Agrospy !11/12/2026
+  > O gestor vê, por empresa, o funil, os atrasos, as propostas, os ganhos e perdas com motivos, a conversão e os indicadores semanais, com filtros de período, vendedor e linha. O vendedor vê o mesmo da própria carteira e uma fila de prioridades com ordem fixa. Fecha pela prova automática. SPEC-3-005, CA-3-24 a CA-3-29.
+  - [ ] Ordenar a fila de prioridades da carteira @Agrospy !09/12/2026
+    > Tela "Prioridades" com 5 grupos em ordem fixa: atrasadas, ações de hoje, propostas vencendo, clientes e potenciais sem contato há mais de 20 dias (primeiro os que estão na época boa) e os que pediram para ser revistos. O Administrador ajusta os dias. Fecha pela prova automática. SPEC-3-005, CA-3-27 e CA-3-28.
+  - [ ] Montar o painel do gestor com funil, propostas e resultados @Agrospy !10/12/2026
+    > Painel da empresa ativa, calculado no servidor: abertas e valor, funil por etapa, atrasadas, propostas vigentes e vencidas, ganhos, perdas e não prioritárias com motivos, conversão, visitas, serviços por etapa e carteira por responsável. Cada número bate com a base, e nada soma as duas empresas. Fecha pela prova automática. SPEC-3-005, CA-3-24 e CA-3-25.
+  - [ ] Mostrar o painel do vendedor só com a própria carteira @Agrospy !10/12/2026
+    > O Comercial abre o mesmo painel limitado à carteira dele, mesmo se pedir outro vendedor pela API. O Operador não tem acesso. Fecha pela prova automática. SPEC-3-005, CA-3-26.
+  - [ ] Conferir os números do painel com a base @Agrospy !11/12/2026
+    > Os 3 indicadores semanais passam a ser calculados no servidor e mostram erro em vez de 0 quando falham. A antiga "Visão do gestor" leva ao painel. Inclui as provas visuais e de tempo. Fecha pela prova automática. SPEC-3-005, CA-3-29.
+- [ ] Ligar produtores das duas empresas e importar a carteira @Agrospy !16/12/2026
+  > O produtor atendido pela Agrospy e pela Rumo Agro fica relacionado, com o histórico de cada empresa separado. A carteira entra por planilha, com prévia, relatório das linhas recusadas e opção de desfazer o lote. Fecha pela prova automática. SPEC-3-006, CA-3-30 a CA-3-34.
+  - [ ] Relacionar o mesmo produtor na Agrospy e na Rumo Agro @Agrospy !14/12/2026
+    > Quem é Administrador das duas empresas vê os pares sugeridos (mesmo CPF/CNPJ ou mesmo nome e município) e relaciona. A ficha mostra "Também na Rumo Agro" só para quem acessa as duas, e o toque troca de empresa. Quem acessa uma só não vê nada da outra. Fecha pela prova automática. SPEC-3-006, CA-3-30 e CA-3-31.
+  - [ ] Conferir a prévia da planilha antes de importar @Agrospy !14/12/2026
+    > Tela "Importar carteira" com o modelo para baixar. O arquivo (CSV ou Excel) vira uma prévia com novos, já cadastrados e recusados, com a linha e o motivo, sem gravar nada. O Maestro pede uma vez a planilha de etapas de serviço da Agrospy (CL-001), sem travar. Fecha pela prova automática. SPEC-3-006, CA-3-32.
+  - [ ] Importar a carteira sem duplicar produtor @Agrospy !15/12/2026
+    > "Importar" cria só os produtores novos, com propriedade e serviço na etapa informada, e não mexe nos que já existem. Importar duas vezes não duplica nada. Só o Administrador da empresa importa. Fecha pela prova automática. SPEC-3-006, CA-3-33.
+  - [ ] Desfazer uma importação inteira @Agrospy !16/12/2026
+    > "Desfazer" apaga o que o lote criou e ainda não teve visita, oportunidade ou serviço novo. O que já foi usado fica e aparece listado. Fecha pela prova automática. SPEC-3-006, CA-3-34.

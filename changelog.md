@@ -1,3 +1,21 @@
+## [17/11/2026] — Fase 2 concluída e Fase 3 liberada
+- Fase 2 encerrada com 18/18 tasks, sem teste humano (P11).
+  - As tasks de teste b33bfdb7 e 2bb2808a foram excluídas.
+  - O que sobrou de técnico foi para a SPEC-3-001: notificação no celular (antes 2ae01199), pasta do Drive a cada 10 min, 90 dias, dados de teste e espelho do código.
+  - Histórico em `05_entregas/fase-2/`.
+- Fase 3 publicada em `04_fase-atual/`, com 6 SPECs e 34 tasks (IDs pelo portal):
+  - pendências técnicas da fase 2;
+  - visual de app e navegação;
+  - telas no novo visual;
+  - funil, proposta e desfecho;
+  - painéis e fila priorizada;
+  - produtor nas duas empresas e importação.
+- Regras da fase:
+  - sem teste humano;
+  - visual da SPEC-3-002 em toda tela;
+  - espelho do código a cada task;
+  - dados de teste só nas empresas "Teste A" e "Teste B".
+
 ## [17/11/2026] — Emenda: sem teste humano
 - Decisão do consultor: nenhuma task nem SPEC da Agrospy espera teste, demonstração ou "testei, pode seguir" de pessoa. Vale para a fase 2 e para as próximas (`04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`).
 - SPECs 2-001 a 2-004: `## Teste do cliente: Não se aplica`.
