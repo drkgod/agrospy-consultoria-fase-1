@@ -1,6 +1,6 @@
 # Fase 2 — Execução do fluxo de prospecção
 
-<!-- fase-format:2 -->
+> **Arquivo histórico. Não usar para executar.** Esta é a lista que o Maestro montou por conta própria em 22/10, antes de seguir a fase 2 liberada. O que ela construiu fica no app; os indicadores são conferidos na fase 3. As tasks valem só em `04_fase-atual/fase.md`. O teste humano da linha f2-006 não se aplica (emenda de 17/11/2026).
 
 Base: escopo aprovado pelo Diogo (artifacts/escopo_sistema_vendas_agrospy.md). Fase 2 =
 ficha de perfil, classificação de potencial e época, apoio de IA (resumo de conversa +

@@ -1,8 +1,8 @@
-# SPEC-2-004 — Gravações do Plaud e de outros gravadores, e teste final da fase
+# SPEC-2-004 — Gravações do Plaud e de outros gravadores, e fechamento da fase
 
 **Fase:** 2
 **Status:** planejada
-**Dono:** Agrospy (execução com o Maestro) · teste: Diogo
+**Dono:** Agrospy (execução com o Maestro) · sem teste humano (emenda de 17/11/2026)
 **Origem no escopo:** RQ-002; P1; P10; Fase 2, capacidades "importação de transcrições do Plaud" e "pasta do Google Drive para gravações de outros gravadores"; CL-PEND-002; demonstração da fase 2
 **Degrau da solução:** reuso + construção mínima:
 - **Reuso:** a fila de rascunhos (SPEC-2-001) e o leitor de documentos nativo do Skip (`$documents.toMarkdown`);
@@ -40,11 +40,11 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
   - leitura de texto de txt, docx e pdf;
   - pasta do Drive (condicional);
   - limpeza das contas de teste;
-  - teste final da fase 2.
+  - fechamento da fase 2 pela regressão automática de ponta a ponta.
 - **Fora de escopo:** WhatsApp (P10); integração direta com a conta do Plaud (a Agrospy exporta do app do Plaud); importação de gravações antigas em lote; vídeo.
-- **Entradas e pré-condições:** SPEC-2-001 aceita para o envio pelo app; SPECs 2-002 e 2-003 aceitas para o teste final; CL-PEND-002 para a pasta do Drive.
+- **Entradas e pré-condições:** SPEC-2-001 aceita para o envio pelo app; SPECs 2-002 e 2-003 aceitas para o fechamento da fase; CL-PEND-002 para a pasta do Drive.
 - **Saídas/artefatos:** tela "Enviar gravação"; tratamento de documentos; `config_drive` e a leitura da pasta (se houver); evidências em `05_entregas/fase-2/spec-2-004/`.
-- **Dependências e responsáveis:** Agrospy executa; o Diogo libera a pasta do Drive e mostra como exporta do Plaud; o Diogo faz o teste final da fase.
+- **Dependências e responsáveis:** Agrospy executa; o Diogo libera a pasta do Drive e mostra como exporta do Plaud.
 - **Atores e permissões mínimas:** as da SPEC-2-001; o rascunho vindo da pasta pertence ao dono configurado.
 - **Superfícies/arquivos/configurações afetadas:** frontend ("Enviar gravação"; destino de compartilhamento no Android); hook de processamento; rotina (pasta do Drive); segredos do Drive, se houver.
 - **Risco e plano B:** o iPhone não oferece o app no menu "Compartilhar", então lá a escolha é pela tela "Enviar gravação". Sem acesso ao Drive, o envio pelo app cobre o uso.
@@ -90,7 +90,7 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
    2. repetição e formatos;
    3. pasta do Drive, só se CL-PEND-002 estiver liberado;
    4. limpeza das contas de teste;
-   5. teste final da fase.
+   5. regressão automática de ponta a ponta (CA-2-18) e fechamento da fase.
 6. **Parar e pedir validação quando:**
    - `$documents.toMarkdown` não existir no projeto (aceite só txt e avise o consultor);
    - o acesso ao Drive não puder ser provado como descrito (registre a pendência e siga);
@@ -103,7 +103,7 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 - [ ] Repetição não duplica; formato inválido é recusado.
 - [ ] Pasta do Drive ligada ou pendência registrada.
 - [ ] Contas de teste limpas: vínculos `teste.*` desativados e senhas trocadas.
-- [ ] Teste final da fase feito pelo Diogo.
+- [ ] Regressão automática de ponta a ponta passando (CA-2-18), com o RN-50 em 90 dias.
 - [ ] Evidências em `05_entregas/fase-2/spec-2-004/`.
 
 ## Critérios de aceite
@@ -111,7 +111,7 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 - [ ] **CA-2-15:** um arquivo de áudio ou de texto (txt, docx ou pdf) enviado pelo app vira rascunho na fila de quem enviou; o texto pronto não passa por nova transcrição.
 - [ ] **CA-2-16:** o mesmo arquivo enviado duas vezes, pelo app ou pelo app e pela pasta do Drive, cria um único rascunho; vídeo e arquivo acima do limite são recusados com mensagem clara.
 - [ ] **CA-2-17:** com a pasta liberada e o acesso provado, um arquivo novo na pasta da empresa vira rascunho do dono em até 10 minutos e não é importado de novo. Sem acesso provado, a pendência fica registrada no changelog e no STATUS com o motivo.
-- [ ] **CA-2-18:** o Diogo executa no celular a demonstração da fase e responde "testei, pode seguir". A demonstração tem cinco passos:
+- [ ] **CA-2-18:** a regressão automática da fase passa nos cinco passos, sem teste de pessoa (emenda de 17/11/2026). Ela usa os usuários e o produtor de teste, pela API e pelo navegador automatizado com a rede desligada e religada:
   - um pós-visita gravado no app sem sinal vira rascunho ao voltar a internet;
   - confirmado, ele entra na ficha do produtor;
   - a próxima ação gera aviso no dia;
@@ -126,28 +126,19 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 | GREEN 1 | app (CA-2-15) | enviar pelo app um txt de teste exportado do Plaud e um m4a de teste | dois rascunhos; o txt sem transcrição | consultas + prints |
 | GREEN 2 | pasta do Drive (CA-2-16, CA-2-17) | colocar na pasta liberada um arquivo de teste novo e o mesmo m4a já enviado pelo app | rascunho do arquivo novo em até 10 min; o m4a repetido não duplica; a leitura seguinte não importa de novo | consultas |
 | REFACTOR/REGRESSÃO | formatos e regressão | (a) vídeo e arquivo de 30 MB; (b) pdf e docx com texto e pdf sem texto; (c) regressão das SPECs 2-001 a 2-003 | (a) recusados; (b) texto extraído e `falhou` no pdf sem texto; (c) sem divergência | prints + consultas |
-| Prova final da fase | demonstração (CA-2-18) | o roteiro da demonstração no celular, com o Diogo | todos os passos passam | gravação de tela + mensagem do Diogo |
+| Prova final da fase | regressão de ponta a ponta (CA-2-18) | o roteiro automático dos cinco passos, pela API e pelo navegador automatizado (rede desligada e religada) | todos os passos passam | saída do roteiro + log do Skip |
 
 **Dados/fixtures:** arquivos de teste em `05_entregas/fase-2/fixtures/` (txt, pdf e docx curtos, pdf sem texto, m4a de 30 s, um vídeo e um arquivo de 30 MB), sem dados reais de produtor; pasta de teste no Drive, se liberada.
 **Caminhos de erro obrigatórios:** formato inválido, tamanho acima do limite, arquivo repetido, texto vazio ou ilegível, Drive sem acesso.
-**Evidência exigida:** consultas da fila, prints e a gravação da demonstração, em `05_entregas/fase-2/spec-2-004/`.
+**Evidência exigida:** consultas da fila, prints e a saída da regressão automática, com o log do Skip, em `05_entregas/fase-2/spec-2-004/`.
 
-## Teste humano do cliente
+## Teste do cliente: Não se aplica
 
-- **Origem:** CL-004 — teste final da fase 2.
-- **Quem testa:** Diogo.
-- **Passos:**
-  1. Gravar um pós-visita no app com o celular sem sinal.
-  2. Com sinal, confirmar o rascunho e conferir a visita na ficha do produtor.
-  3. Conferir o aviso da próxima ação no dia.
-  4. Perguntar ao assistente, por voz, "minhas ações de amanhã".
-  5. Exportar uma transcrição do Plaud, enviar pelo app e confirmar o rascunho.
-- **Resultado esperado:** tudo chega como rascunho, só entra no histórico depois de confirmado, os avisos chegam no dia e o assistente responde.
-- **Evidência do aceite:** "testei, pode seguir" do Diogo ao Maestro. Com isso, a fase 2 fecha.
+Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-004/` e o log do Skip.
 
 ## Handoff e operação
 
-- **Como demonstrar:** o roteiro do teste final.
+- **Como demonstrar:** rodar o roteiro da regressão automática (CA-2-18).
 - **Como operar depois:** exportar do Plaud e enviar pelo app; revisar os rascunhos no fim do dia.
 - **Como monitorar:** rascunhos parados e falhas de leitura da pasta do Drive.
 - **Pendência conhecida:** integração direta com a conta do Plaud não faz parte desta fase.
@@ -159,10 +150,11 @@ O Diogo exporta a transcrição de uma reunião no Plaud e, no app da Agrospy, e
 | c53689d5-d8b3-4e94-a4f3-527716ad1218 | Trazer as gravações do Plaud e de outros gravadores | Agrospy | SPEC-2-004 | CA-2-15 a CA-2-18 | todas as subtasks | evidências das subtasks | SPEC-2-001 aceita |
 | a9653f03-9b99-4098-84f3-4bcdb02741b9 | Enviar gravações do Plaud e de outros gravadores pelo app | Agrospy | SPEC-2-004 | CA-2-15, CA-2-16 | RED 1 → GREEN 1 + REFACTOR (a)(b) | consultas + prints | SPEC-2-001 aceita |
 | 993bc32b-f785-4096-bc52-c05b1e6b439c | Importar as gravações da pasta do Drive | Agrospy | SPEC-2-004 | CA-2-16, CA-2-17 | GREEN 2 ou pendência registrada | consultas ou registro da pendência | CL-PEND-002 |
-| 2bb2808a-63c0-4f55-8427-aef3b1e10c6a | Demonstrar a fase 2 no celular (teste final da fase) | Agrospy | SPEC-2-004 | CA-2-18 | prova final da fase + REFACTOR (c) + limpeza das contas de teste | gravação + "testei, pode seguir" | tasks anteriores concluídas |
+| 2bb2808a-63c0-4f55-8427-aef3b1e10c6a | Fechar a fase 2 com a regressão automática de ponta a ponta | Agrospy | SPEC-2-004 | CA-2-18 | prova final da fase (automática) + REFACTOR (c) + RN-50 em 90 dias + limpeza das contas de teste | saída do roteiro + log do Skip | tasks anteriores concluídas |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
 | 22/10/2026 | decisão P10 | porta do WhatsApp removida; task 47f28655 passa para a SPEC-2-003 (hoje "Testar o assistente do app com a equipe", pela ordem dos cartões no portal); teste final troca o WhatsApp pelo pós-visita gravado sem sinal e pela pergunta ao assistente | fase 2 sem WhatsApp |
+| 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; CA-2-18 e 2bb2808a viram regressão automática de ponta a ponta | Sem teste humano no projeto |

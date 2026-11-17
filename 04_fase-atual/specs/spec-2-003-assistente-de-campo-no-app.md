@@ -2,7 +2,7 @@
 
 **Fase:** 2
 **Status:** planejada
-**Dono:** Agrospy (execução com o Maestro) · teste: Diogo
+**Dono:** Agrospy (execução com o Maestro) · sem teste humano (emenda de 17/11/2026)
 **Origem no escopo:** RQ-002; P2; P6; Fase 2, capacidade "agente de campo… para pós-visita por áudio/texto e para consultar o histórico", com a emenda P10 (dentro do app, sem WhatsApp); evolução E8
 **Degrau da solução:** nativo da plataforma:
 - **Perguntas:** uma tela "Assistente" no app instalado da fase 1, que chama uma rota autenticada do Skip;
@@ -48,7 +48,7 @@ Na estrada, o vendedor abre "Assistente", toca no microfone e pergunta "quais mi
   - coleção `conversas_assistente`;
   - tela "Assistente";
   - evidências em `05_entregas/fase-2/spec-2-003/`.
-- **Dependências e responsáveis:** Agrospy executa; o Diogo faz o teste final.
+- **Dependências e responsáveis:** Agrospy executa.
 - **Atores e permissões mínimas:** o assistente lê só como o usuário logado, na empresa ativa; a rota grava só rascunhos desse usuário.
 - **Superfícies/arquivos/configurações afetadas:** migrações (`conversas_assistente`); hooks das rotas; definição do agente; frontend (tela "Assistente" e o ícone no menu).
 - **Risco e plano B:** se o agente hospedado não conseguir ler com as permissões do usuário, o plano B são as funções fixas (ver instruções). Resposta errada da IA é mitigada pelos links: o vendedor sempre pode abrir o registro original.
@@ -60,7 +60,7 @@ Na estrada, o vendedor abre "Assistente", toca no microfone e pergunta "quais mi
   - `usuario`, `empresa` e `chave` (`usuario:empresa`);
   - `mensagens` (JSON com pergunta, resposta e data);
   - `atualizado_em`.
-- **Retenção (padrão a confirmar com a Agrospy no teste):** conversas com mais de 90 dias são apagadas pela rotina diária da SPEC-2-001.
+- **Retenção (90 dias; o Diogo pode mudar sem travar nada):** conversas com mais de 90 dias são apagadas pela rotina diária da SPEC-2-001.
 
 | Origem/destino | Contrato | Autenticação | Tempo e repetição | Erro |
 |---|---|---|---|---|
@@ -154,18 +154,13 @@ Na estrada, o vendedor abre "Assistente", toca no microfone e pergunta "quais mi
 **Caminhos de erro obrigatórios:** outra empresa, matriz do Comercial, Operador, mensagem repetida, sem internet, falha de transcrição, instrução escondida nos dados, pergunta fora do sistema.
 **Evidência exigida:** respostas da rota, consultas e prints da tela, em `05_entregas/fase-2/spec-2-003/`.
 
-## Teste humano do cliente
+## Teste do cliente: Não se aplica
 
-- **Origem:** CL-004.
-- **Quem testa:** Diogo e um vendedor.
-- **Passos:**
-  1. O vendedor pergunta por voz "minhas ações de amanhã" e abre uma oportunidade pelo link.
-  2. Escreve um pós-visita curto e confirma o rascunho.
-  3. O Diogo troca para a Rumo Agro e pergunta por um produtor de lá.
-  4. Confirmar com o Diogo se o Comercial deve continuar consultando o cadastro de todos os produtores da empresa ou só da própria carteira.
-  5. Confirmar com o Diogo o prazo de guarda das conversas (90 dias).
-- **Resultado esperado:** as respostas vêm certas, o pós-visita vira rascunho e nada de outra empresa aparece.
-- **Evidência do aceite:** "testei, pode seguir" do Diogo ao Maestro. As respostas sobre a regra do Comercial e o prazo de guarda vão para o changelog. Mudança na regra do Comercial vira emenda do consultor.
+Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-003/` e o log do Skip.
+
+A task 47f28655 foi concluída em 09/11 e não reabre. As duas perguntas que ela fazia ao Diogo não travam nada:
+- **Comercial:** continua consultando o cadastro de todos os produtores da empresa até o Diogo pedir outra regra, que vira emenda do consultor;
+- **Guarda das conversas:** 90 dias, o mesmo prazo que o Diogo escolheu para os áudios.
 
 ## Handoff e operação
 
@@ -183,10 +178,11 @@ Na estrada, o vendedor abre "Assistente", toca no microfone e pergunta "quais mi
 | c504f635-645d-4304-8f81-88ae6f1149f5 | Registrar o pós-visita por texto no assistente | Agrospy | SPEC-2-003 | CA-2-12 | GREEN 2 | consultas da fila | tela do assistente |
 | 09510a74-c541-4d88-adb1-6c2be8d3b9c5 | Responder perguntas sobre a carteira no assistente | Agrospy | SPEC-2-003 | CA-2-10, CA-2-11 | RED 1–2 → GREEN 1 + REFACTOR (b)(d) | respostas da rota | tela do assistente |
 | fcbe8d32-044e-4881-9a7b-4d07f85687fa | Perguntar ao assistente por voz | Agrospy | SPEC-2-003 | CA-2-13 | GREEN 3 (voz) | respostas + print | perguntas por texto funcionando |
-| 47f28655-1831-466a-b9bb-69438c63314b | Testar o assistente do app com a equipe | Agrospy | SPEC-2-003 | CA-2-10 a CA-2-14 | teste humano + REFACTOR (e) | "testei, pode seguir" + prints | tasks anteriores concluídas |
+| 47f28655-1831-466a-b9bb-69438c63314b | Testar o assistente do app com a equipe | Agrospy | SPEC-2-003 | CA-2-10 a CA-2-14 | concluída em 09/11; sem novo teste (emenda de 17/11/2026) | registro de 09/11 | tasks anteriores concluídas |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
 | 22/10/2026 | 2ª consultoria (07/10) e decisão P10 | SPEC reescrita: agente no WhatsApp → assistente dentro do app; tasks 94aab9cf, 864c6848, 09510a74, c504f635 e fcbe8d32 com título novo; 47f28655 vem da SPEC-2-004; para seguir a ordem dos cartões no portal, fcbe8d32 é "Perguntar ao assistente por voz" e 47f28655 é "Testar o assistente do app com a equipe" | WhatsApp complexo e com risco de bloqueio; o app já cobre o uso |
+| 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; regra do Comercial e guarda de 90 dias definidas sem teste | Sem teste humano no projeto |

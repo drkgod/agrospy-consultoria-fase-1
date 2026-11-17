@@ -1,20 +1,19 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v3
-- task_id: abc5e491-405a-4dab-ae70-b2769743f897
-- aguardando_teste: abc5e491 — teste do Diogo com um vendedor ("testei, pode seguir")
+- task_id: 2ae01199-220f-446b-982d-6174d2348065
+- aguardando_teste: nenhuma (emenda de 17/11/2026: sem teste humano)
 - em_espera: nenhuma
 - executor: Pardal (ETHOS/Maestro)
 - owner_informativo: Agrospy
-- spec: 04_fase-atual/specs/spec-2-001-pos-visita-por-audio-no-app.md
-- etapa: aguardando teste humano (SPEC-2-001 completa: descartar e retomar publicados)
-- ciclo: continuo 2026-10-29 — "siga a ordem do fase.md, sem me pedir autorização entre as tarefas; o teste é só no fim de cada parte"
-- teste_humano: pendente — SPEC-2-001, task abc5e491
-- verificacao_automatica: passou — RED 1 (acesso/campos travados), GREEN 1 (áudio→rascunho com transcrição real), GREEN 2 (confirmar idempotente + áudio íntegro 74.133 bytes), CA-2-05 (duplicata 409)
+- spec: 04_fase-atual/specs/spec-2-002-avisos-da-proxima-acao.md
+- etapa: fechamento da fase 2 (notificação no celular, prova da entrega e regressão final)
+- ciclo: continuo — siga a ordem do fase.md, sem pedir autorização entre as tarefas; nenhuma task espera teste de pessoa
+- teste_humano: não se aplica (04_fase-atual/emenda-2026-11-17-sem-teste-humano.md)
+- verificacao_automatica: SPECs 2-001, 2-003 e 2-004 concluídas; SPEC-2-002 com a lista, o contador, o atraso e a cópia provados em 09/11
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: a0fc83a (0.0.120)
-- skip_publicacao: publicada:a0fc83a em 2026-10-30T15:03:49Z
-- ultima_acao: SPEC-2-001 quase fechada — 0b522b2b, 68c2ec27 e 5f42475d CONCLUÍDAS; 6b4bcbde com código no ar e prova offline pendente do teste no aparelho
-- proxima_acao: teste do Diogo (abc5e491) — gravar sem sinal, conferir rascunho, confirmar; e definir o prazo de guarda dos áudios (RN-50)
-- atualizado_em: 2026-10-30T12:05:00-03:00
+- skip_versao: 0.0.213 (STATUS de 11/11/2026)
+- ultima_acao: SPEC-2-004 concluída em 11/11 (envio pelo app e importação da pasta do Drive sob demanda); estado reescrito pelo consultor em 17/11 com a emenda sem teste humano
+- proxima_acao: 2ae01199 religar a notificação no celular (código da 0.0.177) → b33bfdb7 prova automática da entrega → 2bb2808a RN-50 em 90 dias, regressão automática de ponta a ponta e limpeza das contas de teste
+- atualizado_em: 2026-11-17T13:00:00-03:00

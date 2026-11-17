@@ -2,7 +2,7 @@
 
 **Fase:** 2
 **Status:** planejada
-**Dono:** Agrospy (execução com o Maestro) · teste: Diogo
+**Dono:** Agrospy (execução com o Maestro) · sem teste humano (emenda de 17/11/2026)
 **Origem no escopo:** RQ-002; P1; Fase 2, capacidades "fila de rascunhos" e captura em campo; evoluções E1 e E2 da fase 1
 **Degrau da solução:** reuso + nativo da plataforma:
 - **Reuso:** a gravação de áudio e a fila sem internet da fase 1;
@@ -64,7 +64,7 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
   - rotina de 10 minutos;
   - tela "Rascunhos";
   - fixtures e evidências em `05_entregas/fase-2/`.
-- **Dependências e responsáveis:** Agrospy executa; o Diogo cria a conta gratuita do Groq e cadastra a chave, se for preciso; o Diogo faz o teste final.
+- **Dependências e responsáveis:** Agrospy executa; o Diogo cria a conta gratuita do Groq e cadastra a chave, se for preciso.
 - **Atores e permissões mínimas:** a matriz acima e as regras desta SPEC.
 - **Superfícies/arquivos/configurações afetadas:**
   - migrações e hooks novos;
@@ -136,7 +136,7 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
 | RN-33 | repetição | um rascunho por `chave_dedup` e por `hash_conteudo` na empresa | — | escopo, fase 2 |
 | RN-34 | sem internet | a gravação entra na fila do aparelho com `id_local` e sobe ao voltar | — | evolução E1 |
 | RN-35 | Operador | não grava pós-visita nem vê "Rascunhos" | — | matriz da fase 1 |
-| RN-50 | retenção (padrão proposto; confirmar com a Agrospy no teste) | a rotina diária tira `midia`, `transcricao` e `texto_original` de rascunhos `descartado` ou `falhou` há mais de 30 dias; o rascunho `confirmado` perde `midia` depois que o áudio é copiado para `visitas.audio` | — | P1 (práticas de privacidade da Agrospy) |
+| RN-50 | retenção (decidida pelo Diogo em 09/11/2026: 90 dias) | a rotina diária tira `midia`, `transcricao` e `texto_original` de rascunhos `descartado` ou `falhou` há mais de 90 dias; o rascunho `confirmado` perde `midia` depois que o áudio é copiado para `visitas.audio` | — | P1 (práticas de privacidade da Agrospy) |
 
 ## Fluxo e regras
 
@@ -231,17 +231,11 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
 **Caminhos de erro obrigatórios:** sem internet, transcrição fora, áudio repetido, duplicado de outro usuário, produtor não reconhecido, permissão negada, Operador, mudança de campo do servidor.
 **Evidência exigida:** respostas da API, prints do rascunho e da visita confirmada e gravação da tela, em `05_entregas/fase-2/spec-2-001/`.
 
-## Teste humano do cliente
+## Teste do cliente: Não se aplica
 
-- **Origem:** CL-004.
-- **Quem testa:** Diogo, com um vendedor.
-- **Passos:**
-  1. Depois de uma visita real, gravar o pós-visita no app, de preferência com o celular sem sinal.
-  2. Com sinal, abrir "Rascunhos", conferir, corrigir e confirmar.
-  3. Abrir a ficha do produtor.
-  4. Confirmar com o Diogo o prazo de guarda dos áudios (RN-50).
-- **Resultado esperado:** a visita aparece com o áudio, a oportunidade e a próxima ação, sem digitar o formulário inteiro.
-- **Evidência do aceite:** "testei, pode seguir" do Diogo ao Maestro, com o print da visita e a resposta sobre o prazo de guarda registrada no changelog.
+Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-001/` e o log do Skip.
+
+A task abc5e491 foi concluída em 30/10 com o teste do Diogo e não reabre. O prazo de guarda dos áudios que ela pedia foi decidido pelo Diogo em 09/11: 90 dias (RN-50).
 
 ## Handoff e operação
 
@@ -261,10 +255,10 @@ O vendedor sai da propriedade sem sinal, toca em "Gravar pós-visita" e fala 1 m
 | 68c2ec27-c5c8-490a-8048-1255343383d7 | Confirmar, corrigir ou descartar o rascunho | Agrospy | SPEC-2-001 | CA-2-03 | GREEN 2 + REFACTOR (c)(f) | consulta das coleções | fila de rascunhos (rascunho criado à mão) |
 | 5f42475d-2083-49e8-9153-c0ded8096569 | Transformar o áudio gravado em rascunho de visita | Agrospy | SPEC-2-001 | CA-2-02, CA-2-05 | RED 2 → GREEN 1 + REFACTOR (a)(b)(d) | print do rascunho + respostas | fila de rascunhos; transcrição disponível |
 | 6b4bcbde-5293-49dd-acb3-bc2047720c9b | Gravar o pós-visita sem internet e enviar depois | Agrospy | SPEC-2-001 | CA-2-01 | GREEN 3 + REFACTOR (e) | gravação da tela + consulta | áudio vira rascunho |
-| abc5e491-405a-4dab-ae70-b2769743f897 | Testar o pós-visita por áudio no celular | Agrospy | SPEC-2-001 | CA-2-01 a CA-2-05 | teste humano | "testei, pode seguir" + print | tasks anteriores concluídas |
+| abc5e491-405a-4dab-ae70-b2769743f897 | Testar o pós-visita por áudio no celular | Agrospy | SPEC-2-001 | CA-2-01 a CA-2-05 | concluída em 30/10; sem novo teste (emenda de 17/11/2026) | registro de 30/10 | tasks anteriores concluídas |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
-| | | | |
+| 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; RN-50 em 90 dias | Sem teste humano no projeto; prazo de guarda decidido pelo Diogo em 09/11 |

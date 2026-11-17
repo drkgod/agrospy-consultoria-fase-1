@@ -9,18 +9,19 @@
 | [SPEC-2-001](spec-2-001-pos-visita-por-audio-no-app.md) | Pós-visita por áudio no app, com fila de rascunhos | reuso + nativo da plataforma | CA-2-01 a CA-2-05 | fase 1 |
 | [SPEC-2-002](spec-2-002-avisos-da-proxima-acao.md) | Avisos da próxima ação no celular, com cópia ao gestor | nativo da plataforma + construção mínima | CA-2-06 a CA-2-09 | fase 1 |
 | [SPEC-2-003](spec-2-003-assistente-de-campo-no-app.md) | Assistente de campo dentro do app | nativo da plataforma | CA-2-10 a CA-2-14 | SPEC-2-001 |
-| [SPEC-2-004](spec-2-004-gravacoes-do-plaud-e-outros-gravadores.md) | Gravações do Plaud e de outros gravadores, e teste final da fase | reuso + construção mínima | CA-2-15 a CA-2-18 | SPEC-2-001; SPEC-2-003 para o teste final |
+| [SPEC-2-004](spec-2-004-gravacoes-do-plaud-e-outros-gravadores.md) | Gravações do Plaud e de outros gravadores, e fechamento da fase | reuso + construção mínima | CA-2-15 a CA-2-18 | SPEC-2-001; SPEC-2-003 para o fechamento |
 
 ## Como executar
 
 1. **Construção em sequência**, uma task depois da outra, sem pedir autorização antes de cada uma.
-2. **Teste humano só na última task de cada SPEC.** As demais tasks fecham pela prova automática da própria SPEC.
+2. **Sem teste humano (emenda de 17/11/2026).** Toda task fecha pela prova automática da própria SPEC, com evidência em `05_entregas/fase-2/` e o log do Skip. Nenhuma task espera teste, demonstração ou "testei, pode seguir" de pessoa. Regra em `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`.
 3. **Ordem:**
    1. pós-visita por áudio no app (SPEC-2-001);
    2. avisos dentro do app: lista, contador, atraso e cópia ao gestor (SPEC-2-002, sem a notificação no celular);
    3. assistente dentro do app (SPEC-2-003);
    4. gravações do Plaud e da pasta do Drive (SPEC-2-004);
-   5. notificação no celular pelo OneSignal e teste dos avisos (fim da SPEC-2-002), logo antes do teste final da fase (emenda de 02/11/2026).
+   5. notificação no celular pelo OneSignal e prova automática da entrega (fim da SPEC-2-002, emenda de 02/11/2026);
+   6. regressão automática de ponta a ponta, que fecha a fase (SPEC-2-004).
 4. **Se faltar algo que só a Agrospy pode providenciar**, pare só aquela task e siga com a próxima que não depende disso:
    - a chave do serviço de transcrição;
    - a conta do serviço de notificação (só pedir quando chegar a etapa 5);

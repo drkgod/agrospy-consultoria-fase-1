@@ -1,3 +1,10 @@
+## [17/11/2026] — Emenda: sem teste humano
+- Decisão do consultor: nenhuma task nem SPEC da Agrospy espera teste, demonstração ou "testei, pode seguir" de pessoa. Vale para a fase 2 e para as próximas (`04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`).
+- SPECs 2-001 a 2-004: `## Teste do cliente: Não se aplica`.
+- b33bfdb7 virou "Provar a entrega dos avisos de atraso e da cópia no celular", e 2bb2808a virou "Fechar a fase 2 com a regressão automática de ponta a ponta" (CA-2-18 reescrito). Os IDs foram mantidos.
+- RN-50: guarda dos áudios em 90 dias (decisão do Diogo em 09/11). Conversas do assistente: 90 dias. O Comercial continua vendo todos os produtores da empresa.
+- A lista própria do Maestro (`fase-2.md`) foi arquivada em `06_notas/`; o estado atual foi reescrito para o fechamento da fase.
+
 ## [22/10/2026] — Emenda P10: fase 2 sem WhatsApp
 - O agente de campo no WhatsApp foi trocado por um assistente dentro do app (SPEC-2-003 reescrita: `spec-2-003-assistente-de-campo-no-app.md`), como alinhado na 2ª consultoria.
 - A SPEC-2-004 deixa de ter a porta do WhatsApp; o Plaud e os gravadores entram pelo app e pela pasta do Drive.

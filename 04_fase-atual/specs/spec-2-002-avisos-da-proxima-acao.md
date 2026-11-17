@@ -2,7 +2,7 @@
 
 **Fase:** 2
 **Status:** planejada
-**Dono:** Agrospy (execução com o Maestro) · teste: Diogo
+**Dono:** Agrospy (execução com o Maestro) · sem teste humano (emenda de 17/11/2026)
 **Origem no escopo:** RQ-005; Fase 2, capacidade "avisos push do app ao responsável com cópia configurável ao gestor"; CL-PEND-005, CL-PEND-006 e CL-PEND-010
 **Degrau da solução:** nativo da plataforma + construção mínima:
 - **Rotina:** a rotina agendada do Skip calcula os avisos;
@@ -43,14 +43,14 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
   - configuração do Administrador;
   - opção de desligar a cópia.
 - **Fora de escopo:** avisos por WhatsApp (fora do ciclo, decisão P10); avisos para produtores; e-mail.
-- **Entradas e pré-condições:** fase 1 no ar; app instalado na tela inicial dos celulares de teste; sistema dos celulares da equipe confirmado (CL-PEND-005; já se sabe que há iPhone); CL-PEND-010 para a notificação.
+- **Entradas e pré-condições:** fase 1 no ar; app instalado na tela inicial dos celulares de teste; sistema dos celulares confirmado (CL-PEND-005: Android na equipe e iPhone do Diogo, informado em 22/10); CL-PEND-010 para a notificação.
 - **Saídas/artefatos:**
   - coleções `avisos`, `inscricoes_push`, `config_avisos` e `preferencias_avisos`;
   - `hooks/lib/avisos.js` com a função `gerarAvisos(agoraISO)`;
   - rotina e rota de teste;
   - tela "Avisos";
   - evidências em `05_entregas/fase-2/spec-2-002/`.
-- **Dependências e responsáveis:** Agrospy executa; o Diogo confirma os celulares, cria a conta do OneSignal e faz o teste final.
+- **Dependências e responsáveis:** Agrospy executa; o Diogo cria a conta do OneSignal (CL-PEND-010).
 - **Atores e permissões mínimas:** cada usuário vê só os próprios avisos; só o Administrador muda a configuração da empresa.
 - **Superfícies/arquivos/configurações afetadas:**
   - migrações e hooks;
@@ -126,7 +126,7 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
    2. atraso e cópia ao gestor, com as preferências;
    3. configuração do Administrador;
    4. inscrição e envio pelo serviço, só no fim da fase, depois do assistente (SPEC-2-003) e das gravações (SPEC-2-004);
-   5. teste em celular real, junto com o teste final da fase.
+   5. prova automática da entrega pelo OneSignal (task b33bfdb7), antes da regressão de ponta a ponta que fecha a fase.
 6. **Parar e pedir validação quando:**
    - chegar a hora da etapa 4 e `PUSH_APP_ID` ou `PUSH_API_KEY` não existirem: aí peça ao Diogo a conta gratuita do OneSignal (CL-PEND-010), explicando em palavras simples o que é e por que precisa. Antes disso, não peça;
    - o serviço exigir plano pago;
@@ -171,22 +171,14 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
 - oportunidades de teste de "TESTE — Produtor A" com próxima ação hoje e vencida ontem, criadas pela migração de teste e removidas por uma migração de limpeza ao fechar a SPEC;
 - usuários de teste comercial1 e gestao;
 - um navegador de computador inscrito, para a prova automática;
-- iPhone e Android só no teste humano.
+- sem teste em aparelho de pessoa (emenda de 17/11/2026): a prova de entrega é a resposta do OneSignal para a inscrição de teste (envio 2xx e a notificação contada como entregue).
 
 **Caminhos de erro obrigatórios:** sem inscrição, permissão negada, inscrição inválida, rotina repetida, usuário inativo, outra empresa, aparelho compartilhado.
 **Evidência exigida:** consultas da coleção `avisos`, respostas da API e prints, em `05_entregas/fase-2/spec-2-002/`.
 
-## Teste humano do cliente
+## Teste do cliente: Não se aplica
 
-- **Origem:** CL-004.
-- **Quem testa:** Diogo e um vendedor.
-- **Passos:**
-  1. Ativar os avisos no celular, com o app instalado na tela inicial.
-  2. Deixar uma oportunidade real com próxima ação para o dia seguinte.
-  3. No dia, conferir a notificação das 7h e abrir por ela.
-  4. Deixar outra ação vencer e conferir o aviso de atraso e a cópia no celular do Diogo.
-- **Resultado esperado:** os avisos chegam no horário, para a pessoa certa, sem expor o produtor na tela bloqueada, e abrem a oportunidade.
-- **Evidência do aceite:** "testei, pode seguir" do Diogo ao Maestro, com o print do aviso.
+Sem teste humano (emenda de 17/11/2026, `04_fase-atual/emenda-2026-11-17-sem-teste-humano.md`). Nenhuma task desta SPEC espera teste, demonstração ou "testei, pode seguir" de pessoa. A SPEC fecha pela prova automática do TDD, com as evidências em `05_entregas/fase-2/spec-2-002/` e o log do Skip. A entrega no celular é provada pela confirmação do OneSignal para a inscrição de teste, não por aparelho de pessoa.
 
 ## Handoff e operação
 
@@ -203,10 +195,11 @@ Entre 7h00 e 7h10 do dia marcado, o celular do vendedor mostra "Agrospy: você t
 | bdca5efe-1e2d-443f-9cb7-c6a026678524 | Mostrar os avisos do dia dentro do app | Agrospy | SPEC-2-002 | CA-2-06, CA-2-08 | RED 1–2 → GREEN 1 (lista) | consulta + print da lista | fase 1 no ar |
 | 4b03eb12-8cf5-42b8-980c-d999ba3a07d9 | Avisar o atraso e mandar cópia ao gestor | Agrospy | SPEC-2-002 | CA-2-07, CA-2-09 | GREEN 2 + REFACTOR (c)(d)(e)(f)(h) | consulta + prints | lista de avisos |
 | 2ae01199-220f-446b-982d-6174d2348065 | Ativar as notificações no celular | Agrospy | SPEC-2-002 | CA-2-06, CA-2-08, CA-2-09 | GREEN 1 (envio) + REFACTOR (a)(b)(g) | print da notificação no navegador inscrito | lista de avisos; CL-PEND-010 |
-| b33bfdb7-3f63-4454-b031-0b952458dd75 | Testar os avisos no celular | Agrospy | SPEC-2-002 | CA-2-06 a CA-2-09 | teste humano | "testei, pode seguir" + print | tasks anteriores concluídas |
+| b33bfdb7-3f63-4454-b031-0b952458dd75 | Provar a entrega dos avisos de atraso e da cópia no celular | Agrospy | SPEC-2-002 | CA-2-07 a CA-2-09 | GREEN 2 com envio pelo serviço + REFACTOR (b)(f)(h) e serviço fora do ar | respostas do OneSignal + consulta de `avisos` + log do Skip | notificação ativada (2ae01199) |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
 | 02/11/2026 | consultor (o Diogo travou na criação da conta do OneSignal) | "Ativar as notificações no celular" e "Testar os avisos no celular" | A notificação no celular vai para o fim da fase, depois do assistente e das gravações. Agora entram só os avisos dentro do app (lista, contador, atraso e cópia ao gestor), que não dependem de conta externa. A conta do OneSignal só é pedida quando chegar a hora da notificação. |
+| 17/11/2026 | consultor | `## Teste do cliente: Não se aplica`; b33bfdb7 vira "Provar a entrega dos avisos de atraso e da cópia no celular" | Sem teste humano no projeto: a entrega é provada pela resposta do OneSignal, não pelo celular de uma pessoa |

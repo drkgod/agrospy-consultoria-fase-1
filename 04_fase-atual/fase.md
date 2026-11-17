@@ -37,10 +37,10 @@ tarefas que já têm um.
     > Ao confirmar, a visita entra na ficha do produtor com o áudio, a oportunidade e a próxima ação, pelas mesmas regras da fase 1. O rascunho descartado não entra em lugar nenhum. Fecha pela prova automática. SPEC-2-001, CA-2-03.
   - [x] Transformar o áudio gravado em rascunho de visita @Agrospy !28/10/2026 2026-10-29  <!-- id:5f42475d-2083-49e8-9153-c0ded8096569 -->
     > O áudio enviado é transcrito, e a IA preenche produtor, assuntos e próxima ação com data. O que ela não identificar fica em branco para a pessoa preencher. Se o Skip não transcrever áudio, a Agrospy cria a conta gratuita do Groq e guarda a chave no cofre. Fecha pela prova automática. SPEC-2-001, CA-2-02 e CA-2-05.
-  - [x] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026 2026-10-30 2026-10-29  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
+  - [x] Gravar o pós-visita sem internet e enviar depois @Agrospy !29/10/2026 2026-10-30  <!-- id:6b4bcbde-5293-49dd-acb3-bc2047720c9b -->
     > Sem sinal, a gravação fica no celular como "aguardando envio" e sobe sozinha quando a internet volta, uma vez só. Fecha pela prova automática. SPEC-2-001, CA-2-01.
   - [x] Testar o pós-visita por áudio no celular @Agrospy !30/10/2026 2026-10-30  <!-- id:abc5e491-405a-4dab-ae70-b2769743f897 -->
-    > Teste do Diogo com um vendedor: gravar o pós-visita de uma visita real, conferir o rascunho, confirmar e ver a visita na ficha do produtor. Também confirmar por quanto tempo guardar os áudios. Fecha com o "testei, pode seguir". SPEC-2-001.
+    > Concluída em 30/10 com o teste do Diogo. Não há novo teste (emenda de 17/11/2026). A guarda dos áudios ficou em 90 dias, por decisão do Diogo em 09/11. SPEC-2-001.
 - [ ] Receber os avisos da próxima ação no celular @Agrospy !19/11/2026  <!-- id:f20b6ec7-1938-4dcb-a387-1150d0244c68 -->
   > No dia da próxima ação, o responsável recebe um aviso no celular. Se a ação atrasar, recebe outro aviso, e o gestor recebe cópia. SPEC-2-002.
   - [x] Mostrar os avisos do dia dentro do app @Agrospy !03/11/2026 2026-10-30  <!-- id:bdca5efe-1e2d-443f-9cb7-c6a026678524 -->
@@ -50,8 +50,8 @@ tarefas que já têm um.
   - [ ] Ativar as notificações no celular @Agrospy !18/11/2026  <!-- id:2ae01199-220f-446b-982d-6174d2348065 -->
     > Fica para o fim da fase, depois do assistente e das gravações (emenda de 02/11/2026). Com o app instalado na tela inicial, cada pessoa ativa os avisos no celular pelo OneSignal (conta gratuita da Agrospy). A tela bloqueada não mostra o nome do produtor, e quem não ativar continua vendo os avisos na lista. Fecha pela prova automática. SPEC-2-002, CA-2-06, CA-2-08 e CA-2-09.
     > CÓDIGO JÁ PRONTO E PROVADO EM 02/11 (v0.0.177): inscrição criada dentro do gesto, entrega confirmada pelo Diogo duas vezes no iPhone. Fora do ar agora por decisão de ordem da fase, não por falta de código. Ao retomar, é revalidar a entrega, não reimplementar.
-  - [ ] Testar os avisos no celular @Agrospy !19/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
-    > Teste do Diogo com um vendedor: ativar os avisos, conferir o aviso das 7h no dia da ação e o aviso de atraso com a cópia no celular do Diogo. Fecha com o "testei, pode seguir". SPEC-2-002.
+  - [ ] Provar a entrega dos avisos de atraso e da cópia no celular @Agrospy !19/11/2026  <!-- id:b33bfdb7-3f63-4454-b031-0b952458dd75 -->
+    > Sem teste de pessoa (emenda de 17/11/2026). Com o usuário comercial de teste e o gestor de teste inscritos, o aviso de atraso e a cópia ao gestor saem pelo OneSignal, que responde com a entrega. Inscrição inválida e serviço fora do ar deixam o aviso em `falhou_envio`, e ele continua na lista. A tela bloqueada mostra só o texto curto, sem o nome do produtor. Fecha pela prova automática. SPEC-2-002, CA-2-07 a CA-2-09.
 - [x] Perguntar ao assistente do app sobre a carteira @Agrospy !13/11/2026 2026-11-09  <!-- id:94aab9cf-6731-4eb7-b37a-517dffac342c -->
   > Dentro do app, o vendedor pergunta por texto ou voz sobre a própria carteira e também pode escrever um pós-visita curto, que vira rascunho. Sem WhatsApp. SPEC-2-003.
   - [x] Criar a tela do assistente dentro do app @Agrospy !10/11/2026 2026-11-09  <!-- id:864c6848-16e6-48d3-9538-53abe6a9f91c -->
@@ -63,13 +63,13 @@ tarefas que já têm um.
   - [x] Perguntar ao assistente por voz @Agrospy !12/11/2026 2026-11-09  <!-- id:fcbe8d32-044e-4881-9a7b-4d07f85687fa -->
     > O vendedor toca no microfone e faz a pergunta falando; o áudio é transcrito e respondido como se fosse escrito. Fecha pela prova automática. SPEC-2-003, CA-2-13.
   - [x] Testar o assistente do app com a equipe @Agrospy !13/11/2026 2026-11-09  <!-- id:47f28655-1831-466a-b9bb-69438c63314b -->
-    > Teste do Diogo com um vendedor: perguntar por voz, abrir pelo link, escrever um pós-visita e confirmar o rascunho, e trocar de empresa. Também confirmar se o Comercial continua consultando todos os produtores e o prazo de guarda das conversas. Fecha com o "testei, pode seguir". SPEC-2-003.
+    > Concluída em 09/11. Não há novo teste (emenda de 17/11/2026). O Comercial continua consultando todos os produtores da empresa, e as conversas ficam guardadas por 90 dias. SPEC-2-003.
 - [/] Trazer as gravações do Plaud e de outros gravadores @Agrospy !19/11/2026  <!-- id:c53689d5-d8b3-4e94-a4f3-527716ad1218 -->
-  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app e, se der, pela pasta do Drive. A fase 2 fecha com o teste final do Diogo. SPEC-2-004.
+  > Gravações e transcrições do Plaud e de outros gravadores entram na mesma fila de rascunhos, pelo app e, se der, pela pasta do Drive. A fase 2 fecha pela regressão automática de ponta a ponta (emenda de 17/11/2026). SPEC-2-004.
   - [x] Enviar gravações do Plaud e de outros gravadores pelo app @Agrospy !16/11/2026 2026-11-09  <!-- id:a9653f03-9b99-4098-84f3-4bcdb02741b9 -->
     > Pelo botão "Enviar gravação". O áudio é transcrito, e a transcrição pronta do Plaud (txt, docx ou pdf) vai direto para o rascunho. O mesmo arquivo não vira dois rascunhos. Fecha pela prova automática. SPEC-2-004, CA-2-15 e CA-2-16.
   - [x] Importar as gravações da pasta do Drive @Agrospy !18/11/2026 2026-11-11  <!-- id:993bc32b-f785-4096-bc52-c05b1e6b439c -->
     > Com a pasta do Drive de cada empresa liberada pela Agrospy e o acesso provado, os arquivos novos viram rascunho a cada 10 minutos. Sem acesso, a pendência é registrada, e o envio pelo app continua cobrindo. Fecha pela prova automática. SPEC-2-004, CA-2-16 e CA-2-17.
     > FEITO EM 11/11/2026 como importação SOB DEMANDA, não automática a cada 10 min: a pasta "Gravações" está compartilhada e a leitura funciona (provado: arquivo criado, listado e lido de volta), mas o servidor do Skip não tem credencial Google no cofre e não assina o JWT RS256 da conta de serviço. A especificação previu esse caso. Rota /gravacoes/importar-drive + coleção config_drive; dedup por id do arquivo do Drive, provado que reimportar não duplica. A automação de 10 min fica como pendência do consultor.
-  - [ ] Demonstrar a fase 2 no celular (teste final da fase) @Agrospy !19/11/2026  <!-- id:2bb2808a-63c0-4f55-8427-aef3b1e10c6a -->
-    > Teste final do Diogo: o pós-visita gravado sem sinal vira rascunho e é confirmado, a visita aparece na ficha do produtor, o aviso da próxima ação chega no dia, o assistente responde por voz e uma transcrição do Plaud vira rascunho. Antes do teste, as contas de teste são limpas. Com o "testei, pode seguir", a fase 2 fecha. SPEC-2-004, CA-2-18.
+  - [ ] Fechar a fase 2 com a regressão automática de ponta a ponta @Agrospy !19/11/2026  <!-- id:2bb2808a-63c0-4f55-8427-aef3b1e10c6a -->
+    > Sem teste de pessoa (emenda de 17/11/2026). Um roteiro automático, com os usuários e o produtor de teste, refaz pela API e pelo navegador automatizado: o pós-visita gravado com a rede desligada sobe ao religar e vira rascunho; confirmado, entra na ficha do produtor; a próxima ação gera aviso no dia; o assistente responde uma pergunta enviada em áudio; uma transcrição do Plaud enviada pelo app vira rascunho. Antes do roteiro, a guarda dos áudios passa para 90 dias (RN-50, decisão do Diogo em 09/11). Depois, as contas de teste são limpas. Evidências em `05_entregas/fase-2/` e log do Skip. Fecha pela prova automática. SPEC-2-004, CA-2-18.
