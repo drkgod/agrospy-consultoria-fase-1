@@ -1,0 +1,1489 @@
+{
+  "generatedAt": "2026-11-11T18:14:43.952Z",
+  "collections": [
+    {
+      "name": "users",
+      "type": "auth",
+      "apiRules": {
+        "list": "id = @request.auth.id",
+        "view": "id = @request.auth.id",
+        "create": "@request.auth.id != '' && @request.auth.acesso_admin:length > 0 && @request.body.acesso_empresas:isset != true && @request.body.acesso_admin:isset != true && @request.body.acesso_gestao:isset != true && @request.body.acesso_comercial:isset != true",
+        "update": "id = @request.auth.id && @request.body.acesso_empresas:isset != true && @request.body.acesso_admin:isset != true && @request.body.acesso_gestao:isset != true && @request.body.acesso_comercial:isset != true",
+        "delete": "id = @request.auth.id"
+      },
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "avatar",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        },
+        {
+          "name": "acesso_empresas",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "acesso_admin",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "acesso_gestao",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "acesso_comercial",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "empresas"
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_tokenKey__pb_users_auth_` ON `users` (`tokenKey`)",
+        "CREATE UNIQUE INDEX `idx_email__pb_users_auth_` ON `users` (`email`) WHERE `email` != ''"
+      ]
+    },
+    {
+      "name": "empresas",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && users_via_acesso_empresas.id ?= @request.auth.id",
+        "view": "@request.auth.id != '' && users_via_acesso_empresas.id ?= @request.auth.id",
+        "create": null,
+        "update": "@request.auth.id != '' && users_via_acesso_admin.id ?= @request.auth.id",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "cor_primaria",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "logo",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "ativa",
+          "type": "bool",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_empresas_slug` ON `empresas` (`slug`)",
+        "CREATE UNIQUE INDEX `idx_empresas_nome` ON `empresas` (`nome`)"
+      ]
+    },
+    {
+      "name": "vinculos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && (usuario = @request.auth.id || @request.auth.acesso_gestao.id ?= empresa || @collection.empresas.users_via_acesso_admin.id ?= @request.auth.id)",
+        "view": "@request.auth.id != '' && (usuario = @request.auth.id || @request.auth.acesso_gestao.id ?= empresa || @collection.empresas.users_via_acesso_admin.id ?= @request.auth.id)",
+        "create": "@request.auth.id != '' && @collection.empresas.users_via_acesso_admin.id ?= @request.auth.id && @collection.empresas.id ?= @request.body.empresa",
+        "update": "@request.auth.id != '' && @collection.empresas.users_via_acesso_admin.id ?= @request.auth.id && @request.body.usuario:isset != true && @request.body.empresa:isset != true",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "usuario",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "perfil",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["administrador", "gestao", "comercial", "operador"]
+        },
+        {
+          "name": "ativo",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "nome_exibicao",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "required": false,
+          "system": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_vinculos_usuario_empresa` ON `vinculos` (`usuario`, `empresa`)"
+      ]
+    },
+    {
+      "name": "produtores",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "view": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "create": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= @request.body.empresa || (@request.auth.acesso_comercial.id ?= @request.body.empresa && (@request.body.responsavel = @request.auth.id || @request.body.responsavel:isset != true))) && @request.body.empresa:isset = true",
+        "update": "@request.auth.id != '' && @request.body.empresa:isset != true && (@request.auth.acesso_gestao.id ?= empresa || (@request.auth.acesso_comercial.id ?= empresa && responsavel = @request.auth.id && @request.body.responsavel:isset != true) || (@request.auth.acesso_comercial.id ?= empresa && responsavel = @request.auth.id && @request.body.responsavel = @request.auth.id))",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "documento",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "telefone",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "municipio",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "regional",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "origem",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": [
+            "indicacao_cliente",
+            "indicacao_socio_parceiro",
+            "carteira_existente",
+            "contato_direto",
+            "prospeccao_ativa",
+            "outro"
+          ]
+        },
+        {
+          "name": "indicado_por",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "relacionamento",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "responsavel",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "observacoes",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "arquivado",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "motivo_arquivamento",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "criado_por",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "nivel_tecnologia",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["baixa", "media", "alta", "muito_alta"]
+        },
+        {
+          "name": "tecnologias",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "perfil_tecnologia",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["adepto", "parcial", "nao_adepto"]
+        },
+        {
+          "name": "perfil_ap",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["faz", "fez", "nunca"]
+        },
+        {
+          "name": "perfil_estrutura",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "status_comercial",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["potencial", "nao_potencial", "cliente"]
+        },
+        {
+          "name": "epoca_efetividade",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_produtores_id_local` ON `produtores` (id_local) WHERE id_local != ''"
+      ]
+    },
+    {
+      "name": "propriedades",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "view": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "create": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= @request.body.empresa || @request.auth.acesso_comercial.id ?= @request.body.empresa) && produtor.empresa ?= @request.body.empresa",
+        "update": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || (@request.auth.acesso_comercial.id ?= empresa && produtor.responsavel ?= @request.auth.id)) && @request.body.empresa:isset != true && @request.body.produtor:isset != true",
+        "delete": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || (@request.auth.acesso_comercial.id ?= empresa && produtor.responsavel ?= @request.auth.id))"
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "produtor",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "produtores"
+        },
+        {
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "municipio",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "area_ha",
+          "type": "number",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "posse",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["propria", "arrendada", "mista", "nao_informado"]
+        },
+        {
+          "name": "endereco_referencia",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "link_maps",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_propriedades_id_local` ON `propriedades` (id_local) WHERE id_local != ''"
+      ]
+    },
+    {
+      "name": "eventos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && @request.auth.acesso_gestao.id ?= empresa",
+        "view": "@request.auth.id != '' && @request.auth.acesso_gestao.id ?= empresa",
+        "create": null,
+        "update": null,
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "tipo",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["troca_responsavel"]
+        },
+        {
+          "name": "registro",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "produtores"
+        },
+        {
+          "name": "de",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "para",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "por",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "em",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "name": "linhas_negocio",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "view": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "create": "@request.auth.id != '' && @request.auth.acesso_admin.id ?= @request.body.empresa",
+        "update": "@request.auth.id != '' && @request.auth.acesso_admin.id ?= empresa",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "nome",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "ativa",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "fixa",
+          "type": "bool",
+          "required": false,
+          "system": false
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "name": "visitas",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel_visita = @request.auth.id || produtor.responsavel = @request.auth.id)",
+        "view": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel_visita = @request.auth.id || produtor.responsavel = @request.auth.id)",
+        "create": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= @request.body.empresa || (@request.auth.acesso_comercial.id ?= @request.body.empresa && @request.body.produtor.responsavel = @request.auth.id))",
+        "update": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel_visita = @request.auth.id)",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "produtor",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "produtores"
+        },
+        {
+          "name": "propriedade",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "propriedades"
+        },
+        {
+          "name": "data",
+          "type": "date",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "responsavel_visita",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "acompanhantes",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "assuntos_tratados",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "estrutura_existente",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "perfil_tecnologico",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["baixo", "medio", "alto", "nao_avaliado"]
+        },
+        {
+          "name": "nivel_investimento",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["baixo", "medio", "alto", "nao_avaliado"]
+        },
+        {
+          "name": "maquinas",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "area_potencial",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "necessidades",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "acordos",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "interesses",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "linhas_negocio"
+        },
+        {
+          "name": "destino",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["nova_oportunidade", "oportunidade_atualizada", "sem_oportunidade"]
+        },
+        {
+          "name": "motivo_sem_oportunidade",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["sem_interesse_agora", "sem_perfil", "atendido_por_concorrente", "outro"]
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "audio",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_visita_id_local` ON `visitas` (id_local) WHERE id_local != ''"
+      ]
+    },
+    {
+      "name": "oportunidades",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel = @request.auth.id)",
+        "view": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel = @request.auth.id)",
+        "create": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= @request.body.empresa || (@request.auth.acesso_comercial.id ?= @request.body.empresa && (@request.body.responsavel = @request.auth.id || @request.body.responsavel:isset != true)))",
+        "update": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || responsavel = @request.auth.id)",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "produtor",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "produtores"
+        },
+        {
+          "name": "propriedade",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "propriedades"
+        },
+        {
+          "name": "linha_negocio",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "linhas_negocio"
+        },
+        {
+          "name": "descricao",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "responsavel",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "situacao",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["aberta"]
+        },
+        {
+          "name": "proxima_acao",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "proxima_acao_data",
+          "type": "date",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "visita_origem",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "visitas"
+        },
+        {
+          "name": "criado_em_aparelho",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_oport_id_local` ON `oportunidades` (id_local) WHERE id_local != ''"
+      ]
+    },
+    {
+      "name": "acoes_oportunidade",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || oportunidade.responsavel = @request.auth.id)",
+        "view": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || oportunidade.responsavel = @request.auth.id)",
+        "create": "@request.auth.id != '' && (@request.auth.acesso_gestao.id ?= empresa || oportunidade.responsavel = @request.auth.id)",
+        "update": null,
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "oportunidade",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "oportunidades"
+        },
+        {
+          "name": "tipo",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["criada", "concluida", "reagendada"]
+        },
+        {
+          "name": "resultado",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "nova_acao",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "nova_data",
+          "type": "date",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "registrado_por",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "registrado_em",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX `idx_acao_id_local` ON `acoes_oportunidade` (id_local) WHERE id_local != ''"
+      ]
+    },
+    {
+      "name": "rascunhos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && (autor = @request.auth.id || @request.auth.acesso_gestao.id ?= empresa || @request.auth.acesso_admin.id ?= empresa)",
+        "view": "@request.auth.id != '' && (autor = @request.auth.id || @request.auth.acesso_gestao.id ?= empresa || @request.auth.acesso_admin.id ?= empresa)",
+        "create": "@request.auth.id != '' && @request.body.autor = @request.auth.id && (@request.auth.acesso_admin.id ?= @request.body.empresa || @request.auth.acesso_gestao.id ?= @request.body.empresa || @request.auth.acesso_comercial.id ?= @request.body.empresa)",
+        "update": "@request.auth.id != '' && (autor = @request.auth.id || @request.auth.acesso_gestao.id ?= empresa || @request.auth.acesso_admin.id ?= empresa)",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "autor",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "origem",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["app_audio", "app_texto", "arquivo_gravador", "drive"]
+        },
+        {
+          "name": "midia",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "texto_original",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "chave_dedup",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "hash_conteudo",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "id_local",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "criado_em_aparelho",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "status",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": [
+            "recebido",
+            "aguardando_transcricao",
+            "transcrevendo",
+            "pronto_para_revisar",
+            "confirmado",
+            "descartado",
+            "falhou"
+          ]
+        },
+        {
+          "name": "transcricao",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "proposta",
+          "type": "json",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "produtor",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "produtores"
+        },
+        {
+          "name": "motivo_falha",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "tentativas",
+          "type": "number",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "visita_criada",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "visitas"
+        },
+        {
+          "name": "confirmado_por",
+          "type": "relation",
+          "required": false,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "confirmado_em",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_rascunhos_chave_dedup ON rascunhos (chave_dedup)",
+        "CREATE UNIQUE INDEX idx_rascunhos_hash ON rascunhos (empresa, hash_conteudo) WHERE hash_conteudo != ''"
+      ]
+    },
+    {
+      "name": "avisos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != \"\" && destinatario = @request.auth.id",
+        "view": "@request.auth.id != \"\" && destinatario = @request.auth.id",
+        "create": null,
+        "update": "@request.auth.id != \"\" && destinatario = @request.auth.id",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "destinatario",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "oportunidade",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "oportunidades"
+        },
+        {
+          "name": "tipo",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["do_dia", "atraso", "copia_gestor"]
+        },
+        {
+          "name": "referencia_data",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "texto_curto",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "detalhe",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "lido_em",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "envio",
+          "type": "select",
+          "required": false,
+          "system": false,
+          "selectValues": ["pendente", "enviado", "sem_inscricao", "falhou_envio"]
+        },
+        {
+          "name": "chave_unica",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": ["CREATE UNIQUE INDEX idx_avisos_chave ON avisos (chave_unica)"]
+    },
+    {
+      "name": "inscricoes_push",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "view": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "create": "@request.auth.id != \"\" && @request.body.usuario = @request.auth.id",
+        "update": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "delete": "@request.auth.id != \"\" && usuario = @request.auth.id"
+      },
+      "fields": [
+        {
+          "name": "usuario",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "id_inscricao",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "ativa",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_inscricoes_usuario ON inscricoes_push (usuario, id_inscricao)"
+      ]
+    },
+    {
+      "name": "config_avisos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != \"\" && @request.auth.acesso_empresas.id ?= empresa",
+        "view": "@request.auth.id != \"\" && @request.auth.acesso_empresas.id ?= empresa",
+        "create": "@request.auth.id != \"\" && @request.auth.acesso_admin.id ?= @request.body.empresa",
+        "update": "@request.auth.id != \"\" && @request.auth.acesso_admin.id ?= empresa",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "ativo",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "horario",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "repetir_atraso_dias",
+          "type": "number",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "copia_gestor",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "ultima_execucao",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": ["CREATE UNIQUE INDEX idx_config_empresa ON config_avisos (empresa)"]
+    },
+    {
+      "name": "preferencias_avisos",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "view": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "create": "@request.auth.id != \"\" && @request.body.usuario = @request.auth.id",
+        "update": "@request.auth.id != \"\" && usuario = @request.auth.id",
+        "delete": "@request.auth.id != \"\" && usuario = @request.auth.id"
+      },
+      "fields": [
+        {
+          "name": "usuario",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "copia_desligada",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX idx_prefs_usuario_empresa ON preferencias_avisos (usuario, empresa)"
+      ]
+    },
+    {
+      "name": "conversas_assistente",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && usuario = @request.auth.id",
+        "view": "@request.auth.id != '' && usuario = @request.auth.id",
+        "create": "@request.auth.id != '' && @request.body.usuario = @request.auth.id",
+        "update": null,
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "usuario",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "chave",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "mensagens",
+          "type": "json",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "atualizado_em",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "conversa_agente",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": ["CREATE UNIQUE INDEX idx_conversas_chave ON conversas_assistente (chave)"]
+    },
+    {
+      "name": "config_drive",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "view": "@request.auth.id != '' && @request.auth.acesso_empresas.id ?= empresa",
+        "create": null,
+        "update": "@request.auth.id != '' && @request.auth.acesso_admin.id ?= empresa",
+        "delete": null
+      },
+      "fields": [
+        {
+          "name": "empresa",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "empresas"
+        },
+        {
+          "name": "pasta_id",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "pasta_nome",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "dono",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "ativa",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "ultima_leitura",
+          "type": "date",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "ultimo_erro",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": ["CREATE UNIQUE INDEX idx_config_drive_empresa ON config_drive (empresa)"]
+    }
+  ]
+}
