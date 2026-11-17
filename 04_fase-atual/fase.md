@@ -31,16 +31,17 @@ tarefas que já têm um.
 
 - [ ] Fechar as pendências técnicas da fase 2 @Agrospy !21/11/2026
   > O que ficou de técnico da fase 2 entra no ar: avisos no celular, guarda de 90 dias, leitura da pasta do Drive a cada 10 minutos, dados de teste fora das empresas reais e código atualizado no GitHub. Sem teste humano (P11). Fecha pela prova automática. SPEC-3-001, CA-3-01 a CA-3-05.
-  - [ ] Atualizar o código do app no GitHub @Agrospy !18/11/2026
+  - [x] Atualizar o código do app no GitHub @Agrospy !18/11/2026 2026-11-17
     > O espelho em 07-sistemas/comercial/codigo/ fica igual à versão publicada no Skip, arquivo por arquivo, sem chave nem senha. A partir daqui, toda task fechada atualiza o espelho. Fecha pela prova automática. SPEC-3-001, CA-3-05.
-  - [ ] Separar os dados de teste das empresas reais @Agrospy !18/11/2026
+  - [x] Separar os dados de teste das empresas reais @Agrospy !18/11/2026 2026-11-17
     > Cria as empresas "Teste A" e "Teste B" com a mesma carga das empresas reais e o elenco fixo de usuários de teste, com senhas novas. Os registros "TESTE —" saem da Agrospy e da Rumo Agro, e as provas não mudam mais as contagens reais. Fecha pela prova automática. SPEC-3-001, CA-3-04.
-  - [ ] Religar os avisos no celular @Agrospy !19/11/2026
+  - [x] Religar os avisos no celular @Agrospy !19/11/2026 2026-11-17
     > O botão "Ativar avisos no celular" volta, com o código pronto desde 02/11. O aviso do dia, o de atraso e a cópia ao gestor saem pelo OneSignal, e a entrega é provada pela resposta do serviço numa inscrição de teste. A tela bloqueada não mostra o nome do produtor. Fecha pela prova automática. SPEC-3-001, CA-3-01.
-  - [ ] Guardar áudios e conversas por 90 dias @Agrospy !19/11/2026
+  - [x] Guardar áudios e conversas por 90 dias @Agrospy !19/11/2026 2026-11-17
     > A rotina de limpeza passa a guardar os áudios dos rascunhos e as conversas do assistente por 90 dias, como o Diogo decidiu em 09/11. Fecha pela prova automática. SPEC-3-001, CA-3-02.
-  - [ ] Ler a pasta do Drive a cada 10 minutos @Agrospy !20/11/2026
+  - [/] Ler a pasta do Drive a cada 10 minutos @Agrospy !20/11/2026
     > Com o aplicativo do Google da Agrospy ligado uma vez (o Maestro manda o passo a passo), cada gravação nova na pasta vira rascunho sozinha em até 10 minutos, sem duplicar. Sem isso, a importação sob demanda continua, e a task fica em andamento com a pendência no STATUS. Fecha pela prova automática. SPEC-3-001, CA-3-03.
+    > EM ANDAMENTO (17/11/2026): falta o aplicativo OAuth do Google no cofre (segredos GOOGLE_*). A importação sob demanda continua funcionando. Roteiro entregue ao Diogo nesta data.
 - [ ] Deixar o app com cara de aplicativo de celular @Agrospy !26/11/2026
   > Visual novo no app inteiro, nas cores de cada empresa:
   > - no celular: barra de abas embaixo, botão + para registrar, saudação com a data e folhas que sobem de baixo;
