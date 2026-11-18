@@ -42,7 +42,7 @@ tarefas que já têm um.
   - [/] Ler a pasta do Drive a cada 10 minutos @Agrospy !20/11/2026
     > Com o aplicativo do Google da Agrospy ligado uma vez (o Maestro manda o passo a passo), cada gravação nova na pasta vira rascunho sozinha em até 10 minutos, sem duplicar. Sem isso, a importação sob demanda continua, e a task fica em andamento com a pendência no STATUS. Fecha pela prova automática. SPEC-3-001, CA-3-03.
     > EM ANDAMENTO (17/11/2026): falta o aplicativo OAuth do Google no cofre (segredos GOOGLE_*). A importação sob demanda continua funcionando. Roteiro entregue ao Diogo nesta data.
-- [ ] Deixar o app com cara de aplicativo de celular @Agrospy !26/11/2026
+- [x] Deixar o app com cara de aplicativo de celular @Agrospy !26/11/2026 2026-11-18
   > Visual novo no app inteiro, nas cores de cada empresa:
   > - no celular: barra de abas embaixo, botão + para registrar, saudação com a data e folhas que sobem de baixo;
   > - no computador: menu lateral com abas em pílula no topo;
@@ -63,7 +63,7 @@ tarefas que já têm um.
     > - **Topo:** saudação com a data e troca de empresa numa folha.
     > - **Sair:** com envios pendentes, pede confirmação na folha.
     > Fecha pela prova automática. SPEC-3-002, CA-3-07 e CA-3-08.
-  - [/] Deixar o app instalável com ícone próprio e a cor da empresa @Agrospy !26/11/2026
+  - [x] Deixar o app instalável com ícone próprio e a cor da empresa @Agrospy !26/11/2026 2026-11-18
     > Ícones PNG para Android e iPhone, idioma pt-BR e área segura do iPhone. A cor da barra muda com a empresa. O service worker e a fila sem internet continuam funcionando. Fecha pela prova automática. SPEC-3-002, CA-3-11.
 - [ ] Redesenhar todas as telas do app no novo visual @Agrospy !03/12/2026
   > Todas as telas no visual novo, cada uma com os estados de carregando, vazio, erro e sem internet e com a versão de exemplo na vitrine. As regras, os dados e os caminhos continuam iguais. Fecha pela prova automática. SPEC-3-003, CA-3-12 a CA-3-17.
