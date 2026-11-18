@@ -48,22 +48,22 @@ tarefas que já têm um.
   > - no computador: menu lateral com abas em pílula no topo;
   > - cartões de vidro claro, cartão de destaque em degradê e gráficos de pontos.
   > Fecha pela prova automática. SPEC-3-002, CA-3-06 a CA-3-11.
-  - [ ] Aplicar as cores, letras e formas do novo visual em cada empresa @Agrospy !21/11/2026
+  - [x] Aplicar as cores, letras e formas do novo visual em cada empresa @Agrospy !21/11/2026 2026-11-18
     > Tokens claros, fonte do próprio celular e vidro fosco. Tema da Agrospy (verde) e da Rumo Agro (azul-petróleo) pela cor da empresa, com os contrastes mínimos conferidos. Cor só em `lib/cores.ts` e nos tokens. Fecha pela prova automática. SPEC-3-002, CA-3-06.
-  - [ ] Montar os componentes do app e a vitrine de exemplo @Agrospy !24/11/2026
+  - [x] Montar os componentes do app e a vitrine de exemplo @Agrospy !24/11/2026 2026-11-18
     > Componentes:
     > - cartões, cartão de destaque e números com mini gráfico de pontos;
     > - listas com ícone em círculo, filtros em pílula, selos e botões;
     > - folha, estados de vazio, erro e carregando, e aviso no topo.
     > Página `/vitrine` com dados fictícios, nas duas empresas. Capturas em 390 e 1280px, acessibilidade sem falha grave e toque de 44px. Fecha pela prova automática. SPEC-3-002, CA-3-09 e CA-3-10.
-  - [ ] Colocar a barra de abas no celular e o menu lateral no computador @Agrospy !25/11/2026
+  - [x] Colocar a barra de abas no celular e o menu lateral no computador @Agrospy !25/11/2026 2026-11-18
     > A casca nova fica no lugar do cabeçalho antigo, com os mesmos caminhos de tela.
     > - **Celular:** Hoje, Produtores, +, Avisos com contador e Mais.
     > - **Computador:** menu lateral com seções e abas em pílula.
     > - **Topo:** saudação com a data e troca de empresa numa folha.
     > - **Sair:** com envios pendentes, pede confirmação na folha.
     > Fecha pela prova automática. SPEC-3-002, CA-3-07 e CA-3-08.
-  - [ ] Deixar o app instalável com ícone próprio e a cor da empresa @Agrospy !26/11/2026
+  - [/] Deixar o app instalável com ícone próprio e a cor da empresa @Agrospy !26/11/2026
     > Ícones PNG para Android e iPhone, idioma pt-BR e área segura do iPhone. A cor da barra muda com a empresa. O service worker e a fila sem internet continuam funcionando. Fecha pela prova automática. SPEC-3-002, CA-3-11.
 - [ ] Redesenhar todas as telas do app no novo visual @Agrospy !03/12/2026
   > Todas as telas no visual novo, cada uma com os estados de carregando, vazio, erro e sem internet e com a versão de exemplo na vitrine. As regras, os dados e os caminhos continuam iguais. Fecha pela prova automática. SPEC-3-003, CA-3-12 a CA-3-17.
