@@ -67,14 +67,14 @@ tarefas que já têm um.
     > Ícones PNG para Android e iPhone, idioma pt-BR e área segura do iPhone. A cor da barra muda com a empresa. O service worker e a fila sem internet continuam funcionando. Fecha pela prova automática. SPEC-3-002, CA-3-11.
 - [ ] Redesenhar todas as telas do app no novo visual @Agrospy !03/12/2026
   > Todas as telas no visual novo, cada uma com os estados de carregando, vazio, erro e sem internet e com a versão de exemplo na vitrine. As regras, os dados e os caminhos continuam iguais. Fecha pela prova automática. SPEC-3-003, CA-3-12 a CA-3-17.
-  - [ ] Redesenhar a tela inicial com a agenda do dia @Agrospy !27/11/2026
+  - [x] Redesenhar a tela inicial com a agenda do dia @Agrospy !27/11/2026 2026-11-19
     > A tela "Hoje" tem:
     > - saudação;
     > - cartão de destaque com as ações de hoje e as atrasadas;
     > - filtros Atrasadas, Hoje, Próximos 7 dias e Depois;
     > - lista com concluir e reagendar numa folha.
     > Os números batem com a carteira. Fecha pela prova automática. SPEC-3-003, CA-3-12 e CA-3-16.
-  - [ ] Redesenhar a lista de produtores e a ficha do produtor @Agrospy !28/11/2026
+  - [x] Redesenhar a lista de produtores e a ficha do produtor @Agrospy !28/11/2026 2026-11-19
     > - **Produtores:** busca em pílula e filtros por classificação.
     > - **Ficha:** cabeçalho com as ações, "Para a próxima visita" e abas Resumo, Oportunidades, Visitas, Propriedades e Perfil.
     > - **Formulários:** em folha, com os mesmos campos obrigatórios.
