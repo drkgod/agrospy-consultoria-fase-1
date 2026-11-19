@@ -79,7 +79,7 @@ tarefas que já têm um.
     > - **Ficha:** cabeçalho com as ações, "Para a próxima visita" e abas Resumo, Oportunidades, Visitas, Propriedades e Perfil.
     > - **Formulários:** em folha, com os mesmos campos obrigatórios.
     > Fecha pela prova automática. SPEC-3-003, CA-3-13 e CA-3-16.
-  - [ ] Redesenhar o registro de visita em passos, os rascunhos e o envio de gravação @Agrospy !01/12/2026
+  - [x] Redesenhar o registro de visita em passos, os rascunhos e o envio de gravação @Agrospy !01/12/2026 2026-11-19
     > - **Registro de visita:** 3 passos (a conversa, o próximo passo, revisar), com o botão fixo embaixo e as mesmas validações.
     > - **Rascunhos e revisão:** com o player e a confirmação na folha.
     > - **Também no visual novo:** pendências de envio e enviar gravação.
