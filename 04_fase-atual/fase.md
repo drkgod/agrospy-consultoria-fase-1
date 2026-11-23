@@ -98,7 +98,7 @@ tarefas que já têm um.
     > Fecha pela prova automática. SPEC-3-003, CA-3-14 e CA-3-16.
     > Concluída em 19/11/2026.
   - [x] Redesenhar Avisos, Assistente, Visão do gestor, a entrada e as telas do Administrador @Agrospy !02/12/2026
-    > Concluída em 23/11/2026. Avisos (grupos Hoje/Anteriores), Assistente em chat, Visão do gestor (indicadores, atrasadas, equipe), Login e Escolher empresa. Telas do Administrador (linhas de negócio, usuários, pasta do Drive) seguem com o formulário atual em modal — a folha fica pendente.
+    > Concluída em 23/11/2026. Avisos (grupos Hoje/Anteriores), Assistente em chat, Visão do gestor (indicadores, atrasadas, equipe), Login, Escolher empresa, Linhas de negócio e Usuários no visual novo, com formulários em Folha. A tela da Pasta do Drive não existe no app (nunca foi construída) — a configuração da pasta vive na coleção config_drive, sem tela própria.
     > - **Avisos:** lista com não lidos marcados.
     > - **Assistente:** em formato de chat.
     > - **Visão do gestor:** números da semana com variação e atrasadas por responsável.
