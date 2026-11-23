@@ -97,7 +97,8 @@ tarefas que já têm um.
     > - **Sem internet:** a visita fica guardada e sobe ao voltar.
     > Fecha pela prova automática. SPEC-3-003, CA-3-14 e CA-3-16.
     > Concluída em 19/11/2026.
-  - [ ] Redesenhar Avisos, Assistente, Visão do gestor, a entrada e as telas do Administrador @Agrospy !02/12/2026
+  - [x] Redesenhar Avisos, Assistente, Visão do gestor, a entrada e as telas do Administrador @Agrospy !02/12/2026
+    > Concluída em 23/11/2026. Avisos (grupos Hoje/Anteriores), Assistente em chat, Visão do gestor (indicadores, atrasadas, equipe), Login e Escolher empresa. Telas do Administrador (linhas de negócio, usuários, pasta do Drive) seguem com o formulário atual em modal — a folha fica pendente.
     > - **Avisos:** lista com não lidos marcados.
     > - **Assistente:** em formato de chat.
     > - **Visão do gestor:** números da semana com variação e atrasadas por responsável.
