@@ -13,7 +13,7 @@
 - verificacao_automatica: fase 2 concluída em 17/11/2026 (18/18), com evidência no histórico do repositório
 - sistema: comercial
 - skip_projeto: 64376
-- skip_versao: 0.0.261 (23/11/2026)
-- ultima_acao: 23/11/2026 [MAESTRO] SPEC-3-003 task 4 concluída: Avisos, Assistente (chat), Visão do gestor, Login e Escolher empresa no visual novo. Corrigido bug crítico de login (preventDefault em undefined) que impedia entrar no app.
+- skip_versao: 0.0.269 (23/11/2026)
+- ultima_acao: 23/11/2026 [MAESTRO] SPEC-3-003 task 4 concluída por inteiro: Avisos, Assistente (chat), Visão do gestor, Login, Escolher empresa, Linhas de negócio e Usuários. Dois bugs críticos corrigidos: login por preventDefault em undefined e 'pb is not defined' em EscolherEmpresa.
 - proxima_acao: fechar a SPEC-3-003 com a task de conferência (CA-3-16/CA-3-17), depois SPEC-3-004 na ordem do índice
 - atualizado_em: 2026-11-23T16:30:00-03:00
