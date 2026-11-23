@@ -1,3 +1,11 @@
+## [23/11/2026] — Emenda da consultoria: fases 4 e 5 na mesma fila
+- Decisão da consultoria com o Diogo na call de 23/11/2026: as fases 4 e 5 foram liberadas junto com a fase 3, numa fila só, para o Maestro construir até o fim sem parar.
+- Fase 4 (`04_fase-atual/fase-4.md`, 10 SPECs e 47 tasks): empresas do lançamento (AgroSpy, AgroSmart e Rumo Agro) e perfil Administrativo; contas a pagar com aprovação dos sócios, terça e quinta; boletos por e-mail só de fornecedor cadastrado, com o botão Golpe; DDA e pagamento pelo Sicredi se houver API; RDV com foto e leitura automática; fechamento mensal com envio à contabilidade; contratos com assinatura pelo DocuSign; recebimentos e fluxo de caixa por empresa; conector MCP; LOOP-01.
+- Fase 5 (`04_fase-atual/fase-5.md`, 5 SPECs e 17 tasks): auditoria, desligamento de usuário, mapa das áreas por KML, LOOP-02 e validação ponta a ponta com a decisão de go-live.
+- SPEC-3-006: emenda com endereço de faturamento, e-mail da nota e arquivo KML por propriedade (2 tasks novas na fase 3).
+- Fase 3: as datas de conclusão que estavam no fim da linha do título foram para uma linha `>` ("Concluída em …"), sem mudar status nem datas.
+- Continua sem teste humano (P11). O que depender da Agrospy fica em espera e é avisado uma vez no fim.
+
 ## [17/11/2026] — Fase 2 concluída e Fase 3 liberada
 - Fase 2 encerrada com 18/18 tasks, sem teste humano (P11).
   - As tasks de teste b33bfdb7 e 2bb2808a foram excluídas.

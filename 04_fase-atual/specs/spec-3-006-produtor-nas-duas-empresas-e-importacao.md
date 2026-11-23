@@ -316,18 +316,80 @@ Sem teste humano (P11). Nenhuma task desta SPEC espera teste, demonstração ou 
   - colunas da planilha real de etapas de serviço (CL-001), a acrescentar como sinônimos quando ela chegar;
   - duplicidade de produtor dentro da mesma empresa fica para a fase 5 (ajustes de uso).
 
+## Emenda de 23/11/2026 — dados de faturamento e arquivo KML
+
+**Origem:** decisão do consultor com o Diogo na call de 23/11/2026 (emenda P13). **Vale sobre:** esta SPEC, ainda não iniciada. Onde esta seção diverge do texto acima, vale esta seção. Não muda as regras de relação nem de importação; acrescenta campos.
+
+**Intenção:**
+- o produtor passa a guardar o **endereço de faturamento** e o **e-mail para a nota fiscal**, usados no contrato (fase 4) e pela contabilidade;
+- cada propriedade pode ter o **arquivo KML (ou KMZ)** com o contorno da área e dos lotes/talhões. Nesta fase o sistema só guarda e valida o arquivo; o desenho no mapa é da fase 5.
+
+**O que não muda:** emissão de nota fiscal continua fora do projeto; nenhum mapa é desenhado nesta fase; a importação continua sem alterar produtor existente.
+
+**Degrau da solução:** nativo da plataforma — campos novos nas coleções e no modelo de importação.
+
+**Dados (acréscimos):**
+
+| Coleção | Campo novo (tipo) | Regra |
+|---|---|---|
+| `produtores` | `endereco_faturamento` (texto ≤ 500) | opcional; editável por quem já edita o produtor (regras da fase 1) |
+| `produtores` | `email_nf` (e-mail ≤ 200) | opcional; formato de e-mail validado no hook (400 "E-mail da nota inválido") |
+| `propriedades` | `kml` (arquivo, 1 por propriedade, protegido, ≤ 5 MB) | só extensões `.kml` e `.kmz`; o hook confere a extensão e o começo do conteúdo (`.kml`: texto com `<kml`; `.kmz`: assinatura de zip `PK`); outro conteúdo → 400 "Envie um arquivo KML ou KMZ"; acima de 5 MB → 400 |
+
+**Modelo do arquivo de importação (acréscimos à tabela "Modelo do arquivo"):**
+
+| Coluna | Regra | Sinônimos aceitos no cabeçalho |
+|---|---|---|
+| `endereco_faturamento` | até 500 caracteres | endereço de faturamento, endereço cobrança, endereço |
+| `email_nf` | e-mail válido; inválido recusa a linha com o motivo "e-mail da nota inválido" | e-mail nf, email nota, e-mail para nota fiscal |
+
+O arquivo KML não entra pela planilha: é anexado na propriedade, pela ficha.
+
+**Telas (sistema visual da SPEC-3-002):**
+- formulário do produtor (folha): os dois campos novos, na seção "Faturamento";
+- aba "Perfil" da ficha: mostra os dois campos;
+- formulário da propriedade (folha): campo "Mapa da área (KML ou KMZ)" com o nome do arquivo, "Trocar" e "Remover", e a nota "O desenho no mapa chega numa próxima etapa";
+- `public/modelo-importacao-carteira.csv` ganha as duas colunas.
+
+**Ordem de execução (acréscimo):** os campos de faturamento entram logo depois da relação entre empresas (passos 1–2) e antes da prévia da importação (passo 3); o arquivo KML entra depois do desfazer (passo 5).
+
+**Superfícies afetadas (acréscimos):** migração com os três campos; `produtores_hooks.js` (validação de `email_nf`); hook novo `propriedades_kml.js` (validação do arquivo); `lib/importacao.js` (colunas e validação); `src/pages/ProdutorFicha.tsx` e os formulários de produtor e propriedade; `public/modelo-importacao-carteira.csv`.
+
+**Critérios de aceite (acréscimos):**
+
+- [ ] **CA-3-35:**
+  - o produtor salva e mostra `endereco_faturamento` e `email_nf`; `email_nf` inválido dá 400;
+  - a importação lê as duas colunas pelos sinônimos e grava nos produtores novos; linha com `email_nf` inválido é recusada com o motivo;
+  - produtor existente continua sem alteração na importação.
+- [ ] **CA-3-36:**
+  - a propriedade aceita um `.kml` e um `.kmz` válidos de até 5 MB e mostra o nome do arquivo;
+  - recusa `.pdf` renomeado para `.kml`, arquivo acima de 5 MB e segundo arquivo na mesma propriedade (o novo substitui o antigo só por "Trocar");
+  - usuário de outra empresa não baixa o arquivo (404) e Operador não altera (403).
+
+**TDD (acréscimos, nas empresas de teste):**
+
+| Etapa | Prova | Comando/ação | Resultado esperado | Evidência |
+|---|---|---|---|---|
+| RED 3 | campo inexistente (CA-3-35) | gravar `email_nf` antes da migração | campo ignorado (falha esperada) | resposta |
+| GREEN 6 | faturamento (CA-3-35) | salvar os campos; `email_nf` inválido; prévia e aplicação da fixture `importacao-faturamento.csv` (4 linhas: 2 novas com os campos, 1 com e-mail inválido, 1 existente) | gravados; 400; 2 novos com os campos, 1 recusada, existente sem mudança | respostas + consultas |
+| GREEN 7 | KML (CA-3-36) | anexar `teste.kml` e `teste.kmz` gerados pelo executor; `.pdf` renomeado; arquivo de 6 MB; baixar como `teste.rumo`; alterar como `teste.operador` | aceitos; 400; 400; 404; 403 | respostas + captura |
+
+**Evidência exigida:** em `05_entregas/fase-3/spec-3-006/`, junto com as demais.
+
 ## Tasks vinculadas
 
 | ID | Task | Dono | SPEC | Critério | Recorte da prova | Evidência esperada | Pré-condições |
 |---|---|---|---|---|---|---|---|
-| id pendente | Ligar produtores das duas empresas e importar a carteira | Agrospy | SPEC-3-006 | CA-3-30 a CA-3-34 | todas as subtasks | evidências das subtasks | SPEC-3-004 no ar |
+| id pendente | Ligar produtores das duas empresas e importar a carteira | Agrospy | SPEC-3-006 | CA-3-30 a CA-3-36 | todas as subtasks | evidências das subtasks | SPEC-3-004 no ar |
 | id pendente | Relacionar o mesmo produtor na Agrospy e na Rumo Agro | Agrospy | SPEC-3-006 | CA-3-30, CA-3-31 | RED 1 → GREEN 1 + GREEN 2 | respostas + capturas | usuário Administrador nas duas empresas |
+| id pendente | Guardar o endereço de faturamento e o e-mail da nota no produtor | Agrospy | SPEC-3-006 | CA-3-35 | RED 3 → GREEN 6 | respostas + consultas | SPEC-3-004 no ar |
 | id pendente | Conferir a prévia da planilha antes de importar | Agrospy | SPEC-3-006 | CA-3-32 | RED 2 → GREEN 3 | respostas + print | SPEC-3-004 no ar |
 | id pendente | Importar a carteira sem duplicar produtor | Agrospy | SPEC-3-006 | CA-3-33 | GREEN 4 + REFACTOR (a)(b) | consultas | prévia |
 | id pendente | Desfazer uma importação inteira | Agrospy | SPEC-3-006 | CA-3-34 | GREEN 5 + REFACTOR (c) | consultas, capturas e relatório do axe | importação aplicada |
+| id pendente | Anexar o arquivo KML de cada propriedade | Agrospy | SPEC-3-006 | CA-3-36 | GREEN 7 | respostas + captura | — |
 
 ## Emendas
 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
-| | | | |
+| 23/11/2026 | call do consultor com o Diogo (emenda P13) | seção "Emenda de 23/11/2026 — dados de faturamento e arquivo KML"; tasks "Guardar o endereço de faturamento e o e-mail da nota no produtor" e "Anexar o arquivo KML de cada propriedade" | dados de faturamento para contrato e contabilidade; arquivo KML guardado para o mapa da fase 5 |
