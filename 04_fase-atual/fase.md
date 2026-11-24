@@ -111,25 +111,26 @@ tarefas que já têm um.
     > - avisos e assistente;
     > - acessos por perfil e troca de empresa.
     > Saem o aviso antigo de mensagens e o cabeçalho antigo. Verificador, capturas e log do Skip sem erro. Fecha pela prova automática. SPEC-3-003, CA-3-16 e CA-3-17.
-- [ ] Acompanhar a oportunidade até o fechamento @Agrospy !08/12/2026
+- [x] Acompanhar a oportunidade até o fechamento @Agrospy !08/12/2026
+    > Concluída em 24/11/2026. Funil configurável por empresa, proposta com versão, desfecho com condição negociada, motivo obrigatório e serviço técnico — banco, rotas e telas no ar (v0.0.290).
   > Cada oportunidade passa a ter etapa no funil, proposta registrada e um fim claro: ganha (com a condição negociada), perdida ou não prioritária (sempre com motivo). O serviço contratado é acompanhado pelas etapas técnicas, de 0 Contratado a 5 Recoleta. Fecha pela prova automática. SPEC-3-004, CA-3-18 a CA-3-23.
-  - [/] Configurar as etapas do funil de cada empresa @Agrospy !04/12/2026
-    > EM ANDAMENTO (24/11): estrutura de dados pronta e provada — coleções `etapas_funil`, `motivos_desfecho`, `etapas_servico`, `propostas`, `condicoes_negociadas`, `servicos`, `eventos_servico`, campos novos em `oportunidades`/`acoes_oportunidade`. Padrões semeados nas 4 empresas (4 etapas, 11 motivos, 6 etapas de serviço cada) e RN-60 aplicada. Falta a TELA de configuração do funil e as demais telas da SPEC.
+  - [x] Configurar as etapas do funil de cada empresa @Agrospy !04/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Agrospy e Rumo Agro começam com 4 etapas padrão (Necessidade reconhecida, Em amadurecimento, Proposta apresentada, Negociação), que só o Administrador renomeia, reordena ou desativa. Os motivos de perda e de não prioritária também ficam editáveis. Toda oportunidade aberta ganha uma etapa. Fecha pela prova automática. SPEC-3-004, CA-3-18.
-  - [/] Mudar a etapa da oportunidade com histórico @Agrospy !04/12/2026
-    > Banco, rota e travas prontos e provados em 24/11 (etapa muda, histórico grava nome de/para). Falta a TELA da oportunidade com a trilha. Concluída em: pendente (tela).
+  - [x] Mudar a etapa da oportunidade com histórico @Agrospy !04/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Nova tela da oportunidade com a trilha de etapas. Cada mudança fica no histórico com quem mudou, quando e o nome da etapa naquele momento. A API comum não muda etapa nem desfecho por fora dos botões. Fecha pela prova automática. SPEC-3-004, CA-3-18 e CA-3-23.
-  - [/] Registrar o orçamento ou a proposta na oportunidade @Agrospy !07/12/2026
-    > Coleção, hook de versão/status e rota prontos e provados em 24/11 (versão 2, vigente). Falta a folha de registro na tela. Concluída em: pendente (tela).
+  - [x] Registrar o orçamento ou a proposta na oportunidade @Agrospy !07/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Valor, validade, descrição e o arquivo do orçamento (opcional). A proposta nova substitui a anterior, a oportunidade vai para "Proposta apresentada" e a vencida aparece marcada. Fecha pela prova automática. SPEC-3-004, CA-3-19.
-  - [/] Fechar a venda com a condição negociada @Agrospy !07/12/2026
-    > Rota de desfecho pronta e provada em 24/11: RN-66 recusa soma errada (diferença de R$ 1,00), ganho grava condição com entrada + 2 parcelas, produtor vira cliente, serviço criado na etapa 0. Falta a tela em 2 passos. Concluída em: pendente (tela).
+  - [x] Fechar a venda com a condição negociada @Agrospy !07/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > "Fechar venda" exige o produto ou serviço, o valor, a entrada e as parcelas com as datas, e só confirma quando a soma bate. O produtor vira cliente, a oportunidade sai da carteira e dos avisos, e o app oferece criar o serviço técnico. Fecha pela prova automática. SPEC-3-004, CA-3-20.
-  - [/] Registrar perda ou não prioritária com motivo @Agrospy !08/12/2026
-    > Provado em 24/11: motivo obrigatório, 'Outro' exige texto (400 sem ele), perda gravada. Falta a folha na tela. Concluída em: pendente (tela).
+  - [x] Registrar perda ou não prioritária com motivo @Agrospy !08/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Perda e não prioritária pedem um motivo da lista (e texto no "Outro"). A não prioritária pode ter uma data para rever. Só Gestão e Administrador reabrem uma oportunidade encerrada. Fecha pela prova automática. SPEC-3-004, CA-3-21.
-  - [/] Acompanhar as etapas do serviço técnico contratado @Agrospy !08/12/2026
-    > Rota de serviço e de etapa prontas (403 comercial, 400 ao voltar sem observação, 400 data futura). Falta a tela /servicos. Concluída em: pendente (tela).
+  - [x] Acompanhar as etapas do serviço técnico contratado @Agrospy !08/12/2026
+    > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Tela "Serviços" e seção na ficha do produtor: cada serviço tem safra, talhões e etapa atual. Administrador, Gestão e Operador avançam a etapa, com data e autor. O Comercial só consulta. Inclui a regressão de acesso e das telas. Fecha pela prova automática. SPEC-3-004, CA-3-22 e CA-3-23.
 - [ ] Ver o painel comercial e a fila de prioridades @Agrospy !11/12/2026
   > O gestor vê, por empresa, o funil, os atrasos, as propostas, os ganhos e perdas com motivos, a conversão e os indicadores semanais, com filtros de período, vendedor e linha. O vendedor vê o mesmo da própria carteira e uma fila de prioridades com ordem fixa. Fecha pela prova automática. SPEC-3-005, CA-3-24 a CA-3-29.
