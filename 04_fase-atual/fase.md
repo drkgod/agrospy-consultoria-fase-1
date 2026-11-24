@@ -113,7 +113,8 @@ tarefas que já têm um.
     > Saem o aviso antigo de mensagens e o cabeçalho antigo. Verificador, capturas e log do Skip sem erro. Fecha pela prova automática. SPEC-3-003, CA-3-16 e CA-3-17.
 - [ ] Acompanhar a oportunidade até o fechamento @Agrospy !08/12/2026
   > Cada oportunidade passa a ter etapa no funil, proposta registrada e um fim claro: ganha (com a condição negociada), perdida ou não prioritária (sempre com motivo). O serviço contratado é acompanhado pelas etapas técnicas, de 0 Contratado a 5 Recoleta. Fecha pela prova automática. SPEC-3-004, CA-3-18 a CA-3-23.
-  - [ ] Configurar as etapas do funil de cada empresa @Agrospy !04/12/2026
+  - [/] Configurar as etapas do funil de cada empresa @Agrospy !04/12/2026
+    > EM ANDAMENTO (24/11): estrutura de dados pronta e provada — coleções `etapas_funil`, `motivos_desfecho`, `etapas_servico`, `propostas`, `condicoes_negociadas`, `servicos`, `eventos_servico`, campos novos em `oportunidades`/`acoes_oportunidade`. Padrões semeados nas 4 empresas (4 etapas, 11 motivos, 6 etapas de serviço cada) e RN-60 aplicada. Falta a TELA de configuração do funil e as demais telas da SPEC.
     > Agrospy e Rumo Agro começam com 4 etapas padrão (Necessidade reconhecida, Em amadurecimento, Proposta apresentada, Negociação), que só o Administrador renomeia, reordena ou desativa. Os motivos de perda e de não prioritária também ficam editáveis. Toda oportunidade aberta ganha uma etapa. Fecha pela prova automática. SPEC-3-004, CA-3-18.
   - [ ] Mudar a etapa da oportunidade com histórico @Agrospy !04/12/2026
     > Nova tela da oportunidade com a trilha de etapas. Cada mudança fica no histórico com quem mudou, quando e o nome da etapa naquele momento. A API comum não muda etapa nem desfecho por fora dos botões. Fecha pela prova automática. SPEC-3-004, CA-3-18 e CA-3-23.
