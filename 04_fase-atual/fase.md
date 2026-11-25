@@ -132,15 +132,20 @@ tarefas que já têm um.
   - [x] Acompanhar as etapas do serviço técnico contratado @Agrospy !08/12/2026
     > Concluída em 24/11/2026: banco, rotas e tela no ar (v0.0.290).
     > Tela "Serviços" e seção na ficha do produtor: cada serviço tem safra, talhões e etapa atual. Administrador, Gestão e Operador avançam a etapa, com data e autor. O Comercial só consulta. Inclui a regressão de acesso e das telas. Fecha pela prova automática. SPEC-3-004, CA-3-22 e CA-3-23.
-- [ ] Ver o painel comercial e a fila de prioridades @Agrospy !11/12/2026
+- [x] Ver o painel comercial e a fila de prioridades @Agrospy !11/12/2026
+    > Concluída em 25/11/2026. Painel do gestor e do vendedor, fila de prioridades e configuração comercial no ar (v0.0.302).
   > O gestor vê, por empresa, o funil, os atrasos, as propostas, os ganhos e perdas com motivos, a conversão e os indicadores semanais, com filtros de período, vendedor e linha. O vendedor vê o mesmo da própria carteira e uma fila de prioridades com ordem fixa. Fecha pela prova automática. SPEC-3-005, CA-3-24 a CA-3-29.
-  - [ ] Ordenar a fila de prioridades da carteira @Agrospy !09/12/2026
+  - [x] Ordenar a fila de prioridades da carteira @Agrospy !09/12/2026
+    > Concluída em 25/11/2026. Rota `/backend/v1/fila` com os 5 grupos da RN-78 na ordem certa, provada com fixture determinística (atrasada 5 dias → hoje → proposta vence em 2 dias → sem contato 40 dias com época boa → rever em 24/11). Tela `/prioridades` no ar.
     > Tela "Prioridades" com 5 grupos em ordem fixa: atrasadas, ações de hoje, propostas vencendo, clientes e potenciais sem contato há mais de 20 dias (primeiro os que estão na época boa) e os que pediram para ser revistos. O Administrador ajusta os dias. Fecha pela prova automática. SPEC-3-005, CA-3-27 e CA-3-28.
-  - [ ] Montar o painel do gestor com funil, propostas e resultados @Agrospy !10/12/2026
+  - [x] Montar o painel do gestor com funil, propostas e resultados @Agrospy !10/12/2026
+    > Concluída em 25/11/2026. Rota `/backend/v1/painel` com abertas, funil por etapa, atrasadas, propostas vigentes/vencidas, ganhos, perdas, conversão, motivos, série de 6 meses, indicadores semanais, serviços por etapa e carteira por responsável. Tela `/painel` no ar e `/visao-gestor` redirecionando.
     > Painel da empresa ativa, calculado no servidor: abertas e valor, funil por etapa, atrasadas, propostas vigentes e vencidas, ganhos, perdas e não prioritárias com motivos, conversão, visitas, serviços por etapa e carteira por responsável. Cada número bate com a base, e nada soma as duas empresas. Fecha pela prova automática. SPEC-3-005, CA-3-24 e CA-3-25.
-  - [ ] Mostrar o painel do vendedor só com a própria carteira @Agrospy !10/12/2026
+  - [x] Mostrar o painel do vendedor só com a própria carteira @Agrospy !10/12/2026
+    > Concluída em 25/11/2026. Provado pela API: comercial recebe `escopo=propria_carteira` mesmo pedindo outro responsável; operador recebe 403 no painel e na fila.
     > O Comercial abre o mesmo painel limitado à carteira dele, mesmo se pedir outro vendedor pela API. O Operador não tem acesso. Fecha pela prova automática. SPEC-3-005, CA-3-26.
-  - [ ] Conferir os números do painel com a base @Agrospy !11/12/2026
+  - [x] Conferir os números do painel com a base @Agrospy !11/12/2026
+    > Concluída em 25/11/2026. Conferido: 4 abertas / R$ 60.000 (1 sem valor), funil com 1 em Proposta apresentada, 1 atrasada, 1 proposta vigente de R$ 20.000, 1 visita no período, serviços na etapa 0 Contratado. Fixture limpa depois da prova.
     > Os 3 indicadores semanais passam a ser calculados no servidor e mostram erro em vez de 0 quando falham. A antiga "Visão do gestor" leva ao painel. Inclui as provas visuais e de tempo. Fecha pela prova automática. SPEC-3-005, CA-3-29.
 - [ ] Ligar produtores das duas empresas e importar a carteira @Agrospy !16/12/2026
   > O produtor atendido pela Agrospy e pela Rumo Agro fica relacionado, com o histórico de cada empresa separado. A carteira entra por planilha, com prévia, relatório das linhas recusadas e opção de desfazer o lote. Fecha pela prova automática. SPEC-3-006, CA-3-30 a CA-3-36 (com a emenda de 23/11/2026: endereço de faturamento, e-mail da nota e arquivo KML).
